@@ -72,7 +72,7 @@ class App extends Component {
     return (
       <Router history={history}>
         <div>
-          <nav className="navbar navbar-expand navbar-dark bg-dark">
+          <nav className="navbar navbar-expand-sm navbar-custom">
             <Link to={"/"} className="navbar-brand">
               bezKoder
             </Link>
@@ -106,6 +106,14 @@ class App extends Component {
                   </Link>
                 </li>
               )}
+
+              {currentUser && (
+              <li className="nav-item">
+                <Link to={"/addsubject"} className="nav-link">
+                  Add Subject
+                </Link>
+              </li>
+              )}
             </div>
 
             {currentUser ? (
@@ -131,7 +139,7 @@ class App extends Component {
 
                 <li className="nav-item">
                   <Link to={"/register"} className="nav-link">
-                    Sign Up
+                    Registreren als bedrijf
                   </Link>
                 </li>
               </div>
