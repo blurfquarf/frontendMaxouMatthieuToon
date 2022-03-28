@@ -10,8 +10,11 @@ import Register from "./components/register.component";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
-import BoardModerator from "./components/board-moderator.component";
-import BoardAdmin from "./components/board-admin.component";
+import BoardBedrijf from "./components/board-bedrijf.component";
+import BoardStudent from "./components/board-student.component";
+import BoardCoordinator from "./components/board-coordinator.component";
+import BoardPromotor from "./components/board-promotor.component";
+import AddSubject from "./components/add-subject.component";
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
@@ -20,6 +23,10 @@ import { history } from './helpers/history';
 
 // import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
+import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRouteStudent from "./components/ProtectedRouteStudent";
+
+
 
 class App extends Component {
   constructor(props) {
@@ -27,8 +34,10 @@ class App extends Component {
     this.logOut = this.logOut.bind(this);
 
     this.state = {
-      showModeratorBoard: false,
-      showAdminBoard: false,
+      showBedrijfBoard: false,
+      showPromotorBoard: false,
+      showStudentBoard: false,
+      showCoordinatorBoard: false,
       currentUser: undefined,
     };
 
@@ -43,8 +52,10 @@ class App extends Component {
     if (user) {
       this.setState({
         currentUser: user,
-        showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
-        showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+        showBedrijfBoard: user.roles.includes("ROLE_BEDRIJF"),
+        showStudentBoard: user.roles.includes("ROLE_STUDENT"),
+        showCoordinatorBoard: user.roles.includes("ROLE_COORDINATOR"),
+        showPromotorBoard: user.roles.includes("ROLE_PROMOTOR"),
       });
     }
 
@@ -60,22 +71,26 @@ class App extends Component {
   logOut() {
     this.props.dispatch(logout());
     this.setState({
-      showModeratorBoard: false,
-      showAdminBoard: false,
+      showBedrijfBoard: false,
+      showPromotorBoard: false,
+      showStudentBoard: false,
+      showCoordinatorBoard: false,
       currentUser: undefined,
     });
   }
 
   render() {
-    const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
+    const { currentUser, showBedrijfBoard, showPromotorBoard,
+      showStudentBoard, showCoordinatorBoard} = this.state;
 
     return (
       <Router history={history}>
         <div>
           <nav className="navbar navbar-expand-sm navbar-custom">
             <Link to={"/"} className="navbar-brand">
-              bezKoder
+              KU LEUVEN
             </Link>
+
             <div className="navbar-nav mr-auto">
               <li className="nav-item">
                 <Link to={"/home"} className="nav-link">
@@ -83,22 +98,30 @@ class App extends Component {
                 </Link>
               </li>
 
-              {showModeratorBoard && (
+              {showCoordinatorBoard && (
+                  <li className="nav-item">
+                    <Link to={"/student toewijzing"} className="nav-link">
+                      Student toewijzing
+                    </Link>
+                  </li>
+              )}
+
+              {showStudentBoard && (
                 <li className="nav-item">
-                  <Link to={"/mod"} className="nav-link">
-                    Moderator Board
+                  <Link to={"/addSubject"} className="nav-link">
+                    Add Subject
                   </Link>
                 </li>
               )}
 
-              {showAdminBoard && (
-                <li className="nav-item">
-                  <Link to={"/admin"} className="nav-link">
-                    Admin Board
-                  </Link>
-                </li>
+              {showStudentBoard && (
+                  <li className="nav-item">
+                    <Link to={"/student"} className="nav-link">
+                      Student Dashboard
+                    </Link>
+                  </li>
               )}
-
+              {/*
               {currentUser && (
                 <li className="nav-item">
                   <Link to={"/user"} className="nav-link">
@@ -106,14 +129,7 @@ class App extends Component {
                   </Link>
                 </li>
               )}
-
-              {currentUser && (
-              <li className="nav-item">
-                <Link to={"/addsubject"} className="nav-link">
-                  Add Subject
-                </Link>
-              </li>
-              )}
+              */}
             </div>
 
             {currentUser ? (
@@ -152,9 +168,15 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/profile" component={Profile} />
+
+
+
               <Route path="/user" component={BoardUser} />
-              <Route path="/mod" component={BoardModerator} />
-              <Route path="/admin" component={BoardAdmin} />
+              <ProtectedRouteStudent path="/student" component={BoardStudent} />
+              <Route path="/promotor" component={BoardPromotor} />
+              <Route path="/bedrijf" component={BoardBedrijf} />
+              <Route path="/coordinator" component={BoardCoordinator} />
+              <ProtectedRoute path="/addsubject" component={AddSubject} />
             </Switch>
           </div>
 

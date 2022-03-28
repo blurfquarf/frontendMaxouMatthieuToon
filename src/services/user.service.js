@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const API_URL = "http://localhost:8080/api/test/";
+const API_URL = "http://localhost:8080/api/test";
 
 class UserService {
   getPublicContent() {
@@ -12,12 +12,20 @@ class UserService {
     return axios.get(API_URL + "user", { headers: authHeader() });
   }
 
-  getModeratorBoard() {
-    return axios.get(API_URL + "mod", { headers: authHeader() });
+  getBedrijfBoard() {
+    return axios.get(API_URL + "bedrijf", { headers: authHeader() });
   }
 
-  getAdminBoard() {
-    return axios.get(API_URL + "admin", { headers: authHeader() });
+  getPromotorBoard() {
+    return axios.get(API_URL + "promotor", { headers: authHeader() });
+  }
+
+  getStudentBoard() {
+    return axios.get(API_URL + "student", { headers: authHeader() });
+  }
+
+  getCoordinatorBoard() {
+    return axios.get(API_URL + "coordinator", { headers: authHeader() });
   }
 }
 

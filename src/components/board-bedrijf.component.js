@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import UserService from "../services/user.service";
 import EventBus from "../common/EventBus";
 
-export default class BoardModerator extends Component {
+export default class BoardBedrijf extends Component {
   constructor(props) {
     super(props);
 
@@ -13,7 +13,7 @@ export default class BoardModerator extends Component {
   }
 
   componentDidMount() {
-    UserService.getModeratorBoard().then(
+    UserService.getBedrijfBoard().then(
       response => {
         this.setState({
           content: response.data

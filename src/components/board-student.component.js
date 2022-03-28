@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import UserService from "../services/user.service";
 import EventBus from "../common/EventBus";
 
-export default class BoardAdmin extends Component {
+export default class BoardStudent extends Component {
   constructor(props) {
     super(props);
 
@@ -11,9 +11,9 @@ export default class BoardAdmin extends Component {
       content: ""
     };
   }
-
+/*
   componentDidMount() {
-    UserService.getAdminBoard().then(
+    UserService.getStudentBoard().then(
       response => {
         this.setState({
           content: response.data
@@ -35,12 +35,13 @@ export default class BoardAdmin extends Component {
       }
     );
   }
+*/
 
   render() {
     return (
       <div className="container">
         <header className="jumbotron">
-          <h3>{this.state.content}</h3>
+          <h3>Welkom Student</h3>
         </header>
       </div>
     );
