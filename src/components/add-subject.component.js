@@ -1,13 +1,14 @@
-/*
 
+{/*
 import React, {Component} from 'react';
+
 import axios from 'axios';
 import {addSubject} from '../actions/addsubject';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
-
+/*
 const parseJwt = (token) => {
     try {
         return JSON.parse(atob(token.split('.')[1]));
@@ -67,7 +68,7 @@ class AddSubject extends Component {
         } catch(error){
             console.log(error)
         }
-        /*
+
         this.setState({
             successful: false,
         });
@@ -86,18 +87,22 @@ class AddSubject extends Component {
                 });
             });
 
-        /*const article = {
+        const article = {
             title: e.target.title,
             description: e.target.title
         }
         axios.post(API_URL, article)
             .then(res => {
                 console.log(res.data);
-            })*/
+            })
 
-    /*
+
 
     }
+*/
+
+/*
+class AddSubject extends Component {
 
     render() {
 
@@ -127,7 +132,7 @@ class AddSubject extends Component {
                            onChange={(e) => this.onChangeDescription(e)}
                            defaultValue={this.state.description}
                     />
-                    {/*
+
                     <label>Promotor:</label>
                     <input type="text"
                            required
@@ -135,8 +140,8 @@ class AddSubject extends Component {
                     <label>Company:</label>
                     <input type="text"
                            required
-                    />*/
-    /*
+                    />
+
                     <button>Submit</button>
                     <CheckButton
                         style={{ display: "none" }}
@@ -151,4 +156,5 @@ class AddSubject extends Component {
     }
 }
 
-export default AddSubject;*/
+export default AddSubject;
+ */}
