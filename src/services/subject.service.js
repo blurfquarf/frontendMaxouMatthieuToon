@@ -1,16 +1,23 @@
-import axios from 'axios';
+import axios from "axios";
 
+const user = JSON.parse(localStorage.getItem("user"));
 
 class SubjectService{
+    postSubject(title, description) {
 
-    addSubject(title, description) {
-        const data= {
-            title: title,
-            description: description
+        //console.log(user.accessToken)
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken}
         };
-        return axios.post("http://localhost:8080/api/v1/subject", data);
-    }
 
+
+        const data = {
+            title: title,
+            description: description,
+        };
+
+        return axios.post("http://localhost:8080/api/v1/subject", data, config);
+    }
 }
 
 export default new SubjectService();

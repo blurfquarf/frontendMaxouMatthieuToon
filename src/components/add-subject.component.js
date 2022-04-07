@@ -1,160 +1,153 @@
-
-{/*
-import React, {Component} from 'react';
-
-import axios from 'axios';
-import {addSubject} from '../actions/addsubject';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
+import {connect} from "react-redux";
+import React, {Component} from "react";
+import {register} from "../actions/auth";
+import { addSubject } from "../actions/addsubject"
 
-/*
-const parseJwt = (token) => {
-    try {
-        return JSON.parse(atob(token.split('.')[1]));
-    } catch (e) {
-        return null;
+const required = (value) => {
+    if (!value) {
+        return (
+            <div className="alert alert-danger" role="alert">
+                This field is required!
+            </div>
+        );
     }
 };
 
-//const API_URL = "http://localhost:8080/api/v1/subject/";
-const user = JSON.parse(sessionStorage.getItem('user'));
-console.log(parseJwt(user.accessToken));
-
-
-const token = parseJwt(user.accessToken);
 class AddSubject extends Component {
+
     constructor(props) {
         super(props);
-
-        this.onChangeDescription = this.onChangeDescription.bind(this);
+        this.handleSubject = this.handleSubject.bind(this);
         this.onChangeTitle = this.onChangeTitle.bind(this);
-        this.submitFormSubject = this.submitFormSubject.bind(this);
+        this.onChangeDescription = this.onChangeDescription.bind(this);
+
 
         this.state = {
-            title: "",
-            description: "",
-            successful: false
+            Title: "",
+            Description: "",
+            successful: false,
         };
+
     }
 
-    onChangeTitle(e){
+    onChangeTitle(e) {
         this.setState({
-            title: e.target.value
-        })
+            title: e.target.value,
+        });
     }
 
     onChangeDescription(e) {
         this.setState({
-            description: e.target.value
-        })
+            description: e.target.value,
+        });
     }
 
-    submitFormSubject(e) {
+
+    handleSubject(e) {
         e.preventDefault();
-
-        const SubjectFormData = new FormData();
-        SubjectFormData.append("title", this.state.title)
-        SubjectFormData.append("description", this.state.description)
-
-        try{
-            const response = axios({
-                method: "post",
-                url: "http://localhost:8080/api/v1/subject/",
-                data: SubjectFormData,
-                headers: { "content-Type": "multipart/form-data",
-                    "Authorization": `Bearer ${token}`                },
-            });
-        } catch(error){
-            console.log(error)
-        }
 
         this.setState({
             successful: false,
         });
-        this.state
-            .dispatch(
-                addSubject(this.state.title, this.state.description)
-            )
-            .then(() => {
-                this.setState({
-                    successful: true,
-                });
-            })
-            .catch(() => {
-                this.setState({
-                    successful: false,
-                });
-            });
 
-        const article = {
-            title: e.target.title,
-            description: e.target.title
+        this.form.validateAll();
+        const { dispatch } = this.props;
+
+        if (this.checkBtn.context._errors.length === 0) {
+            this.props
+                .dispatch(
+                    addSubject(this.state.title, this.state.description)
+                )
+                .then(() => {
+                    this.setState({
+                        successful: true,
+                    });
+                })
+                .catch(() => {
+                    this.setState({
+                        successful: false,
+                    });
+                });
         }
-        axios.post(API_URL, article)
-            .then(res => {
-                console.log(res.data);
-            })
-
-
-
     }
-*/
 
-/*
-class AddSubject extends Component {
 
-    render() {
 
-        return (
-            <div>
-                <h2>Add a new Subject!</h2>
-                <form onSubmit={(e) => this.submitFormSubject(e)}
-                      ref={(c) => {
-                          this.form = c;
-                      }}>
+render() {
+    const { message } = this.props;
 
-                    <label>Subject title:</label>
-                    <input type="text"
-                           required
-                           placeholder="Title"
-                           className="form-control"
-                           name="title"
-                           onChange={(e) => this.onChangeTitle(e)}
-                           defaultValue={this.state.title}
-                    />
-                    <label>Subject Description:</label>
-                    <input type="text"
-                           required
-                           placeholder="Description"
-                           className="form-control"
-                           name="description"
-                           onChange={(e) => this.onChangeDescription(e)}
-                           defaultValue={this.state.description}
-                    />
+    return (
+        <div className="col-md-12">
+            <div className="card card-container">
 
-                    <label>Promotor:</label>
-                    <input type="text"
-                           required
-                    />
-                    <label>Company:</label>
-                    <input type="text"
-                           required
-                    />
+                <Form
+                    onSubmit={this.handleSubject}
+                    ref={(c) => {
+                        this.form = c;
+                    }}
+                >
+                    {!this.state.successful && (
+                        <div>
+                            <div className="form-group">
+                                <label htmlFor="title">Title</label>
+                                <Input
+                                    type="text"
+                                    className="form-control"
+                                    name="title"
+                                    value={this.state.title}
+                                    onChange={this.onChangeTitle}
+                                    validations={[required]}
+                                />
+                            </div>
 
-                    <button>Submit</button>
+                            <div className="form-group">
+                                <label htmlFor="description">Description</label>
+                                <Input
+                                    type="text"
+                                    className="form-control"
+                                    name="description"
+                                    value={this.state.description}
+                                    onChange={this.onChangeDescription}
+                                    validations={[required]}
+                                />
+                            </div>
+
+
+                            <div className="form-group">
+                                <button className="btn btn-primary btn-block">Send</button>
+                            </div>
+                        </div>
+                    )}
+
+                    {message && (
+                        <div className="form-group">
+                            <div className={ this.state.successful ? "alert alert-success" : "alert alert-danger" } role="alert">
+                                {message}
+                            </div>
+                        </div>
+                    )}
                     <CheckButton
                         style={{ display: "none" }}
                         ref={(c) => {
                             this.checkBtn = c;
                         }}
                     />
-                </form>
+                </Form>
             </div>
-
-        );
-    }
+        </div>
+    );
+}
 }
 
-export default AddSubject;
- */}
+
+function mapStateToProps(state) {
+    const { message } = state.message;
+    return {
+        message,
+    };
+}
+
+export default connect(mapStateToProps)(AddSubject);

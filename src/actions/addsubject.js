@@ -4,9 +4,9 @@ import {
 } from "./types";
 
 import subjectService from "../services/subject.service";
-{/*
+
 export const addSubject = (title, description) => (dispatch) => {
-    return subjectService.addSubject(title, description).then(
+    return subjectService.postSubject(title, description).then(
         (response) => {
             dispatch({
                 type: ADD_SUBJECT_SUCCESS,
@@ -40,4 +40,3 @@ export const addSubject = (title, description) => (dispatch) => {
         }
     );
 };
-*/}
