@@ -105,7 +105,6 @@ class Login extends Component {
                 onChange={this.onChangeUsername}
                 validations={[required]}
               />
-              />
             </div>
 
             <div className="form-group">
