@@ -25,8 +25,9 @@ import { history } from './helpers/history';
 import EventBus from "./common/EventBus";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProtectedRouteStudent from "./components/ProtectedRouteStudent";
-
-
+import protectedRouteBedrijf from "./components/ProtectedRouteBedrijf";
+import protectedRouteCoordinator from "./components/ProtectedRouteCoordinator";
+import protectedRoutePromotor from "./components/ProtectedRoutePromotor";
 
 class App extends Component {
   constructor(props) {
