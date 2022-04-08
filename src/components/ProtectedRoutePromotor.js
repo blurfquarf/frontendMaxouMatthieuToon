@@ -30,4 +30,4 @@ function ProtectedRoutePromotor({ component: Component, ...restOfProps }) {
     );
 }
 
-export default ProtectedRouteStudent;
+export default ProtectedRoutePromotor;

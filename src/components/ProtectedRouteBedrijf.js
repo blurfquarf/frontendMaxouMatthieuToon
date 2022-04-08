@@ -30,4 +30,4 @@ function ProtectedRouteBedrijf({ component: Component, ...restOfProps }) {
     );
 }
 
-export default ProtectedRouteStudent;
+export default ProtectedRouteBedrijf;
