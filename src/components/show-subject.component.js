@@ -16,6 +16,7 @@ export default class ShowSubject extends Component {
                 this.setState({
                     content: response.data
                 });
+                console.log(response.data)
             },
             error => {
                 this.setState({
@@ -33,9 +34,9 @@ export default class ShowSubject extends Component {
     render() {
         return (
             <div className="container">
-                <header className="jumbotron">
-                    <h3>{this.state.content}</h3>
-                </header>
+                {this.state.content.map((item) => (
+                    <div>{item}</div>
+                ))}
             </div>
         );
     }
