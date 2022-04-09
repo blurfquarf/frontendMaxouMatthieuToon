@@ -15,6 +15,8 @@ import BoardStudent from "./components/board-student.component";
 import BoardCoordinator from "./components/board-coordinator.component";
 import BoardPromotor from "./components/board-promotor.component";
 import AddSubject from "./components/add-subject.component";
+import ShowSubject from "./components/show-subject.component";
+
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
@@ -115,6 +117,14 @@ class App extends Component {
                 </li>
               )}
 
+              {currentUser && (
+                  <li className="nav-item">
+                    <Link to={"/subjects"} className="nav-link">
+                       Subjects
+                    </Link>
+                  </li>
+              )}
+
               {showStudentBoard && (
                   <li className="nav-item">
                     <Link to={"/student"} className="nav-link">
@@ -177,9 +187,10 @@ class App extends Component {
               <Route path="/bedrijf" component={BoardBedrijf} />
               <Route path="/coordinator" component={BoardCoordinator} />
               <ProtectedRoute path="/addsubject" component={AddSubject} />
+              <ProtectedRoute path="/subjects" component={ShowSubject} />
+
             </Switch>
           </div>
-
           {/* <AuthVerify logOut={this.logOut}/> */}
         </div>
       </Router>

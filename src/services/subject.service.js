@@ -18,6 +18,15 @@ class SubjectService{
 
         return axios.post("http://localhost:8080/api/v1/subject", data, config);
     }
+
+    getSubject(){
+        return axios.get('http://localhost:8080/api/v1/subject', {
+            headers: {
+                'Authorization': "Bearer " + user.accessToken}
+        });
+    }
+
+
 }
 
 export default new SubjectService();
