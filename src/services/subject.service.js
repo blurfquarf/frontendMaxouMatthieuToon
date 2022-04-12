@@ -12,7 +12,7 @@ class SubjectService{
 
 
         const data = {
-            title: title,
+            name: title,
             description: description,
         };
 

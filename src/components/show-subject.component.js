@@ -1,23 +1,23 @@
 import React, { Component } from "react";
 import subjectService from "../services/subject.service";
+import {connect} from "react-redux";
 
 export default class ShowSubject extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
-            content: ""
+            content: []
         };
     }
 
-    componentDidMount() {
+    componentDidMount(){
         subjectService.getSubject().then(
             response => {
                 this.setState({
                     content: response.data
                 });
-                console.log(response.data)
             },
+
             error => {
                 this.setState({
                     content:
@@ -29,15 +29,19 @@ export default class ShowSubject extends Component {
                 });
             }
         );
-    }
+}
 
-    render() {
+
+render() {
+        const {content} = this.state;
+        console.log(content)
         return (
-            <div className="container">
-                {this.state.content.map((item) => (
-                    <div>{item}</div>
-                ))}
+            <div>
+                <ul>
+                    {content.map(content => <div>{content.name} {content.description}</div>)}
+
+                </ul>
             </div>
-        );
-    }
+        )
+}
 }
