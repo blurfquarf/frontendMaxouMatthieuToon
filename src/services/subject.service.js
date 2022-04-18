@@ -3,7 +3,7 @@ import axios from "axios";
 const user = JSON.parse(localStorage.getItem("user"));
 
 class SubjectService{
-    postSubject(title, description) {
+    postSubject(title, description, approved) {
 
         //console.log(user.accessToken)
         const config = {
@@ -14,6 +14,7 @@ class SubjectService{
         const data = {
             name: title,
             description: description,
+            approved: false
         };
 
         return axios.post("http://localhost:8080/api/v1/subject", data, config);

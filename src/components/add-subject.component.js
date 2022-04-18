@@ -28,6 +28,7 @@ class AddSubject extends Component {
         this.state = {
             Title: "",
             Description: "",
+            Approved: false,
             successful: false,
         };
 
