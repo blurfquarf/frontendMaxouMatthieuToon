@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import subjectService from "../services/subject.service";
 import {connect} from "react-redux";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default class ShowSubject extends Component {
     constructor(props) {
@@ -43,14 +44,14 @@ export default class ShowSubject extends Component {
                         content.map(content => {
                                 if (content.approved === true)
                                     return (
-                                        <div className="card" style={{width: "18rem", float: "left", margin: "5rem"}}
+                                        <div className="card" style={{width: "18rem", float: "left", margin: "1rem"}}
                                              key={content.id}>
                                             <h5 className="card-title">{content.name}</h5>
                                             <p className="card-text">{content.description}</p>
+                                            <a href="#" className="btn btn-primary" style={{width: "5rem"}}>Details</a>
                                         </div>
                                     )
-                            }
-                        )
+                        })
                     }
                 </div>
             </div>
