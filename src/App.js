@@ -16,6 +16,7 @@ import BoardCoordinator from "./components/board-coordinator.component";
 import BoardPromotor from "./components/board-promotor.component";
 import AddSubject from "./components/add-subject.component";
 import ShowSubject from "./components/show-subject.component";
+import judgeSubject from "./components/judgeSubjects.component";
 
 
 import { logout } from "./actions/auth";
@@ -30,6 +31,8 @@ import ProtectedRouteStudent from "./components/ProtectedRouteStudent";
 import protectedRouteBedrijf from "./components/ProtectedRouteBedrijf";
 import protectedRouteCoordinator from "./components/ProtectedRouteCoordinator";
 import protectedRoutePromotor from "./components/ProtectedRoutePromotor";
+import JudgeSubject from "./components/judgeSubjects.component";
+import subjectDetails from "./components/subjectDetails.component";
 
 class App extends Component {
   constructor(props) {
@@ -109,6 +112,14 @@ class App extends Component {
                   </li>
               )}
 
+              {showCoordinatorBoard && (
+                  <li className="nav-item">
+                    <Link to={"/judgeSubjects"} className="nav-link">
+                      Subjects
+                    </Link>
+                  </li>
+              )}
+
               {showStudentBoard && (
                 <li className="nav-item">
                   <Link to={"/addSubject"} className="nav-link">
@@ -117,7 +128,7 @@ class App extends Component {
                 </li>
               )}
 
-              {currentUser && (
+              {showStudentBoard && (
                   <li className="nav-item">
                     <Link to={"/subjects"} className="nav-link">
                        Subjects
@@ -181,13 +192,15 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/profile" component={Profile} />
 
-              <Route path="/user" component={BoardUser} />
-              <ProtectedRouteStudent path="/student" component={BoardStudent} />
-              <Route path="/promotor" component={BoardPromotor} />
-              <Route path="/bedrijf" component={BoardBedrijf} />
-              <Route path="/coordinator" component={BoardCoordinator} />
-              <ProtectedRoute path="/addsubject" component={AddSubject} />
-              <ProtectedRoute path="/subjects" component={ShowSubject} />
+              <Route exact path="/user" component={BoardUser} />
+              <ProtectedRouteStudent exact path="/student" component={BoardStudent} />
+              <Route exact path="/promotor" component={BoardPromotor} />
+              <Route exact path="/bedrijf" component={BoardBedrijf} />
+              <Route exact path="/coordinator" component={BoardCoordinator} />
+              <ProtectedRoute exact path="/addsubject" component={AddSubject} />
+              <ProtectedRoute exact path="/subjects" component={ShowSubject} />
+              <ProtectedRoute exact path="/judgeSubjects" component={judgeSubject} />
+              <Route exact path="/subjectdetails" component={subjectDetails} />
 
             </Switch>
           </div>

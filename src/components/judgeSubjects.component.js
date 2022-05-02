@@ -2,17 +2,21 @@ import React, { Component } from "react";
 import subjectService from "../services/subject.service";
 import {
     Card, CardText, CardBody,
-    CardTitle, Container, Row, Col
+    CardTitle, Button, Container, Row, Col
 } from 'reactstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Link} from "react-router-dom";
+import {judgeSubject} from "../actions/judgeSubject";
 
-export default class ShowSubject extends Component {
+export default class JudgeSubject extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
             content: []
         };
+        this.rejectSubject = this.rejectSubject.bind(this);
+        this.approveSubject = this.approveSubject.bind(this);
+        this.handleSubject = this.handleSubject.bind(this);
     }
 
     componentDidMount(){
@@ -22,6 +26,7 @@ export default class ShowSubject extends Component {
                     content: response.data
                 });
             },
+
             error => {
                 this.setState({
                     content:
@@ -35,14 +40,36 @@ export default class ShowSubject extends Component {
         );
     }
 
+    rejectSubject() {
+        this.setState({
+            approved: false,
+        }, () => console.log("approved:", this.state.approved));
+    }
+
+    approveSubject() {
+        this.setState({
+            approved: true,
+        }, () => console.log("approved:", this.state.approved));
+    }
+
+    handleSubject(bool) {
+        if(bool){
+            this.approveSubject();
+        }
+        else {
+            this.rejectSubject();
+        }
+        judgeSubject(this.state.title, this.state.description, this.state.approved);
+
+    }
 
     render() {
         const {content} = this.state;
-        console.log(content);
+        console.log(content)
         return (
             <Container>
                 <Row xs={3}>
-                    {content.filter((content) => content.approved === true).map(content => {
+                    {content.filter((content) => content.approved === false).map(content => {
                         return (
                             <Col>
                                 <Card key={content.id}>
@@ -51,35 +78,16 @@ export default class ShowSubject extends Component {
                                         <CardText>
                                             {content.description}
                                         </CardText>
-                                        <Link to={{pathname: "/subjectDetails", id:content.id}} className="btn btn-primary">Details</Link>
+                                        <Button onClick={() => this.handleSubject(true)} className="btn btn-success">Approve</Button>
+                                        <Button onClick={() => this.handleSubject(false)} className="btn btn-danger">Reject</Button>
                                     </CardBody>
                                 </Card>
                             </Col>
-                        );
+                        )
                     })}
                 </Row>
             </Container>
-
-            /*
-            <div>
-                <h3>Goedgekeurde onderwerpen</h3>
-                <div className="row">
-                    {
-                        content.map(content => {
-                                if (content.approved === true)
-                                    return (
-                                        <div className="card" style={{width: "18rem", float: "left", margin: "1rem"}}
-                                             key={content.id}>
-                                            <h5 className="card-title">{content.name}</h5>
-                                            <p className="card-text">{content.description}</p>
-                                            <a href="#" className="btn btn-primary" style={{width: "5rem"}}>Details</a>
-                                        </div>
-                                    )
-                        })
-                    }
-                </div>
-            </div>
-             */
         );
     }
+
 }

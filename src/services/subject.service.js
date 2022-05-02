@@ -10,7 +10,6 @@ class SubjectService{
             headers: { Authorization: "Bearer " + user.accessToken}
         };
 
-
         const data = {
             name: title,
             description: description,
@@ -25,6 +24,22 @@ class SubjectService{
             headers: {
                 'Authorization': "Bearer " + user.accessToken}
         });
+    }
+
+    putSubject(title, description, approved) {
+
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken}
+        };
+
+        const data = {
+            name: title,
+            description: description,
+            approved: approved
+        };
+
+        return axios.put("http://localhost:8080/api/v1/subject", data, config);
+
     }
 
 
