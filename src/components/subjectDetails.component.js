@@ -40,7 +40,7 @@ export default class subjectDetails extends Component {
         const {content} = this.state;
         return(
             <div>
-                {content.find((content) => content.id === this.props.match.params).map(content => {
+                {content.filter((content) => content.id === this.props.match.params).map(content => {
                     return(
                         <Container>
                             <div key={content.id}>
