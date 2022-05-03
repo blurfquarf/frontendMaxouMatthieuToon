@@ -38,7 +38,7 @@ export default class ShowSubject extends Component {
 
     render() {
         const {content} = this.state;
-        console.log(content);
+        console.log("content: ", content);
         return (
             <Container>
                 <Row xs={3}>
@@ -51,7 +51,7 @@ export default class ShowSubject extends Component {
                                         <CardText>
                                             {content.description}
                                         </CardText>
-                                        <Link to={{pathname: "/subjectDetails", id:content.id}} className="btn btn-primary">Details</Link>
+                                        <Link to={`/subjectDetails/${content.id}`} className="btn btn-primary">Details</Link>
                                     </CardBody>
                                 </Card>
                             </Col>

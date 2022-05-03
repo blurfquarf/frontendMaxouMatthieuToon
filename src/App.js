@@ -200,7 +200,7 @@ class App extends Component {
               <ProtectedRoute exact path="/addsubject" component={AddSubject} />
               <ProtectedRoute exact path="/subjects" component={ShowSubject} />
               <ProtectedRoute exact path="/judgeSubjects" component={judgeSubject} />
-              <Route exact path="/subjectdetails" component={subjectDetails} />
+              <Route exact path="/subjectDetails/:ID" component={subjectDetails} />
 
             </Switch>
           </div>
