@@ -5,8 +5,8 @@ import {
 
 import subjectService from "../services/subject.service";
 
-export const addSubject = (title, description, approved) => (dispatch) => {
-    return subjectService.postSubject(title, description, approved).then(
+export const addSubject = (title, description, approved, campus, reeds_goedgekeurd, promotor) => (dispatch) => {
+    return subjectService.postSubject(title, description, approved, campus, reeds_goedgekeurd, promotor).then(
         (response) => {
             dispatch({
                 type: ADD_SUBJECT_SUCCESS,

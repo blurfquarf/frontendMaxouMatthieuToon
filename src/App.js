@@ -33,6 +33,7 @@ import protectedRouteCoordinator from "./components/ProtectedRouteCoordinator";
 import protectedRoutePromotor from "./components/ProtectedRoutePromotor";
 import JudgeSubject from "./components/judgeSubjects.component";
 import subjectDetails from "./components/subjectDetails.component";
+import TopSubjects from "./components/topSubjects.component";
 
 class App extends Component {
   constructor(props) {
@@ -200,7 +201,8 @@ class App extends Component {
               <ProtectedRoute exact path="/addsubject" component={AddSubject} />
               <ProtectedRoute exact path="/subjects" component={ShowSubject} />
               <ProtectedRoute exact path="/judgeSubjects" component={judgeSubject} />
-              <Route exact path="/subjectDetails/:ID" component={subjectDetails} />
+              <Route exact path="/subjectDetails/:id" component={subjectDetails} />
+              <ProtectedRouteStudent exact path="/topSubjects" component={TopSubjects} />
 
             </Switch>
           </div>

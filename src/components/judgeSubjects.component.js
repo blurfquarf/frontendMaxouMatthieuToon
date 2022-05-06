@@ -59,17 +59,17 @@ export default class JudgeSubject extends Component {
         else {
             this.rejectSubject();
         }
-        judgeSubject(this.state.title, this.state.description, this.state.approved);
+        judgeSubject(this.state.title, this.state.description, this.state.approved,this.state.campus,true,this.state.promotor);
 
     }
 
     render() {
         const {content} = this.state;
-        console.log(content)
+        console.log("content",content)
         return (
-            <Container>
-                <Row xs={3}>
-                    {content.filter((content) => content.approved === false).map(content => {
+            <Container >
+                <Row xs={3} className="center-content">
+                    {content.filter((content) => content.reedsGoedgekeurd === false).map(content => {
                         return (
                             <Col>
                                 <Card key={content.id}>

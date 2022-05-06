@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import { connect } from "react-redux";
 
 class Profile extends Component {

@@ -20,7 +20,7 @@ export default class subjectDetails extends Component {
                     content: response.data,
                 });
                 console.log("response: ", response.data);
-                console.log("props.match.params: ", this.props.match.params);
+                console.log("props.match.params.id: ", this.props.match.params.id);
             },
             error => {
                 this.setState({
@@ -35,17 +35,19 @@ export default class subjectDetails extends Component {
         );
     }
 
-
     render () {
         const {content} = this.state;
         return(
-            <div>
-                {content.filter((content) => content.id === this.props.match.params).map(content => {
+            <div className="center-content">
+                {content.filter((content) => content.id == this.props.match.params.id).map(content => {
                     return(
-                        <Container>
-                            <div key={content.id}>
-                                <h1>{content.name}</h1>
-                                <h1>test</h1>
+                        <Container key={content.id}>
+                            <div>
+                                <h1 className="subj-details-title">{content.name}</h1>
+
+                            </div>
+                            <div className="subj-details-body-div">
+                                <p style={{textAlign:"center"}}>{content.description}</p>
                             </div>
                         </Container>
                     );
