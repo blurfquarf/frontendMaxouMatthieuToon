@@ -23,6 +23,7 @@
     "reactstrap": "^9.0.2",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "semantic-ui-react": "^2.1.2",
     "validator": "^13.1.1"
   },
   "scripts": {

@@ -3,7 +3,6 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import {connect} from "react-redux";
 import React, {Component} from "react";
-import {register} from "../actions/auth";
 import { addSubject } from "../actions/addsubject";
 import { promotorSubject } from "../actions/promotorSubj";
 import { campusSubject } from "../actions/campusSubject";
@@ -14,16 +13,6 @@ import {coProsSubject} from "../actions/coProsSubject";
 import subjectService from "../services/subject.service";
 import CampusService from "../services/campus.service";
 import PromotorService from "../services/promotor.service";
-
-const required = (value) => {
-    if (!value) {
-        return (
-            <div className="alert alert-danger" role="alert">
-                This field is required!
-            </div>
-        );
-    }
-};
 
 class AddSubject extends Component {
 
@@ -135,7 +124,7 @@ class AddSubject extends Component {
         CampusService.getCampus().then(
             response => {
                 this.setState({
-                    contentCampus: response.data.map((campus) => campus.name)
+                    contentCampus: response.data
                 }, () => {
                     console.log("campussen:", this.state.contentCampus);
                 });
@@ -154,7 +143,7 @@ class AddSubject extends Component {
         PromotorService.getPromotor().then(
             response => {
                 this.setState({
-                    contentPromotor: response.data.map((pro) => {value: pro.username.toString(), label: pro.username})
+                    contentPromotor: response.data
                 }, () => {console.log("promotoren:", this.state.contentPromotor)});
             },
             error => {
@@ -196,9 +185,10 @@ class AddSubject extends Component {
                                         name="title"
                                         value={this.state.title}
                                         onChange={this.onChangeTitle}
-                                        validations={[required]}
+                                        required
                                     />
                                 </div>
+
 
                                 <div className="form-group">
                                     <label htmlFor="campus">Campus</label>
@@ -209,23 +199,25 @@ class AddSubject extends Component {
                                         name="campus"
                                         value={this.state.campus}
                                         onChange={this.onChangeCampus}
-                                        validations={[required]}
                                         options={this.state.contentCampus}
+                                        getOptionLabel={(option) => option.name}
+                                        getOptionValue={(option) => option.name}
                                         classNamePrefix="select"
                                         isMulti
                                         defaultOptions={false}
                                     />
                                 </div>
 
+
                                 <div className="form-group">
                                     <label htmlFor="promotor">Promotor (mail-adres)</label>
                                     <Input
+                                        required
                                         type="text"
                                         className="form-control"
                                         name="promotor"
                                         value={this.state.promotor}
                                         onChange={this.onChangePromotor}
-                                        validations={[required]}
                                     />
                                 </div>
 
@@ -238,8 +230,9 @@ class AddSubject extends Component {
                                         name="coPros"
                                         value={this.state.coPros}
                                         onChange={this.onChangeCoPros}
-                                        validations={[required]}
                                         options={this.state.contentPromotor}
+                                        getOptionLabel={(option) => option.email}
+                                        getOptionValue={(option) => option.email}
                                         classNamePrefix="select"
                                         isMulti
                                         defaultOptions={false}
@@ -253,11 +246,10 @@ class AddSubject extends Component {
                                         name="description"
                                         value={this.state.description}
                                         onChange={this.onChangeDescription}
-                                        validations={[required]}
+                                        required
                                         ref={c=>this.textarea=c}
                                     />
                                 </div>
-
 
                                 <div className="form-group">
                                     <button className="btn btn-primary btn-block">Add</button>
