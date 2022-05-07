@@ -5,9 +5,12 @@ import {connect} from "react-redux";
 import React, {Component} from "react";
 import {register} from "../actions/auth";
 import { addSubject } from "../actions/addsubject";
+import { promotorSubject } from "../actions/promotorSubj";
+import { campusSubject } from "../actions/campusSubject";
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import autosize from 'autosize';
+import {coProsSubject} from "../actions/coProsSubject";
 
 const required = (value) => {
     if (!value) {
@@ -30,12 +33,13 @@ class AddSubject extends Component {
         this.onChangePromotor = this.onChangePromotor.bind(this);
 
         this.state = {
-            Title: "",
-            Description: "",
-            Approved: false,
+            title: "",
+            description: "",
+            approved: false,
             successful: false,
-            Campus: [],
-            Promotor: "",
+            campus: [],
+            promotor: "",
+            coPros: [],
         };
 
     }
@@ -59,6 +63,13 @@ class AddSubject extends Component {
         });
     }
 
+    onChangeCoPros = (selectedOptions) => {
+        console.log(selectedOptions);
+        this.setState({
+            coPros: selectedOptions,
+        });
+    }
+
     onChangePromotor(e) {
         this.setState({
             promotor: e.target.value,
@@ -79,7 +90,10 @@ class AddSubject extends Component {
         if (this.checkBtn.context._errors.length === 0) {
             this.props
                 .dispatch(
-                    addSubject(this.state.title, this.state.description, false, this.state.campus, false, this.state.promotor)
+                    addSubject(this.state.title, this.state.description, false),
+                    promotorSubject(this.state.title, this.state.promotor),
+                    campusSubject(this.state.campus, this.state.title),
+                    coProsSubject(this.state.coPros, this.state.title)
                 )
                 .then(() => {
                     this.setState({
@@ -154,7 +168,7 @@ class AddSubject extends Component {
                                 </div>
 
                                 <div className="form-group">
-                                    <label htmlFor="promotor">Promotor</label>
+                                    <label htmlFor="promotor">Promotor (mail-adres)</label>
                                     <Input
                                         type="text"
                                         className="form-control"
@@ -162,6 +176,23 @@ class AddSubject extends Component {
                                         value={this.state.promotor}
                                         onChange={this.onChangePromotor}
                                         validations={[required]}
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="coPros">Co-promotoren (mail-adres)</label>
+                                    <Select
+                                        components={animatedComponents}
+                                        closeMenuOnSelect={false}
+                                        className="basic-multi-select"
+                                        name="coPros"
+                                        value={this.state.coPros}
+                                        onChange={this.onChangeCoPros}
+                                        validations={[required]}
+                                        options={options}
+                                        classNamePrefix="select"
+                                        isMulti
+                                        defaultOptions={false}
                                     />
                                 </div>
 

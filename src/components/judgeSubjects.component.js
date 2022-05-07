@@ -6,6 +6,7 @@ import {
 } from 'reactstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 import {judgeSubject} from "../actions/judgeSubject";
+import {RGGSubject} from "../actions/RGGSubject";
 
 export default class JudgeSubject extends Component {
 
@@ -14,8 +15,6 @@ export default class JudgeSubject extends Component {
         this.state = {
             content: []
         };
-        this.rejectSubject = this.rejectSubject.bind(this);
-        this.approveSubject = this.approveSubject.bind(this);
         this.handleSubject = this.handleSubject.bind(this);
     }
 
@@ -40,32 +39,21 @@ export default class JudgeSubject extends Component {
         );
     }
 
-    rejectSubject() {
-        this.setState({
-            approved: false,
-        }, () => console.log("approved:", this.state.approved));
-    }
-
-    approveSubject() {
-        this.setState({
-            approved: true,
-        }, () => console.log("approved:", this.state.approved));
-    }
-
-    handleSubject(bool) {
+    handleSubject(bool, id) {
+        let content = [...this.state.content];
+        let subject = {...content[id]};
+        subject.approved = bool;
+        subject.reedsGoedgekeurd = true;
+        content[id] = subject;
+        this.setState({content});
         if(bool){
-            this.approveSubject();
+            judgeSubject(subject.approved);
         }
-        else {
-            this.rejectSubject();
-        }
-        judgeSubject(this.state.title, this.state.description, this.state.approved,this.state.campus,true,this.state.promotor);
-
+        RGGSubject(subject.reedsGoedgekeurd);
     }
 
     render() {
         const {content} = this.state;
-        console.log("content",content)
         return (
             <Container >
                 <Row xs={3} className="center-content">
@@ -78,8 +66,8 @@ export default class JudgeSubject extends Component {
                                         <CardText>
                                             {content.description}
                                         </CardText>
-                                        <Button onClick={() => this.handleSubject(true)} className="btn btn-success">Approve</Button>
-                                        <Button onClick={() => this.handleSubject(false)} className="btn btn-danger">Reject</Button>
+                                        <Button onClick={() => this.handleSubject(true, content.id)} className="btn btn-success">Approve</Button>
+                                        <Button onClick={() => this.handleSubject(false, content.id)} className="btn btn-danger">Reject</Button>
                                     </CardBody>
                                 </Card>
                             </Col>

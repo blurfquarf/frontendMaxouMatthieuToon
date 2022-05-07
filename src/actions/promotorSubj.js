@@ -1,15 +1,15 @@
 import {
-    JUDGE_SUBJECT_SUCCESS,
-    JUDGE_SUBJECT_FAIL, SET_MESSAGE
+    PRO_SUBJECT_SUCCESS,
+    PRO_SUBJECT_FAIL, SET_MESSAGE
 } from "./types";
 
 import subjectService from "../services/subject.service";
 
-export const judgeSubject = (title) => (dispatch) => {
-    return subjectService.putApprovedSubject(title).then(
+export const promotorSubject = (title, proMail) => (dispatch) => {
+    return subjectService.putProSubject(title, proMail).then(
         (response) => {
             dispatch({
-                type: JUDGE_SUBJECT_SUCCESS,
+                type: PRO_SUBJECT_SUCCESS,
             });
 
             dispatch({
@@ -28,7 +28,7 @@ export const judgeSubject = (title) => (dispatch) => {
                 error.toString();
 
             dispatch({
-                type: JUDGE_SUBJECT_FAIL,
+                type: PRO_SUBJECT_FAIL,
             });
 
             dispatch({

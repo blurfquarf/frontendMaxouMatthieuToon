@@ -13,10 +13,7 @@ class SubjectService{
         const data = {
             name: title,
             description: description,
-            approved: approved,
-            campus: campus,
-            reedsGoedgekeurd: reedsGoedgekeurd,
-            promotor: promotor,
+            approved: approved
         }
 
         return axios.post("http://localhost:8080/api/v1/subject", data, config);
@@ -27,6 +24,69 @@ class SubjectService{
             headers: {
                 'Authorization': "Bearer " + user.accessToken}
         });
+    }
+
+    putProSubject(title, proMail) {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken}
+        };
+
+        const data = {
+            name: title,
+            promotor: proMail
+        }
+
+        return axios.put("http://localhost:8080/api/v1/subject/pro", data, config);
+    }
+
+    putCampusSubject(campussen, title) {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken}
+        };
+
+        const data = {
+            name: title,
+            campussen: campussen
+        }
+
+        return axios.put("http://localhost:8080/api/v1/subject/campus", data, config);
+    }
+
+    putCoProSubject(coProMail, title) {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken}
+        };
+
+        const data = {
+            name: title,
+            copromotoren: coProMail
+        }
+
+        return axios.put("http://localhost:8080/api/v1/subject/copro", data, config);
+    }
+
+    putApprovedSubject(title) {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken}
+        };
+
+        const data = {
+            name: title
+        }
+
+        return axios.put("http://localhost:8080/api/v1/subject/approved", data, config);
+    }
+
+    putRGGSubject(title) {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken}
+        };
+
+        const data = {
+            name: title
+        }
+
+        return axios.put("http://localhost:8080/api/v1/subject/reedsgoedgekeurd", data, config);
     }
 
 }

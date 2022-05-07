@@ -7,6 +7,7 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Link} from "react-router-dom";
 import {HiLocationMarker} from "react-icons/hi";
+import {BsFillPersonFill, BsPersonSquare} from "react-icons/all";
 
 
 export default class ShowSubject extends Component {
@@ -67,7 +68,9 @@ export default class ShowSubject extends Component {
                                             <Link to={`/subjectDetails/${content.id}`} className="btn btn-primary">Details</Link>
                                         </CardBody>
                                         <ListGroup className="list-group-flush">
-                                            <ListGroupItem><HiLocationMarker /> {content.campus}</ListGroupItem>
+                                            <ListGroupItem><HiLocationMarker /> {content.campussen}</ListGroupItem>
+                                            <ListGroupItem><BsPersonSquare /> {content.promotor}</ListGroupItem>
+                                            <ListGroupItem><BsFillPersonFill /> {content.copromotoren}</ListGroupItem>
                                         </ListGroup>
                                     </Card>
                                 </Col>
