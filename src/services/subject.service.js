@@ -3,7 +3,7 @@ import axios from "axios";
 const user = JSON.parse(localStorage.getItem("user"));
 
 class SubjectService{
-    postSubject(title,description,approved,campus,reedsGoedgekeurd,promotor) {
+    postSubject(title,description,approved) {
 
         //console.log(user.accessToken)
         const config = {
@@ -32,8 +32,8 @@ class SubjectService{
         };
 
         const data = {
-            name: title,
-            promotor: proMail
+            subjectName: title,
+            mail: proMail
         }
 
         return axios.put("http://localhost:8080/api/v1/subject/pro", data, config);
@@ -45,7 +45,7 @@ class SubjectService{
         };
 
         const data = {
-            name: title,
+            subject: title,
             campussen: campussen
         }
 
@@ -58,8 +58,8 @@ class SubjectService{
         };
 
         const data = {
-            name: title,
-            copromotoren: coProMail
+            subjectName: title,
+            copromail: coProMail
         }
 
         return axios.put("http://localhost:8080/api/v1/subject/copro", data, config);
@@ -71,7 +71,7 @@ class SubjectService{
         };
 
         const data = {
-            name: title
+            subjectName: title
         }
 
         return axios.put("http://localhost:8080/api/v1/subject/approved", data, config);
@@ -83,7 +83,7 @@ class SubjectService{
         };
 
         const data = {
-            name: title
+            subjectName: title
         }
 
         return axios.put("http://localhost:8080/api/v1/subject/reedsgoedgekeurd", data, config);

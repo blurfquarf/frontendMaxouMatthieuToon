@@ -79,27 +79,6 @@ export default class ShowSubject extends Component {
                     </Row>
                 </div>
             </div>
-
-            /*
-            <div>
-                <h3>Goedgekeurde onderwerpen</h3>
-                <div className="row">
-                    {
-                        content.map(content => {
-                                if (content.approved === true)
-                                    return (
-                                        <div className="card" style={{width: "18rem", float: "left", margin: "1rem"}}
-                                             key={content.id}>
-                                            <h5 className="card-title">{content.name}</h5>
-                                            <p className="card-text">{content.description}</p>
-                                            <a href="#" className="btn btn-primary" style={{width: "5rem"}}>Details</a>
-                                        </div>
-                                    )
-                        })
-                    }
-                </div>
-            </div>
-             */
         );
     }
 }

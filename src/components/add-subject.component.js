@@ -11,6 +11,9 @@ import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import autosize from 'autosize';
 import {coProsSubject} from "../actions/coProsSubject";
+import subjectService from "../services/subject.service";
+import CampusService from "../services/campus.service";
+import PromotorService from "../services/promotor.service";
 
 const required = (value) => {
     if (!value) {
@@ -40,6 +43,8 @@ class AddSubject extends Component {
             campus: [],
             promotor: "",
             coPros: [],
+            contentCampus: [],
+            contentPromotor: []
         };
 
     }
@@ -110,19 +115,64 @@ class AddSubject extends Component {
 
     componentDidMount(){
         autosize(this.textarea);
+        CampusService.getCampus().then(
+            response => {
+                this.setState({
+                    contentCampus: response.data
+                });
+            },
+            error => {
+                this.setState({
+                    contentCampus:
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString()
+                });
+            }
+        );
+        CampusService.getCampus().then(
+            response => {
+                this.setState({
+                    contentCampus: response.data.map((campus) => campus.name)
+                }, () => {
+                    console.log("campussen:", this.state.contentCampus);
+                });
+            },
+            error => {
+                this.setState({
+                    contentCampus:
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString()
+                });
+            }
+        );
+        PromotorService.getPromotor().then(
+            response => {
+                this.setState({
+                    contentPromotor: response.data.map((pro) => {value: pro.username.toString(), label: pro.username})
+                }, () => {console.log("promotoren:", this.state.contentPromotor)});
+            },
+            error => {
+                this.setState({
+                    contentPromotor:
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString()
+                });
+            }
+        );
     }
+
 
     render() {
         const { message } = this.props;
-        const options = [
-            {value:"gent", label:"Technologiecampus Gent"},
-            {value:"leuven", label:"Leuven"},
-            {value:"aalst", label:"Aalst"},
-            {value:"brugge", label:"Brugge"},
-            {value:"denayer", label:"campus De Nayer"},
-            {value:"diepenbeek", label:"Diepenbeek"},
-            {value:"geel", label:"Geel"},
-        ]
 
         const animatedComponents = makeAnimated();
 
@@ -160,7 +210,7 @@ class AddSubject extends Component {
                                         value={this.state.campus}
                                         onChange={this.onChangeCampus}
                                         validations={[required]}
-                                        options={options}
+                                        options={this.state.contentCampus}
                                         classNamePrefix="select"
                                         isMulti
                                         defaultOptions={false}
@@ -189,7 +239,7 @@ class AddSubject extends Component {
                                         value={this.state.coPros}
                                         onChange={this.onChangeCoPros}
                                         validations={[required]}
-                                        options={options}
+                                        options={this.state.contentPromotor}
                                         classNamePrefix="select"
                                         isMulti
                                         defaultOptions={false}
@@ -233,7 +283,6 @@ class AddSubject extends Component {
         );
     }
 }
-
 
 function mapStateToProps(state) {
     const { message } = state.message;
