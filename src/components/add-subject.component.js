@@ -33,7 +33,8 @@ class AddSubject extends Component {
             promotor: "",
             coPros: [],
             contentCampus: [],
-            contentPromotor: []
+            contentPromotor: [],
+            isSubmitted: false
         };
 
     }
@@ -92,11 +93,13 @@ class AddSubject extends Component {
                 .then(() => {
                     this.setState({
                         successful: true,
+                        isSubmitted: true
                     });
                 })
                 .catch(() => {
                     this.setState({
                         successful: false,
+                        isSubmitted: false,
                     });
                 });
         }
@@ -164,7 +167,121 @@ class AddSubject extends Component {
         const { message } = this.props;
 
         const animatedComponents = makeAnimated();
+        const isSubmitted = this.state.isSubmitted;
+        let content;
+        if(!isSubmitted) {
+            content = (<div className="card card-container">
+                <h1>Add Subject</h1>
+                <Form
+                    onSubmit={this.handleSubject}
+                    ref={(c) => {
+                        this.form = c;
+                    }}
+                >
+                    {!this.state.successful && (
+                        <div>
+                            <div className="form-group">
+                                <label htmlFor="title">Title</label>
+                                <Input
+                                    type="text"
+                                    className="form-control"
+                                    name="title"
+                                    value={this.state.title}
+                                    onChange={this.onChangeTitle}
+                                    required
+                                />
+                            </div>
 
+
+                            <div className="form-group">
+                                <label htmlFor="campus">Campus</label>
+                                <Select
+                                    components={animatedComponents}
+                                    closeMenuOnSelect={false}
+                                    className="basic-multi-select"
+                                    name="campus"
+                                    value={this.state.campus}
+                                    onChange={this.onChangeCampus}
+                                    options={this.state.contentCampus}
+                                    getOptionLabel={(option) => option.name}
+                                    getOptionValue={(option) => option.name}
+                                    classNamePrefix="select"
+                                    isMulti
+                                    defaultOptions={false}
+                                />
+                            </div>
+
+
+                            <div className="form-group">
+                                <label htmlFor="promotor">Promotor (mail-adres)</label>
+                                <Input
+                                    required
+                                    type="text"
+                                    className="form-control"
+                                    name="promotor"
+                                    value={this.state.promotor}
+                                    onChange={this.onChangePromotor}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="coPros">Co-promotoren (mail-adres)</label>
+                                <Select
+                                    components={animatedComponents}
+                                    closeMenuOnSelect={false}
+                                    className="basic-multi-select"
+                                    name="coPros"
+                                    value={this.state.coPros}
+                                    onChange={this.onChangeCoPros}
+                                    options={this.state.contentPromotor}
+                                    getOptionLabel={(option) => option.email}
+                                    getOptionValue={(option) => option.email}
+                                    classNamePrefix="select"
+                                    isMulti
+                                    defaultOptions={false}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="description">Description</label>
+                                <textarea
+                                    className="form-control"
+                                    name="description"
+                                    value={this.state.description}
+                                    onChange={this.onChangeDescription}
+                                    required
+                                    ref={c=>this.textarea=c}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <button className="btn btn-primary btn-block">Add</button>
+                            </div>
+                        </div>
+                    )}
+                    {message && (
+                        <div className="form-group">
+                            <div className={ this.state.successful ? "alert alert-success" : "alert alert-danger" } role="alert">
+                                {message}
+                            </div>
+                        </div>
+                    )}
+                    <CheckButton
+                        style={{ display: "none" }}
+                        ref={(c) => {
+                            this.checkBtn = c;
+                        }}
+                    />
+                </Form>
+            </div>);
+        }
+        else (
+            content = (
+                <div className="card card-container">
+                    <h2 style={{textAlign:"center"}}>Your subject was submitted!</h2>
+                    <p className="center-content">It is now up to the coordinator ro approve or reject your subject.</p>
+                </div>)
+        )
         return (
             <div className="center-content" >
                 <div className="card card-container">

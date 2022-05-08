@@ -47,9 +47,9 @@ export default class JudgeSubject extends Component {
         content[id] = subject;
         this.setState({content});
         if(bool){
-            judgeSubject(subject.approved);
+            judgeSubject(subject.name);
         }
-        RGGSubject(subject.reedsGoedgekeurd);
+        RGGSubject(subject.name);
     }
 
     render() {
@@ -60,14 +60,14 @@ export default class JudgeSubject extends Component {
                     {content.filter((content) => content.reedsGoedgekeurd === false).map(content => {
                         return (
                             <Col>
-                                <Card key={content.id}>
+                                <Card key={content.id} className="card cards-container">
                                     <CardBody>
                                         <CardTitle tag="h5">{content.name}</CardTitle>
                                         <CardText>
                                             {content.description}
                                         </CardText>
-                                        <Button onClick={() => this.handleSubject(true, content.id)} className="btn btn-success">Approve</Button>
-                                        <Button onClick={() => this.handleSubject(false, content.id)} className="btn btn-danger">Reject</Button>
+                                        <Button onClick={() => this.handleSubject(true, content.id-1)} className="btn btn-success">Approve</Button>
+                                        <Button onClick={() => this.handleSubject(false, content.id-1)} className="btn btn-danger">Reject</Button>
                                     </CardBody>
                                 </Card>
                             </Col>

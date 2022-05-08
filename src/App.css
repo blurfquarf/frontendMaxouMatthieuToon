@@ -73,8 +73,8 @@ h1 {
   background: #eee;
   padding: 1rem;
   box-shadow: 0 0 1rem #000 inset;
-  overflow-x: auto;
   position: relative;
+  overflow: auto;
 }
 
 .small-card {
@@ -82,7 +82,7 @@ h1 {
   box-shadow: 0 1px 1rem -4px #000;
   background: #fff;
   margin: 1rem;
-  overflow: hidden;
+  overflow: auto;
   border-radius: 6px;
   cursor: pointer;
   transition: all 250ms ease-in-out;
@@ -121,9 +121,11 @@ h1 {
 
   .cards-container {
     padding: .5rem;
+    overflow: auto;
   }
 
   .card {
     margin: .5rem;
   }
 }
+

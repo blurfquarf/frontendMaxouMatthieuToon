@@ -65,13 +65,13 @@ export default class ShowSubject extends Component {
                                             <CardText>
                                                 {content.description}
                                             </CardText>
-                                            <Link to={`/subjectDetails/${content.id}`} className="btn btn-primary">Details</Link>
                                         </CardBody>
                                         <ListGroup className="list-group-flush">
                                             <ListGroupItem><HiLocationMarker /> {content.campussen}</ListGroupItem>
                                             <ListGroupItem><BsPersonSquare /> {content.promotor}</ListGroupItem>
                                             <ListGroupItem><BsFillPersonFill /> {content.copromotoren}</ListGroupItem>
                                         </ListGroup>
+                                        <Link to={`/subjectDetails/${content.id}`} className="btn btn-primary">Details</Link>
                                     </Card>
                                 </Col>
                             );
