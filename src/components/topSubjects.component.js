@@ -157,7 +157,7 @@ export default class TopSubjects extends Component {
                 </div>
 
                 <div style={{marginTop:"2rem"}}>
-                    <h1>Add Subject</h1>
+                    <h1>Top 3 Subjects</h1>
                     <Form
                         onSubmit={this.handleSubmit}
                         ref={(c) => {
