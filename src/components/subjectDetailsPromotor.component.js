@@ -5,10 +5,8 @@ import {
     Col,
     Container, ListGroupItem, Row
 } from 'reactstrap';
-import {HiLocationMarker} from "react-icons/hi";
-import {BsFillPersonFill} from "react-icons/all";
 
-export default class subjectDetails extends Component {
+export default class subjectDetailsPromotor extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -58,13 +56,13 @@ export default class subjectDetails extends Component {
                     let copromotoren;
                     if(content.copromotoren.length !=0){
                         copromotoren = (
-                                <div style={{display:"flex"}}>
-                                    <ul>
-                                        {content.copromotoren.map(function(d, idx){
-                                            return (<li key={idx}  className="campus-li">{d.name}</li>)
-                                        })}
-                                    </ul>
-                                </div>)
+                            <div style={{display:"flex"}}>
+                                <ul>
+                                    {content.copromotoren.map(function(d, idx){
+                                        return (<li key={idx}  className="campus-li">{d.name}</li>)
+                                    })}
+                                </ul>
+                            </div>)
                     }
                     else {
                         copromotoren = (

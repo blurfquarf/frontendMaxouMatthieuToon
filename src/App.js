@@ -36,6 +36,9 @@ import subjectDetails from "./components/subjectDetails.component";
 import TopSubjects from "./components/topSubjects.component";
 import ProtectedRouteBedrijf from "./components/ProtectedRouteBedrijf";
 import AddSubjectBedrijf from "./components/add-subject-bedrijf.component";
+import ProtectedRoutePromotor from "./components/ProtectedRoutePromotor";
+import ListSubjectsPromotor from "./components/ListSubjectsPromotor.component";
+import SubjectDetailsPromotor from "./components/subjectDetailsPromotor.component";
 
 class App extends Component {
   constructor(props) {
@@ -57,6 +60,7 @@ class App extends Component {
 
   componentDidMount() {
     const user = this.props.user;
+    console.log("user", user);
 
     if (user) {
       this.setState({
@@ -155,15 +159,13 @@ class App extends Component {
                   </li>
               )}
 
-              {/*
-              {currentUser && (
-                <li className="nav-item">
-                  <Link to={"/subjects"} className="nav-link">
-                    Subjects
-                  </Link>
-                </li>
+              {showPromotorBoard && (
+                  <li className="nav-item">
+                    <Link to={`/listSubjectsPromotor/${this.props.user.username}`} className="nav-link">
+                      Boost Students
+                    </Link>
+                  </li>
               )}
-              */}
             </div>
 
             {currentUser ? (
@@ -210,10 +212,12 @@ class App extends Component {
               <Route exact path="/coordinator" component={BoardCoordinator} />
               <ProtectedRoute exact path="/addsubject" component={AddSubject} />
               <ProtectedRoute exact path="/subjects" component={ShowSubject} />
-              <ProtectedRoute exact path="/judgeSubjects" component={judgeSubject} />
+              <ProtectedRoute exact path="/judgeSubjects" component={JudgeSubject} />
               <Route exact path="/subjectDetails/:id" component={subjectDetails} />
               <ProtectedRouteStudent exact path="/topSubjects" component={TopSubjects} />
               <ProtectedRouteBedrijf exact path="/addSubjectBedrijf" component={AddSubjectBedrijf} />
+              <ProtectedRoutePromotor exact path="/listSubjectsPromotor:name" component={ListSubjectsPromotor} />
+              <ProtectedRoutePromotor exact path="/subjectDetailsPromotor:id" component={SubjectDetailsPromotor} />
 
             </Switch>
           </div>

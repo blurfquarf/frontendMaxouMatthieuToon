@@ -2,33 +2,29 @@ import React, { Component } from "react";
 import subjectService from "../services/subject.service";
 import {
     Card, CardText, CardBody,
-    CardTitle, Button, Container, Row, Col, ListGroupItem, ListGroup
+    CardTitle, Container, Row, Col, ListGroup, ListGroupItem, Button
 } from 'reactstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
-import {judgeSubject} from "../actions/judgeSubject";
-import {RGGSubject} from "../actions/RGGSubject";
 import {Link} from "react-router-dom";
 import {HiLocationMarker} from "react-icons/hi";
 import {BsFillPersonFill, BsPersonSquare} from "react-icons/all";
 
-export default class JudgeSubject extends Component {
 
+export default class ListSubjectsPromotor extends Component {
     constructor(props) {
         super(props);
         this.state = {
             content: []
         };
-        this.handleSubject = this.handleSubject.bind(this);
     }
 
     componentDidMount(){
         subjectService.getSubject().then(
             response => {
                 this.setState({
-                    content: response.data
+                    content: response.data,
                 });
             },
-
             error => {
                 this.setState({
                     content:
@@ -42,25 +38,14 @@ export default class JudgeSubject extends Component {
         );
     }
 
-    handleSubject(bool, id) {
-        let content = [...this.state.content];
-        let subject = {...content[id]};
-        subject.approved = bool;
-        subject.reedsGoedgekeurd = true;
-        content[id] = subject;
-        this.setState({content});
-        if(bool){
-            judgeSubject(subject.name);
-        }
-        RGGSubject(subject.name);
-    }
 
     render() {
         const {content} = this.state;
+        console.log("username", this.props);
         return (
             <Container >
                 <Row xs={3} className="center-content">
-                    {content.filter((content) => content.reedsGoedgekeurd === false).map(subject => {
+                    {content.filter(subject => subject.promotor == this.props.params.name).map(subject => {
                         let campussen;
                         if(subject.campussen.length != 0){
                             campussen = (<ListGroupItem>
@@ -102,12 +87,10 @@ export default class JudgeSubject extends Component {
                                     </CardBody>
                                     <ListGroup className="list-group-flush">
                                         {campussen}
-                                        <ListGroupItem><BsPersonSquare />{content.promotor}</ListGroupItem>
+                                        <ListGroupItem><BsPersonSquare />{subject.promotor}</ListGroupItem>
                                         {copromotoren}
                                     </ListGroup>
-                                    <Button onClick={() => this.handleSubject(true, subject.id-1)} className="btn btn-success judge-subjects-btn">Approve</Button>
-                                    <Button onClick={() => this.handleSubject(false, subject.id-1)} className="btn btn-danger judge-subjects-btn">Reject</Button>
-                                    <Link to={`/subjectDetails/${subject.id}`} className="btn btn-primary judge-subjects-btn">Details</Link>
+                                    <Link to={`/subjectDetailsPromotor/${subject.id}`} className="btn btn-primary judge-subjects-btn">Details</Link>
                                 </Card>
                             </Col>
                         )
@@ -116,5 +99,4 @@ export default class JudgeSubject extends Component {
             </Container>
         );
     }
-
 }

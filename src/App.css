@@ -92,7 +92,6 @@ h1 {
 }
 
 .campus-li {
-  float:left;
   list-style-type: none;
   text-align: left;
 }
@@ -132,6 +131,11 @@ h1 {
 .center-content {
     display:flex;
     justify-content:center;
+}
+
+.judge-subjects-btn {
+  margin-top: 5px;
+  align-self: stretch;
 }
 
 @media screen and (max-width: 625px) {
