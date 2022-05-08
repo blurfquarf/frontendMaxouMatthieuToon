@@ -2,8 +2,11 @@ import {Component} from "react";
 import React from "react";
 import subjectService from "../services/subject.service";
 import {
-    Container
+    Col,
+    Container, ListGroupItem, Row
 } from 'reactstrap';
+import {HiLocationMarker} from "react-icons/hi";
+import {BsFillPersonFill} from "react-icons/all";
 
 export default class subjectDetails extends Component {
     constructor(props) {
@@ -37,17 +40,60 @@ export default class subjectDetails extends Component {
 
     render () {
         const {content} = this.state;
+        console.log(content);
         return(
             <div className="center-content">
                 {content.filter((content) => content.id == this.props.match.params.id).map(content => {
+                    let campussen;
+                    if(content.campussen.length != 0){
+                        campussen = (
+                            <div style={{display:"flex"}}>
+                                <ul>
+                                    {content.campussen.map(function(d, idx){
+                                        return (<li key={idx}  className="campus-li">{d.name}</li>)
+                                    })}
+                                </ul>
+                            </div>)
+                    }
+                    let copromotoren;
+                    if(content.copromotoren.length !=0){
+                        copromotoren = (
+                                <div style={{display:"flex"}}>
+                                    <ul>
+                                        {content.copromotoren.map(function(d, idx){
+                                            return (<li key={idx}  className="campus-li">{d.name}</li>)
+                                        })}
+                                    </ul>
+                                </div>)
+                    }
+                    else {
+                        copromotoren = (
+                            <div>
+                                <p>There are no co-promotors for this subject</p>
+                            </div>
+                        )
+                    }
                     return(
                         <Container key={content.id}>
                             <div>
                                 <h1 className="subj-details-title">{content.name}</h1>
 
                             </div>
-                            <div className="subj-details-body-div">
-                                <p style={{textAlign:"center"}}>{content.description}</p>
+                            <div>
+                                <h3>Description</h3>
+                                <p>{content.description}</p>
+                            </div>
+                            <div>
+                                <h3>Campus</h3>
+                                {campussen}
+                            </div>
+                            <div>
+                                <h3>Promotor</h3>
+                                <p>{content.promotor}</p>
+                            </div>
+                            <div>
+                                <h3>Co-promotors</h3>
+                                {copromotoren}
                             </div>
                         </Container>
                     );

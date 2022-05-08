@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import subjectService from "../services/subject.service";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Card, CardBody, CardText, CardTitle, ListGroup, ListGroupItem} from "reactstrap";
+import {Card, CardBody, CardText, CardTitle, Col, ListGroup, ListGroupItem, Row} from "reactstrap";
 import {Link} from "react-router-dom";
 import {HiLocationMarker} from "react-icons/hi";
 import Form from "react-validation/build/form";
@@ -10,9 +10,11 @@ import Select from "react-select";
 import CheckButton from "react-validation/build/button";
 import {addSubject} from "../actions/addsubject";
 import makeAnimated from "react-select/animated";
+import {BsFillPersonFill, BsPersonSquare} from "react-icons/all";
+
 
 const CardContainer = (props) => (
-    <div className="small-cards-container">
+    <div className="small-cards-slider">
         {
             props.cards.map((card) => (
                 <Card key={card.id} className="small-card small-cards-container">
@@ -21,11 +23,23 @@ const CardContainer = (props) => (
                         <CardText>
                             {card.description}
                         </CardText>
-                        <Link to={`/subjectDetails/${card.id}`} className="btn btn-primary">Details</Link>
                     </CardBody>
                     <ListGroup className="list-group-flush">
-                        <ListGroupItem><HiLocationMarker /> {card.campus}</ListGroupItem>
+                        <ListGroupItem>
+                            <Row xs={2}>
+                                <Col className="col-1"><HiLocationMarker /></Col>
+                                <Col style={{display:"flex"}}>
+                                    <ul>
+                                        {card.campussen.map(function(d, idx){
+                                            return (<li key={idx}  className="campus-li">{d.name}</li>)
+                                        })}
+                                    </ul>
+                                </Col>
+                            </Row>
+                        </ListGroupItem>
+                        <ListGroupItem><BsPersonSquare />{card.promotor}</ListGroupItem>
                     </ListGroup>
+                    <Link to={`/subjectDetails/${card.id}`} className="btn btn-primary">Details</Link>
                 </Card>
             ))
         }
@@ -47,7 +61,7 @@ export default class TopSubjects extends Component {
 
     constructor(props) {
         super(props);
-        this.handleSubject = this.handleSubject.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.onChangeSubject1 = this.onChangeSubject1.bind(this);
         this.onChangeSubject2 = this.onChangeSubject2.bind(this);
         this.onChangeSubject3 = this.onChangeSubject3.bind(this);
@@ -101,7 +115,7 @@ export default class TopSubjects extends Component {
         );
     }
 
-    handleSubject(e) {
+    handleSubmit(e) {
         e.preventDefault();
 
         this.setState({
@@ -141,11 +155,11 @@ export default class TopSubjects extends Component {
                 <div>
                     <CardContainer cards={content}/>
                 </div>
-                {/*
-                <div>
+
+                <div style={{marginTop:"2rem"}}>
                     <h1>Add Subject</h1>
                     <Form
-                        onSubmit={this.handleSubject}
+                        onSubmit={this.handleSubmit}
                         ref={(c) => {
                             this.form = c;
                         }}
@@ -162,9 +176,9 @@ export default class TopSubjects extends Component {
                                         value={this.state.subject1}
                                         onChange={this.onChangeSubject1}
                                         validations={[required]}
-                                        options={content.filter(function (curEl) {
-                                            return curEl.id != this.state.subject2 && curEl.id != this.state.subject3;
-                                        })}
+                                        options={content}
+                                        getOptionLabel={(option) => option.name}
+                                        getOptionValue={(option) => option.name}
                                         classNamePrefix="select"
                                         defaultOptions={false}
                                     />
@@ -180,9 +194,9 @@ export default class TopSubjects extends Component {
                                         value={this.state.subject2}
                                         onChange={this.onChangeSubject2}
                                         validations={[required]}
-                                        options={content.filter(function (curEl) {
-                                            return curEl.id != this.state.subject1 && curEl.id != this.state.subject3;
-                                        })}
+                                        options={content}
+                                        getOptionLabel={(option) => option.name}
+                                        getOptionValue={(option) => option.name}
                                         classNamePrefix="select"
                                         isMulti
                                         defaultOptions={false}
@@ -199,15 +213,15 @@ export default class TopSubjects extends Component {
                                         value={this.state.subject3}
                                         onChange={this.onChangeSubject3}
                                         validations={[required]}
-                                        options={content.filter(function (curEl) {
-                                            return curEl.id != this.state.subject2 && curEl.id != this.state.subject1;
-                                        })}
+                                        options={content}
+                                        getOptionLabel={(option) => option.name}
+                                        getOptionValue={(option) => option.name}
                                         classNamePrefix="select"
                                         defaultOptions={false}
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <button className="btn btn-primary btn-block">Add</button>
+                                    <button className="btn btn-primary btn-block">Submit Preferences</button>
                                 </div>
                             </div>
                         )}
@@ -226,7 +240,7 @@ export default class TopSubjects extends Component {
                         />
                     </Form>
                 </div>
-                */}
+
 
             </div>
         );

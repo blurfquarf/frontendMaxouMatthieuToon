@@ -34,6 +34,8 @@ import protectedRoutePromotor from "./components/ProtectedRoutePromotor";
 import JudgeSubject from "./components/judgeSubjects.component";
 import subjectDetails from "./components/subjectDetails.component";
 import TopSubjects from "./components/topSubjects.component";
+import ProtectedRouteBedrijf from "./components/ProtectedRouteBedrijf";
+import AddSubjectBedrijf from "./components/add-subject-bedrijf.component";
 
 class App extends Component {
   constructor(props) {
@@ -145,6 +147,14 @@ class App extends Component {
                   </li>
               )}
 
+              {showBedrijfBoard && (
+                  <li className="nav-item">
+                    <Link to={"/addSubjectBedrijf"} className="nav-link">
+                      Add subject
+                    </Link>
+                  </li>
+              )}
+
               {/*
               {currentUser && (
                 <li className="nav-item">
@@ -203,6 +213,7 @@ class App extends Component {
               <ProtectedRoute exact path="/judgeSubjects" component={judgeSubject} />
               <Route exact path="/subjectDetails/:id" component={subjectDetails} />
               <ProtectedRouteStudent exact path="/topSubjects" component={TopSubjects} />
+              <ProtectedRouteBedrijf exact path="/addSubjectBedrijf" component={AddSubjectBedrijf} />
 
             </Switch>
           </div>

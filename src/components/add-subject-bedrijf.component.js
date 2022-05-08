@@ -10,11 +10,9 @@ import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import autosize from 'autosize';
 import {coProsSubject} from "../actions/coProsSubject";
-import subjectService from "../services/subject.service";
 import CampusService from "../services/campus.service";
-import PromotorService from "../services/promotor.service";
 
-class AddSubject extends Component {
+class AddSubjectBedrijf extends Component {
 
     constructor(props) {
         super(props);
@@ -23,7 +21,7 @@ class AddSubject extends Component {
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangeCampus = this.onChangeCampus.bind(this);
         this.onChangePromotor = this.onChangePromotor.bind(this);
-        this.onChangeCoPros = this.onChangeCoPros.bind(this);
+        this.onChangeBedrijf = this.onChangeBedrijf.bind(this);
 
         this.state = {
             title: "",
@@ -32,9 +30,8 @@ class AddSubject extends Component {
             successful: false,
             campus: [],
             promotor: "",
-            coPros: [],
+            bedrijf:"",
             contentCampus: [],
-            contentPromotor: [],
             isSubmitted: false
         };
 
@@ -59,16 +56,15 @@ class AddSubject extends Component {
         });
     }
 
-    onChangeCoPros = (selectedOptions) => {
-        console.log(selectedOptions);
-        this.setState({
-            coPros: selectedOptions,
-        });
-    }
-
     onChangePromotor(e) {
         this.setState({
             promotor: e.target.value,
+        });
+    }
+
+    onChangeBedrijf(e) {
+        this.setState({
+            bedrijf: e.target.value,
         });
     }
 
@@ -88,8 +84,7 @@ class AddSubject extends Component {
                 .dispatch(
                     addSubject(this.state.title, this.state.description, false),
                     promotorSubject(this.state.title, this.state.promotor),
-                    campusSubject(this.state.campus, this.state.title),
-                    coProsSubject(this.state.coPros, this.state.title)
+                    campusSubject(this.state.campus, this.state.title)
                 )
                 .then(() => {
                     this.setState({
@@ -119,23 +114,6 @@ class AddSubject extends Component {
             error => {
                 this.setState({
                     contentCampus:
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString()
-                });
-            }
-        );
-        PromotorService.getPromotor().then(
-            response => {
-                this.setState({
-                    contentPromotor: response.data
-                }, () => {console.log("promotoren:", this.state.contentPromotor)});
-            },
-            error => {
-                this.setState({
-                    contentPromotor:
                         (error.response &&
                             error.response.data &&
                             error.response.data.message) ||
@@ -176,7 +154,6 @@ class AddSubject extends Component {
                                 />
                             </div>
 
-
                             <div className="form-group">
                                 <label htmlFor="campus">Campus</label>
                                 <Select
@@ -195,7 +172,6 @@ class AddSubject extends Component {
                                 />
                             </div>
 
-
                             <div className="form-group">
                                 <label htmlFor="promotor">Promotor (mail-address)</label>
                                 <Input
@@ -209,20 +185,14 @@ class AddSubject extends Component {
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="coPros">Co-promotors (mail-address)</label>
-                                <Select
-                                    components={animatedComponents}
-                                    closeMenuOnSelect={false}
-                                    className="basic-multi-select"
-                                    name="coPros"
-                                    value={this.state.coPros}
-                                    onChange={this.onChangeCoPros}
-                                    options={this.state.contentPromotor}
-                                    getOptionLabel={(option) => option.email}
-                                    getOptionValue={(option) => option.email}
-                                    classNamePrefix="select"
-                                    isMulti
-                                    defaultOptions={false}
+                                <label htmlFor="bedrijf">Company</label>
+                                <Input
+                                    required
+                                    type="text"
+                                    className="form-control"
+                                    name="bedrijf"
+                                    value={this.state.bedrijf}
+                                    onChange={this.onChangeBedrijf}
                                 />
                             </div>
 
@@ -267,112 +237,7 @@ class AddSubject extends Component {
                 </div>)
         )
         return (
-            <div className="center-content" >
-                <div className="card card-container">
-                    <h1>Add Subject</h1>
-                    <Form
-                        onSubmit={this.handleSubject}
-                        ref={(c) => {
-                            this.form = c;
-                        }}
-                    >
-                        {!this.state.successful && (
-                            <div>
-                                <div className="form-group">
-                                    <label htmlFor="title">Title</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="title"
-                                        value={this.state.title}
-                                        onChange={this.onChangeTitle}
-                                        required
-                                    />
-                                </div>
-
-
-                                <div className="form-group">
-                                    <label htmlFor="campus">Campus</label>
-                                    <Select
-                                        components={animatedComponents}
-                                        closeMenuOnSelect={false}
-                                        className="basic-multi-select"
-                                        name="campus"
-                                        value={this.state.campus}
-                                        onChange={this.onChangeCampus}
-                                        options={this.state.contentCampus}
-                                        getOptionLabel={(option) => option.name}
-                                        getOptionValue={(option) => option.name}
-                                        classNamePrefix="select"
-                                        isMulti
-                                        defaultOptions={false}
-                                    />
-                                </div>
-
-
-                                <div className="form-group">
-                                    <label htmlFor="promotor">Promotor (mail-adres)</label>
-                                    <Input
-                                        required
-                                        type="text"
-                                        className="form-control"
-                                        name="promotor"
-                                        value={this.state.promotor}
-                                        onChange={this.onChangePromotor}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="coPros">Co-promotoren (mail-adres)</label>
-                                    <Select
-                                        components={animatedComponents}
-                                        closeMenuOnSelect={false}
-                                        className="basic-multi-select"
-                                        name="coPros"
-                                        value={this.state.coPros}
-                                        onChange={this.onChangeCoPros}
-                                        options={this.state.contentPromotor}
-                                        getOptionLabel={(option) => option.email}
-                                        getOptionValue={(option) => option.email}
-                                        classNamePrefix="select"
-                                        isMulti
-                                        defaultOptions={false}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="description">Description</label>
-                                    <textarea
-                                        className="form-control"
-                                        name="description"
-                                        value={this.state.description}
-                                        onChange={this.onChangeDescription}
-                                        required
-                                        ref={c=>this.textarea=c}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <button className="btn btn-primary btn-block">Add</button>
-                                </div>
-                            </div>
-                        )}
-                        {message && (
-                            <div className="form-group">
-                                <div className={ this.state.successful ? "alert alert-success" : "alert alert-danger" } role="alert">
-                                    {message}
-                                </div>
-                            </div>
-                        )}
-                        <CheckButton
-                            style={{ display: "none" }}
-                            ref={(c) => {
-                                this.checkBtn = c;
-                            }}
-                        />
-                    </Form>
-                </div>
-            </div>
+            <div className="center-content" >{content}</div>
         );
     }
 }
@@ -384,4 +249,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(AddSubject);
+export default connect(mapStateToProps)(AddSubjectBedrijf);

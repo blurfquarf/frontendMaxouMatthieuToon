@@ -42,6 +42,9 @@ export default class ShowSubject extends Component {
     render() {
         const {content} = this.state;
         console.log("content: ", content);
+
+
+
         return (
             <div>
                 <div >
@@ -56,10 +59,40 @@ export default class ShowSubject extends Component {
                         </Col>
                     </Row>
                     <Row xs={3} className="center-content">
-                        {content.filter((content) => content.approved === true).map(content => {
+                        {content.map(content => {
+                            let campussen;
+                            if(content.campussen.length != 0){
+                                campussen = (<ListGroupItem>
+                                    <Row xs={2}>
+                                        <Col className="col-1"><HiLocationMarker /></Col>
+                                        <Col style={{display:"flex"}}>
+                                            <ul>
+                                                {content.campussen.map(function(d, idx){
+                                                    return (<li key={idx}  className="campus-li">{d.name}</li>)
+                                                })}
+                                            </ul>
+                                        </Col>
+                                    </Row>
+                                </ListGroupItem>)
+                            }
+                            let copromotoren;
+                            if(content.copromotoren.length !=0){
+                                copromotoren = (<ListGroupItem>
+                                    <Row xs={2}>
+                                        <Col className="col-1"><BsFillPersonFill/> </Col>
+                                        <Col>
+                                            <ul>
+                                                {content.copromotoren.map(function(d, idx){
+                                                    return (<li key={idx}  className="campus-li">{d.name}</li>)
+                                                })}
+                                            </ul>
+                                        </Col>
+                                    </Row>
+                                </ListGroupItem>)
+                            }
                             return (
-                                <Col>
-                                    <Card key={content.id}>
+                                <Col key={content.id}>
+                                    <Card className="small-card small-cards-container">
                                         <CardBody>
                                             <CardTitle tag="h5">{content.name}</CardTitle>
                                             <CardText>
@@ -67,9 +100,9 @@ export default class ShowSubject extends Component {
                                             </CardText>
                                         </CardBody>
                                         <ListGroup className="list-group-flush">
-                                            <ListGroupItem><HiLocationMarker /> {content.campussen}</ListGroupItem>
-                                            <ListGroupItem><BsPersonSquare /> {content.promotor}</ListGroupItem>
-                                            <ListGroupItem><BsFillPersonFill /> {content.copromotoren}</ListGroupItem>
+                                            {campussen}
+                                            <ListGroupItem><BsPersonSquare />{content.promotor}</ListGroupItem>
+                                            {copromotoren}
                                         </ListGroup>
                                         <Link to={`/subjectDetails/${content.id}`} className="btn btn-primary">Details</Link>
                                     </Card>

@@ -16,6 +16,7 @@ h1 {
   width: 450px !important;
   padding: 40px 40px;
   background: #fff;
+  height: 600px !important;
 }
 
 .card {
@@ -75,6 +76,25 @@ h1 {
   box-shadow: 0 0 1rem #000 inset;
   position: relative;
   overflow: auto;
+  height: 350px;
+  width: 275px;
+}
+
+.small-cards-slider {
+  display: flex;
+  border-radius: 6px;
+  color: #333;
+  background: #eee;
+  padding: 1rem;
+  box-shadow: 0 0 1rem #000 inset;
+  position: relative;
+  overflow: auto;
+}
+
+.campus-li {
+  float:left;
+  list-style-type: none;
+  text-align: left;
 }
 
 .small-card {
@@ -120,6 +140,7 @@ h1 {
   }
 
   .cards-container {
+    display: flex;
     padding: .5rem;
     overflow: auto;
   }
