@@ -6,7 +6,7 @@ import {
 import subjectService from "../services/subject.service";
 
 export const promotorSubject = (title, proMail) => (dispatch) => {
-    return subjectService.putProSubject(title, proMail).then(
+    return subjectService.postProSubject(title, proMail).then(
         (response) => {
             dispatch({
                 type: PRO_SUBJECT_SUCCESS,

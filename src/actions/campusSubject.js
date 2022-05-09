@@ -6,7 +6,7 @@ import {
 import subjectService from "../services/subject.service";
 
 export const campusSubject = (campussen, title) => (dispatch) => {
-    return subjectService.putCampusSubject(campussen, title).then(
+    return subjectService.postCampusSubject(campussen, title).then(
         (response) => {
             dispatch({
                 type: CAMPUS_SUBJECT_SUCCESS,

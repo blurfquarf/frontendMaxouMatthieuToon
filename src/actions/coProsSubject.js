@@ -6,7 +6,7 @@ import {
 import subjectService from "../services/subject.service";
 
 export const coProsSubject = (coProMail, title) => (dispatch) => {
-    return subjectService.putCoProSubject(coProMail, title).then(
+    return subjectService.postCoProSubject(coProMail, title).then(
         (response) => {
             dispatch({
                 type: COPRO_SUBJECT_SUCCESS,

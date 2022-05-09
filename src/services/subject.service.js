@@ -27,43 +27,32 @@ class SubjectService{
         });
     }
 
-    putProSubject(title, proMail) {
+    postProSubject(title, proMail) {
         const config = {
-            headers: { Authorization: "Bearer " + user.accessToken}
+            headers: { Authorization: "Bearer " + user.accessToken},
+            params: {subjectName : title, mail:proMail}
         };
 
-        const data = {
-            subjectName: title,
-            mail: proMail
-        }
 
-        return axios.put("http://localhost:8080/api/v1/subject/pro", data, config);
+        return axios.put("http://localhost:8080/api/v1/subject/pro", config);
     }
 
-    putCampusSubject(campussen, title) {
+    postCampusSubject(campussen, title) {
         const config = {
-            headers: { Authorization: "Bearer " + user.accessToken}
+            headers: { Authorization: "Bearer " + user.accessToken},
+            params : {campussen:campussen, subject: title}
         };
 
-        const data = {
-            subject: title,
-            campussen: campussen
-        }
-
-        return axios.put("http://localhost:8080/api/v1/subject/campus", data, config);
+        return axios.put("http://localhost:8080/api/v1/subject/campus", config);
     }
 
-    putCoProSubject(coProMail, title) {
+    postCoProSubject(coProMail, title) {
         const config = {
-            headers: { Authorization: "Bearer " + user.accessToken}
+            headers: { Authorization: "Bearer " + user.accessToken},
+            params: {copromail: coProMail, subjectName: title}
         };
 
-        const data = {
-            subjectName: title,
-            copromail: coProMail
-        }
-
-        return axios.put("http://localhost:8080/api/v1/subject/copro", data, config);
+        return axios.put("http://localhost:8080/api/v1/subject/copro", config);
     }
 
     postApprovedSubject(title) {
@@ -71,12 +60,8 @@ class SubjectService{
             headers: { Authorization: "Bearer " + user.accessToken},
             params: {subjectName : title}
         };
-        console.log("subjectservice, post approve", title);
-        const data = {
 
-        }
-
-        return axios.post("http://localhost:8080/api/v1/subject/approved", data, config);
+        return axios.post("http://localhost:8080/api/v1/subject/approved", config);
     }
 
     postRGGSubject(title) {
@@ -85,10 +70,7 @@ class SubjectService{
             params: {subjectName : title}
         };
 
-        const data = {
-        }
-
-        return axios.post("http://localhost:8080/api/v1/subject/reedsgoedgekeurd", data, config);
+        return axios.post("http://localhost:8080/api/v1/subject/reedsgoedgekeurd", config);
     }
 
 }
