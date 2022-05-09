@@ -68,11 +68,12 @@ class SubjectService{
 
     postApprovedSubject(title) {
         const config = {
-            headers: { Authorization: "Bearer " + user.accessToken}
+            headers: { Authorization: "Bearer " + user.accessToken},
+            params: {subjectName : title}
         };
         console.log("subjectservice, post approve", title);
         const data = {
-            subjectName: title,
+
         }
 
         return axios.post("http://localhost:8080/api/v1/subject/approved", data, config);
@@ -80,11 +81,11 @@ class SubjectService{
 
     postRGGSubject(title) {
         const config = {
-            headers: { Authorization: "Bearer " + user.accessToken}
+            headers: { Authorization: "Bearer " + user.accessToken},
+            params: {subjectName : title}
         };
 
         const data = {
-            subjectName: title
         }
 
         return axios.post("http://localhost:8080/api/v1/subject/reedsgoedgekeurd", data, config);
