@@ -12,6 +12,13 @@ h1 {
   text-align: center;
 }
 
+.big-card-container.card {
+  width: 500px !important;
+  padding: 40px 40px;
+  background: #fff;
+  height: 725px !important;
+}
+
 .card-container.card {
   width: 450px !important;
   padding: 40px 40px;

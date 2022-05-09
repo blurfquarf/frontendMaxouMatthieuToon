@@ -24,6 +24,7 @@ class AddSubject extends Component {
         this.onChangeCampus = this.onChangeCampus.bind(this);
         this.onChangePromotor = this.onChangePromotor.bind(this);
         this.onChangeCoPros = this.onChangeCoPros.bind(this);
+        this.onChangeCompany = this.onChangeCompany.bind(this);
 
         this.state = {
             title: "",
@@ -33,6 +34,7 @@ class AddSubject extends Component {
             campus: [],
             promotor: "",
             coPros: [],
+            bedrijf:"",
             contentCampus: [],
             contentPromotor: [],
             isSubmitted: false
@@ -43,6 +45,12 @@ class AddSubject extends Component {
     onChangeTitle(e) {
         this.setState({
             title: e.target.value,
+        });
+    }
+
+    onChangeCompany(e) {
+        this.setState({
+            bedrijf: e.target.value,
         });
     }
 
@@ -58,6 +66,7 @@ class AddSubject extends Component {
             campus: selectedOptions,
         });
     }
+
 
     onChangeCoPros = (selectedOptions) => {
         console.log(selectedOptions);
@@ -86,10 +95,7 @@ class AddSubject extends Component {
         if (this.checkBtn.context._errors.length === 0) {
             this.props
                 .dispatch(
-                    addSubject(this.state.title, this.state.description, false),
-                    promotorSubject(this.state.title, this.state.promotor),
-                    campusSubject(this.state.campus, this.state.title),
-                    coProsSubject(this.state.coPros, this.state.title)
+                    addSubject(this.state.title, this.state.description, this.state.campus, this.state.coPros,this.state.bedrijf,this.state.promotor)
                 )
                 .then(() => {
                     this.setState({
@@ -154,7 +160,7 @@ class AddSubject extends Component {
         const isSubmitted = this.state.isSubmitted;
         let content;
         if(!isSubmitted) {
-            content = (<div className="card card-container">
+            content = (<div className="card big-card-container">
                 <h1>Add Subject</h1>
                 <Form
                     onSubmit={this.handleSubject}
@@ -172,6 +178,18 @@ class AddSubject extends Component {
                                     name="title"
                                     value={this.state.title}
                                     onChange={this.onChangeTitle}
+                                    required
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="bedrijf">Company</label>
+                                <Input
+                                    type="text"
+                                    className="form-control"
+                                    name="bedrijf"
+                                    value={this.state.bedrijf}
+                                    onChange={this.onChangeCompany}
                                     required
                                 />
                             </div>

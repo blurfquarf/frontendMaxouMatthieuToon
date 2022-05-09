@@ -6,6 +6,7 @@ import {
 import subjectService from "../services/subject.service";
 
 export const judgeSubject = (title) => (dispatch) => {
+    console.log("approveeeeee");
     return subjectService.putApprovedSubject(title).then(
         (response) => {
             dispatch({

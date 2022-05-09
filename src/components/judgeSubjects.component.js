@@ -22,6 +22,7 @@ export default class JudgeSubject extends Component {
     }
 
     componentDidMount(){
+        console.log("page mounted");
         subjectService.getSubject().then(
             response => {
                 this.setState({
@@ -42,7 +43,8 @@ export default class JudgeSubject extends Component {
         );
     }
 
-    handleSubject(bool, id) {
+    handleSubject(event, bool, id) {
+        event.preventDefault();
         let content = [...this.state.content];
         let subject = {...content[id]};
         subject.approved = bool;
@@ -50,6 +52,7 @@ export default class JudgeSubject extends Component {
         content[id] = subject;
         this.setState({content});
         if(bool){
+            console.log("approve");
             judgeSubject(subject.name);
         }
         RGGSubject(subject.name);
@@ -105,8 +108,8 @@ export default class JudgeSubject extends Component {
                                         <ListGroupItem><BsPersonSquare />{content.promotor}</ListGroupItem>
                                         {copromotoren}
                                     </ListGroup>
-                                    <Button onClick={() => this.handleSubject(true, subject.id-1)} className="btn btn-success judge-subjects-btn">Approve</Button>
-                                    <Button onClick={() => this.handleSubject(false, subject.id-1)} className="btn btn-danger judge-subjects-btn">Reject</Button>
+                                    <Button onClick={(event) => this.handleSubject(event,true, subject.id-1)} className="btn btn-success judge-subjects-btn">Approve</Button>
+                                    <Button onClick={(event) => this.handleSubject(event,false, subject.id-1)} className="btn btn-danger judge-subjects-btn">Reject</Button>
                                     <Link to={`/subjectDetails/${subject.id}`} className="btn btn-primary judge-subjects-btn">Details</Link>
                                 </Card>
                             </Col>

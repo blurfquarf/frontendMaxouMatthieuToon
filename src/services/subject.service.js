@@ -3,9 +3,7 @@ import axios from "axios";
 const user = JSON.parse(localStorage.getItem("user"));
 
 class SubjectService{
-    postSubject(title,description,approved) {
-
-        //console.log(user.accessToken)
+    postSubject(title,description,campussen,copromotoren,bedrijf,promotor) {
         const config = {
             headers: { Authorization: "Bearer " + user.accessToken}
         };
@@ -13,7 +11,10 @@ class SubjectService{
         const data = {
             name: title,
             description: description,
-            approved: approved
+            campussen: campussen,
+            copromotoren: copromotoren,
+            bedrijf: bedrijf,
+            promotor: promotor,
         }
 
         return axios.post("http://localhost:8080/api/v1/subject", data, config);
@@ -69,9 +70,9 @@ class SubjectService{
         const config = {
             headers: { Authorization: "Bearer " + user.accessToken}
         };
-
+        console.log("subjectservice, put approve", title);
         const data = {
-            subjectName: title
+            subjectName: title,
         }
 
         return axios.put("http://localhost:8080/api/v1/subject/approved", data, config);
