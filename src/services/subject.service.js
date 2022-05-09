@@ -66,19 +66,19 @@ class SubjectService{
         return axios.put("http://localhost:8080/api/v1/subject/copro", data, config);
     }
 
-    putApprovedSubject(title) {
+    postApprovedSubject(title) {
         const config = {
             headers: { Authorization: "Bearer " + user.accessToken}
         };
-        console.log("subjectservice, put approve", title);
+        console.log("subjectservice, post approve", title);
         const data = {
             subjectName: title,
         }
 
-        return axios.put("http://localhost:8080/api/v1/subject/approved", data, config);
+        return axios.post("http://localhost:8080/api/v1/subject/approved", data, config);
     }
 
-    putRGGSubject(title) {
+    postRGGSubject(title) {
         const config = {
             headers: { Authorization: "Bearer " + user.accessToken}
         };
@@ -87,7 +87,7 @@ class SubjectService{
             subjectName: title
         }
 
-        return axios.put("http://localhost:8080/api/v1/subject/reedsgoedgekeurd", data, config);
+        return axios.post("http://localhost:8080/api/v1/subject/reedsgoedgekeurd", data, config);
     }
 
 }

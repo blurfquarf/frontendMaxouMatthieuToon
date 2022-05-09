@@ -10,8 +10,9 @@ import {RGGSubject} from "../actions/RGGSubject";
 import {Link} from "react-router-dom";
 import {HiLocationMarker} from "react-icons/hi";
 import {BsFillPersonFill, BsPersonSquare} from "react-icons/all";
+import {connect} from "react-redux";
 
-export default class JudgeSubject extends Component {
+class JudgeSubject extends Component {
 
     constructor(props) {
         super(props);
@@ -53,9 +54,11 @@ export default class JudgeSubject extends Component {
         this.setState({content});
         if(bool){
             console.log("approve");
-            judgeSubject(subject.name);
+            this.props.dispatch(judgeSubject(subject.name));
         }
-        RGGSubject(subject.name);
+        else{
+            this.props.dispatch(RGGSubject(subject.name));
+        }
     }
 
     render() {
@@ -121,3 +124,12 @@ export default class JudgeSubject extends Component {
     }
 
 }
+
+function mapStateToProps(state) {
+    const { message } = state.message;
+    return {
+        message,
+    };
+}
+
+export default connect(mapStateToProps)(JudgeSubject);

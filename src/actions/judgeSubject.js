@@ -7,7 +7,7 @@ import subjectService from "../services/subject.service";
 
 export const judgeSubject = (title) => (dispatch) => {
     console.log("approveeeeee");
-    return subjectService.putApprovedSubject(title).then(
+    return subjectService.postApprovedSubject(title).then(
         (response) => {
             dispatch({
                 type: JUDGE_SUBJECT_SUCCESS,
@@ -17,6 +17,7 @@ export const judgeSubject = (title) => (dispatch) => {
                 type: SET_MESSAGE,
                 payload: response.data.message,
             });
+            console.log("approveeeeee");
 
             return Promise.resolve();
         },
@@ -36,6 +37,8 @@ export const judgeSubject = (title) => (dispatch) => {
                 type: SET_MESSAGE,
                 payload: message,
             });
+
+            console.log("approveeeeee");
 
             return Promise.reject();
         }

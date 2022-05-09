@@ -43,8 +43,6 @@ export default class ShowSubject extends Component {
         const {content} = this.state;
         console.log("content: ", content);
 
-
-
         return (
             <div>
                 <div >

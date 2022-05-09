@@ -6,7 +6,7 @@ import {
 import subjectService from "../services/subject.service";
 
 export const RGGSubject = (title) => (dispatch) => {
-    return subjectService.putRGGSubject(title).then(
+    return subjectService.postRGGSubject(title).then(
         (response) => {
             dispatch({
                 type: RGG_SUBJECT_SUCCESS,
