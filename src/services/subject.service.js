@@ -34,7 +34,7 @@ class SubjectService{
         };
 
 
-        return axios.put("http://localhost:8080/api/v1/subject/pro", config);
+        return axios.post("http://localhost:8080/api/v1/subject/pro", config);
     }
 
     postCampusSubject(campussen, title) {
@@ -43,7 +43,7 @@ class SubjectService{
             params : {campussen:campussen, subject: title}
         };
 
-        return axios.put("http://localhost:8080/api/v1/subject/campus", config);
+        return axios.post("http://localhost:8080/api/v1/subject/campus", config);
     }
 
     postCoProSubject(coProMail, title) {
@@ -52,7 +52,7 @@ class SubjectService{
             params: {copromail: coProMail, subjectName: title}
         };
 
-        return axios.put("http://localhost:8080/api/v1/subject/copro", config);
+        return axios.post("http://localhost:8080/api/v1/subject/copro", config);
     }
 
     postApprovedSubject(title) {
