@@ -24,6 +24,7 @@ export default class ShowSubject extends Component {
                 this.setState({
                     content: response.data
                 });
+                console.log(response.data);
             },
             error => {
                 this.setState({
@@ -56,15 +57,15 @@ export default class ShowSubject extends Component {
                     </Col>
                 </Row>
                 <div className="subject-wrapper">
-                    {content.map(content => {
+                    {content.filter(subject => subject.approved).map(subject => {
                         let campussen;
-                        if(content.campussen.length != 0){
+                        if(subject.campussen.length != 0){
                             campussen = (<ListGroupItem>
                                 <Row xs={2}>
                                     <Col className="col-1"><HiLocationMarker /></Col>
                                     <Col style={{display:"flex"}}>
                                         <ul>
-                                            {content.campussen.map(function(d, idx){
+                                            {subject.campussen.map(function(d, idx){
                                                 return (<li key={idx}  className="campus-li">{d.name}</li>)
                                             })}
                                         </ul>
@@ -73,13 +74,13 @@ export default class ShowSubject extends Component {
                             </ListGroupItem>)
                         }
                         let copromotoren;
-                        if(content.copromotoren.length !=0){
+                        if(subject.copromotoren.length !=0){
                             copromotoren = (<ListGroupItem>
                                 <Row xs={2}>
                                     <Col className="col-1"><BsFillPersonFill/> </Col>
                                     <Col>
                                         <ul>
-                                            {content.copromotoren.map(function(d, idx){
+                                            {subject.copromotoren.map(function(d, idx){
                                                 return (<li key={idx}  className="campus-li">{d.name}</li>)
                                             })}
                                         </ul>
@@ -87,21 +88,28 @@ export default class ShowSubject extends Component {
                                 </Row>
                             </ListGroupItem>)
                         }
+                        let promotor;
+                        if(subject.promotor != null){
+                            promotor = (<ListGroupItem><BsPersonSquare />{subject.promotor.username}</ListGroupItem>);
+                        }
+                        else{
+                            promotor = (<ListGroupItem><BsPersonSquare /><p>no promotor available yet</p></ListGroupItem>);
+                        }
                         return (
-                            <div key={content.id} >
+                            <div key={subject.id} >
                                 <Card className="subject-card">
                                     <CardBody>
-                                        <CardTitle tag="h5">{content.name}</CardTitle>
+                                        <CardTitle tag="h5">{subject.name}</CardTitle>
                                         <CardText>
-                                            {content.description}
+                                            {subject.description}
                                         </CardText>
                                     </CardBody>
                                     <ListGroup className="list-group-flush">
                                         {campussen}
-                                        <ListGroupItem><BsPersonSquare />{content.promotor}</ListGroupItem>
+                                        {promotor}
                                         {copromotoren}
                                     </ListGroup>
-                                    <Link to={`/subjectDetails/${content.id}`} className="btn btn-primary">Details</Link>
+                                    <Link to={`/subjectDetails/${subject.id}`} className="btn btn-primary">Details</Link>
                                 </Card>
                             </div>
                         );

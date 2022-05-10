@@ -11,37 +11,50 @@ import CheckButton from "react-validation/build/button";
 import {addSubject} from "../actions/addsubject";
 import makeAnimated from "react-select/animated";
 import {BsFillPersonFill, BsPersonSquare} from "react-icons/all";
+import {connect} from "react-redux";
+import store from "../store";
+import PersonService from "../services/person.service";
+import {postTop3} from "../actions/postTop3";
+
 
 
 const CardContainer = (props) => (
     <div className="small-cards-slider">
         {
-            props.cards.map((card) => (
-                <Card key={card.id} className="small-card small-cards-container">
-                    <CardBody>
-                        <CardTitle tag="h5">{card.name}</CardTitle>
-                        <CardText>
-                            {card.description}
-                        </CardText>
-                    </CardBody>
-                    <ListGroup className="list-group-flush">
-                        <ListGroupItem>
-                            <Row xs={2}>
-                                <Col className="col-1"><HiLocationMarker /></Col>
-                                <Col style={{display:"flex"}}>
-                                    <ul>
-                                        {card.campussen.map(function(d, idx){
-                                            return (<li key={idx}  className="campus-li">{d.name}</li>)
-                                        })}
-                                    </ul>
-                                </Col>
-                            </Row>
-                        </ListGroupItem>
-                        <ListGroupItem><BsPersonSquare />{card.promotor}</ListGroupItem>
-                    </ListGroup>
-                    <Link to={`/subjectDetails/${card.id}`} className="btn btn-primary">Details</Link>
-                </Card>
-            ))
+            props.cards.filter(subject => subject.approved).map((card) => {
+                let promotor;
+                if(card.promotor != null){
+                    promotor = (<ListGroupItem><BsPersonSquare/>{card.promotor.username}</ListGroupItem>);
+                }
+                else {
+                    promotor = (<ListGroupItem><BsPersonSquare /><p>no promotor available yet</p></ListGroupItem>);
+                }
+                return (<Card key={card.id} className="small-card small-cards-container">
+                        <CardBody>
+                            <CardTitle tag="h5">{card.name}</CardTitle>
+                            <CardText>
+                                {card.description}
+                            </CardText>
+                        </CardBody>
+                        <ListGroup className="list-group-flush">
+                            <ListGroupItem>
+                                <Row xs={2}>
+                                    <Col className="col-1"><HiLocationMarker/></Col>
+                                    <Col style={{display: "flex"}}>
+                                        <ul>
+                                            {card.campussen.map(function (d, idx) {
+                                                return (<li key={idx} className="campus-li">{d.name}</li>)
+                                            })}
+                                        </ul>
+                                    </Col>
+                                </Row>
+                            </ListGroupItem>
+                            {promotor}
+                        </ListGroup>
+                        <Link to={`/subjectDetails/${card.id}`} className="btn btn-primary">Details</Link>
+                    </Card>)
+                }
+            )
         }
         {console.log("props.cards:", props.cards)}
     </div>
@@ -57,7 +70,7 @@ const required = (value) => {
     }
 };
 
-export default class TopSubjects extends Component {
+class TopSubjects extends Component {
 
     constructor(props) {
         super(props);
@@ -71,6 +84,8 @@ export default class TopSubjects extends Component {
             subject1: "",
             subject2:"",
             subject3:"",
+            successful:false,
+            submitted:false
         };
     }
 
@@ -84,19 +99,20 @@ export default class TopSubjects extends Component {
     onChangeSubject2 = (selectedOption) => {
         console.log(selectedOption);
         this.setState({
-            subject1: selectedOption,
+            subject2: selectedOption,
         });
     }
 
     onChangeSubject3 = (selectedOption) => {
         console.log(selectedOption);
         this.setState({
-            subject1: selectedOption,
+            subject3: selectedOption,
         });
     }
 
     componentDidMount(){
-        subjectService.getSubject().then(
+        const state = store.getState();
+        subjectService.getTargetSubjects(state.auth.user.email).then(
             response => {
                 this.setState({
                     content: response.data
@@ -116,10 +132,12 @@ export default class TopSubjects extends Component {
     }
 
     handleSubmit(e) {
+        const state = store.getState();
         e.preventDefault();
 
         this.setState({
             successful: false,
+            submitted:false
         });
 
         this.form.validateAll();
@@ -128,16 +146,18 @@ export default class TopSubjects extends Component {
         if (this.checkBtn.context._errors.length === 0) {
             this.props
                 .dispatch(
-                    addSubject(this.state.title, this.state.description, false, this.state.campus, false, this.state.promotor)
+                    postTop3(this.state.keuze1, this.state.keuze2, this.state.keuze3, state.auth.user.email)
                 )
                 .then(() => {
                     this.setState({
                         successful: true,
+                        submitted:true
                     });
                 })
                 .catch(() => {
                     this.setState({
                         successful: false,
+                        submitted:false
                     });
                 });
         }
@@ -149,6 +169,8 @@ export default class TopSubjects extends Component {
         console.log("content:",content);
         const { message } = this.props;
         const animatedComponents = makeAnimated();
+
+
 
         return (
             <div className="container">
@@ -170,13 +192,13 @@ export default class TopSubjects extends Component {
                                     <label htmlFor="subject1">First Choice</label>
                                     <Select
                                         components={animatedComponents}
-                                        closeMenuOnSelect={false}
+                                        closeMenuOnSelect={true}
                                         className="basic-single-select"
                                         name="subject1"
                                         value={this.state.subject1}
                                         onChange={this.onChangeSubject1}
                                         validations={[required]}
-                                        options={content}
+                                        options={content.filter(subject => subject.approved)}
                                         getOptionLabel={(option) => option.name}
                                         getOptionValue={(option) => option.name}
                                         classNamePrefix="select"
@@ -194,11 +216,10 @@ export default class TopSubjects extends Component {
                                         value={this.state.subject2}
                                         onChange={this.onChangeSubject2}
                                         validations={[required]}
-                                        options={content}
+                                        options={content.filter(subject => subject.approved)}
                                         getOptionLabel={(option) => option.name}
                                         getOptionValue={(option) => option.name}
                                         classNamePrefix="select"
-                                        isMulti
                                         defaultOptions={false}
                                     />
                                 </div>
@@ -213,7 +234,7 @@ export default class TopSubjects extends Component {
                                         value={this.state.subject3}
                                         onChange={this.onChangeSubject3}
                                         validations={[required]}
-                                        options={content}
+                                        options={content.filter(subject => subject.approved)}
                                         getOptionLabel={(option) => option.name}
                                         getOptionValue={(option) => option.name}
                                         classNamePrefix="select"
@@ -246,3 +267,12 @@ export default class TopSubjects extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    const { message } = state.message;
+    return {
+        message,
+    };
+}
+
+export default connect(mapStateToProps)(TopSubjects);

@@ -1,15 +1,15 @@
 import {
-    SHOW_SUBJECT_SUCCESS,
-    SHOW_SUBJECT_FAIL, SET_MESSAGE
+    TARGET_SUBJECT_SUCCESS,
+    TARGET_SUBJECT_FAIL, SET_MESSAGE
 } from "./types";
 
 import subjectService from "../services/subject.service";
 
-export const showSubject = () => (dispatch) => {
-    return subjectService.getSubject().then(
+export const getTargetSubjects = (mail) => (dispatch) => {
+    return subjectService.getTargetSubjects(mail).then(
         (response) => {
             dispatch({
-                type: SHOW_SUBJECT_SUCCESS,
+                type: TARGET_SUBJECT_SUCCESS,
             });
 
             dispatch({
@@ -28,7 +28,7 @@ export const showSubject = () => (dispatch) => {
                 error.toString();
 
             dispatch({
-                type: SHOW_SUBJECT_FAIL,
+                type: TARGET_SUBJECT_FAIL,
             });
 
             dispatch({

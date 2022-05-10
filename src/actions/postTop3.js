@@ -1,15 +1,15 @@
 import {
-    SHOW_SUBJECT_SUCCESS,
-    SHOW_SUBJECT_FAIL, SET_MESSAGE
+    POST_TOP3_SUCCESS,
+    POST_TOP3_FAIL, SET_MESSAGE
 } from "./types";
 
-import subjectService from "../services/subject.service";
+import personService from "../services/person.service";
 
-export const showSubject = () => (dispatch) => {
-    return subjectService.getSubject().then(
+export const postTop3 = (keuze1, keuze2, keuze3, mail) => (dispatch) => {
+    return personService.postTop3(keuze1,keuze2,keuze3, mail).then(
         (response) => {
             dispatch({
-                type: SHOW_SUBJECT_SUCCESS,
+                type: POST_TOP3_SUCCESS,
             });
 
             dispatch({
@@ -28,7 +28,7 @@ export const showSubject = () => (dispatch) => {
                 error.toString();
 
             dispatch({
-                type: SHOW_SUBJECT_FAIL,
+                type: POST_TOP3_FAIL,
             });
 
             dispatch({

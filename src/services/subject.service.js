@@ -73,6 +73,15 @@ class SubjectService{
         return axios.post("http://localhost:8080/api/v1/subject/reedsgoedgekeurd", config);
     }
 
+    getTargetSubjects(mail) {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken },
+            params: { mail : mail }
+        };
+
+        return axios.get("http://localhost:8080/api/v1/subject/targetsubjects", config);
+    }
+
 }
 
 export default new SubjectService();

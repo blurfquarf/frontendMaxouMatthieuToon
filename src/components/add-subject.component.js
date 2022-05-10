@@ -12,7 +12,7 @@ import autosize from 'autosize';
 import {coProsSubject} from "../actions/coProsSubject";
 import subjectService from "../services/subject.service";
 import CampusService from "../services/campus.service";
-import PromotorService from "../services/promotor.service";
+import PromotorService from "../services/person.service";
 
 class AddSubject extends Component {
 
