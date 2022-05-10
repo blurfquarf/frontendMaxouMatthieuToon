@@ -12,6 +12,22 @@ h1 {
   text-align: center;
 }
 
+.judge-card-container{
+  flex: 0 0 33.333%;
+  display: flex;
+  padding: 40px 40px;
+  background: #fff;
+  margin: 2px;
+}
+
+.judge-card {
+  box-shadow: 0 1px 1rem -4px #000;
+  flex: 0 0 100%;
+  border-radius: 6px;
+  display:flex;
+
+}
+
 .big-card-container.card {
   width: 500px !important;
   padding: 40px 40px;
@@ -47,6 +63,49 @@ h1 {
   border-radius: 50%;
 }
 
+
+/*navbar css*/
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap:25px;
+}
+
+#toggler ,
+  .navbar label {
+    display: none;
+  }
+
+@media screen and (max-width: 950px) {
+  .menu {
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+  }
+  .nav-list {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  .navbar label {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  #toggler:checked ~ .menu{
+    max-height: 100%;
+  }
+}
+
+
 .navbar-custom {
   background-color: #004070;
 }
@@ -63,6 +122,51 @@ h1 {
 .navbar-custom .nav-item.active .nav-link,
 .navbar-custom .nav-item:hover .nav-link {
   color: #ffffff;
+}
+
+/*cards show subject css*/
+.subject-wrapper{
+  margin: 2rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  justify-content: center;
+}
+
+.subject-card {
+  box-shadow: 0 1px 1rem -4px #000;
+  border-radius: 6px;
+  min-width: 28rem;
+  display: flex;
+}
+
+@media screen and (min-width: 765px) {
+  .subject-wrapper {
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 16rem));
+  }
+  .subject-card {
+    flex-direction: column;
+    min-width: 14rem;
+  }
+}
+
+/* card login && card add subject*/
+.big-card-wrapper {
+  margin: 2rem;
+  justify-content: center;
+  display: flex;
+}
+.big-card{
+  box-shadow: 0 1px 1rem -4px #000;
+  border-radius: 6px;
+  max-width: 30rem;
+  padding: 20px;
+}
+
+@media screen and (min-width: 600px) {
+  .big-card {
+    min-width: 30rem;
+  }
 }
 
 .link-btn {
@@ -112,10 +216,6 @@ h1 {
   border-radius: 6px;
   cursor: pointer;
   transition: all 250ms ease-in-out;
-}
-
-.card-content {
-  padding: 1rem;
 }
 
 .subj-details-title{

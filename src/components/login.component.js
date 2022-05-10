@@ -81,8 +81,8 @@ class Login extends Component {
     }
 
     return (
-      <div className="col-md-12 center-content">
-        <div className="card card-container">
+      <div className="col-md-12 big-card-wrapper">
+        <div className="big-card">
           <img
             src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
             alt="profile-img"

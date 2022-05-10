@@ -64,8 +64,8 @@ class JudgeSubject extends Component {
     render() {
         const {content} = this.state;
         return (
-            <Container >
-                <Row xs={3} className="center-content">
+            <Container fluid>
+                <div className="subject-wrapper" >
                     {content.filter((content) => content.reedsGoedgekeurd === false).map(subject => {
                         let campussen;
                         if(subject.campussen.length != 0){
@@ -98,8 +98,8 @@ class JudgeSubject extends Component {
                             </ListGroupItem>)
                         }
                         return (
-                            <Col key={subject.id}>
-                                <Card className="card cards-container">
+                            <div key={subject.id}>
+                                <Card className="subject-card">
                                     <CardBody>
                                         <CardTitle tag="h5">{subject.name}</CardTitle>
                                         <CardText>
@@ -115,10 +115,10 @@ class JudgeSubject extends Component {
                                     <Button onClick={(event) => this.handleSubject(event,false, subject.id-1)} className="btn btn-danger judge-subjects-btn">Reject</Button>
                                     <Link to={`/subjectDetails/${subject.id}`} className="btn btn-primary judge-subjects-btn">Details</Link>
                                 </Card>
-                            </Col>
+                            </div>
                         )
                     })}
-                </Row>
+                </div>
             </Container>
         );
     }

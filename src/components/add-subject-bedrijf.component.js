@@ -132,7 +132,7 @@ class AddSubjectBedrijf extends Component {
         const isSubmitted = this.state.isSubmitted;
         let content;
         if(!isSubmitted) {
-            content = (<div className="card card-container">
+            content = (<div className="big-card ">
                 <h1>Add Subject</h1>
                 <Form
                     onSubmit={this.handleSubject}
@@ -229,15 +229,15 @@ class AddSubjectBedrijf extends Component {
                 </Form>
             </div>);
         }
-        else (
+        else {
             content = (
-                <div className="card card-container">
-                    <h2 style={{textAlign:"center"}}>Your subject was submitted!</h2>
-                    <p className="center-content">It is now up to the coordinator to approve or reject your subject.</p>
+                <div className="big-card">
+                    <h2>Your subject was submitted!</h2>
+                    <p>It is now up to the coordinator to approve or reject your subject.</p>
                 </div>)
-        )
+        }
         return (
-            <div className="center-content" >{content}</div>
+            <div className="big-card-wrapper" >{content}</div>
         );
     }
 }

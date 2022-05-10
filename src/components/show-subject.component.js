@@ -45,69 +45,67 @@ export default class ShowSubject extends Component {
 
         return (
             <div>
-                <div >
-                    <Row xs={2} className="center-content">
-                        <Col>
-                            <h1>Subjects</h1>
-                        </Col>
-                        <Col>
-                            <div style={{float: "right"}}>
-                                <Link className="btn btn-primary link-btn" to="/topSubjects">Submit Top 3</Link>
+                <Row xs={2} className="center-content">
+                    <Col>
+                        <h1>Subjects</h1>
+                    </Col>
+                    <Col>
+                        <div style={{float: "right"}}>
+                            <Link className="btn btn-primary link-btn" to="/topSubjects">Submit Top 3</Link>
+                        </div>
+                    </Col>
+                </Row>
+                <div className="subject-wrapper">
+                    {content.map(content => {
+                        let campussen;
+                        if(content.campussen.length != 0){
+                            campussen = (<ListGroupItem>
+                                <Row xs={2}>
+                                    <Col className="col-1"><HiLocationMarker /></Col>
+                                    <Col style={{display:"flex"}}>
+                                        <ul>
+                                            {content.campussen.map(function(d, idx){
+                                                return (<li key={idx}  className="campus-li">{d.name}</li>)
+                                            })}
+                                        </ul>
+                                    </Col>
+                                </Row>
+                            </ListGroupItem>)
+                        }
+                        let copromotoren;
+                        if(content.copromotoren.length !=0){
+                            copromotoren = (<ListGroupItem>
+                                <Row xs={2}>
+                                    <Col className="col-1"><BsFillPersonFill/> </Col>
+                                    <Col>
+                                        <ul>
+                                            {content.copromotoren.map(function(d, idx){
+                                                return (<li key={idx}  className="campus-li">{d.name}</li>)
+                                            })}
+                                        </ul>
+                                    </Col>
+                                </Row>
+                            </ListGroupItem>)
+                        }
+                        return (
+                            <div key={content.id} >
+                                <Card className="subject-card">
+                                    <CardBody>
+                                        <CardTitle tag="h5">{content.name}</CardTitle>
+                                        <CardText>
+                                            {content.description}
+                                        </CardText>
+                                    </CardBody>
+                                    <ListGroup className="list-group-flush">
+                                        {campussen}
+                                        <ListGroupItem><BsPersonSquare />{content.promotor}</ListGroupItem>
+                                        {copromotoren}
+                                    </ListGroup>
+                                    <Link to={`/subjectDetails/${content.id}`} className="btn btn-primary">Details</Link>
+                                </Card>
                             </div>
-                        </Col>
-                    </Row>
-                    <Row xs={3} className="center-content">
-                        {content.map(content => {
-                            let campussen;
-                            if(content.campussen.length != 0){
-                                campussen = (<ListGroupItem>
-                                    <Row xs={2}>
-                                        <Col className="col-1"><HiLocationMarker /></Col>
-                                        <Col style={{display:"flex"}}>
-                                            <ul>
-                                                {content.campussen.map(function(d, idx){
-                                                    return (<li key={idx}  className="campus-li">{d.name}</li>)
-                                                })}
-                                            </ul>
-                                        </Col>
-                                    </Row>
-                                </ListGroupItem>)
-                            }
-                            let copromotoren;
-                            if(content.copromotoren.length !=0){
-                                copromotoren = (<ListGroupItem>
-                                    <Row xs={2}>
-                                        <Col className="col-1"><BsFillPersonFill/> </Col>
-                                        <Col>
-                                            <ul>
-                                                {content.copromotoren.map(function(d, idx){
-                                                    return (<li key={idx}  className="campus-li">{d.name}</li>)
-                                                })}
-                                            </ul>
-                                        </Col>
-                                    </Row>
-                                </ListGroupItem>)
-                            }
-                            return (
-                                <Col key={content.id}>
-                                    <Card className="small-card small-cards-container">
-                                        <CardBody>
-                                            <CardTitle tag="h5">{content.name}</CardTitle>
-                                            <CardText>
-                                                {content.description}
-                                            </CardText>
-                                        </CardBody>
-                                        <ListGroup className="list-group-flush">
-                                            {campussen}
-                                            <ListGroupItem><BsPersonSquare />{content.promotor}</ListGroupItem>
-                                            {copromotoren}
-                                        </ListGroup>
-                                        <Link to={`/subjectDetails/${content.id}`} className="btn btn-primary">Details</Link>
-                                    </Card>
-                                </Col>
-                            );
-                        })}
-                    </Row>
+                        );
+                    })}
                 </div>
             </div>
         );

@@ -16,14 +16,6 @@ import BoardCoordinator from "./components/board-coordinator.component";
 import BoardPromotor from "./components/board-promotor.component";
 import AddSubject from "./components/add-subject.component";
 import ShowSubject from "./components/show-subject.component";
-import judgeSubject from "./components/judgeSubjects.component";
-
-
-import { logout } from "./actions/auth";
-import { clearMessage } from "./actions/message";
-
-import { history } from './helpers/history';
-
 // import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -39,6 +31,17 @@ import AddSubjectBedrijf from "./components/add-subject-bedrijf.component";
 import ProtectedRoutePromotor from "./components/ProtectedRoutePromotor";
 import ListSubjectsPromotor from "./components/ListSubjectsPromotor.component";
 import SubjectDetailsPromotor from "./components/subjectDetailsPromotor.component";
+import ProtectedRouteCoordinator from "./components/ProtectedRouteCoordinator";
+import StudentToewijzing from "./components/studentToewijzing.component";
+
+
+import { logout } from "./actions/auth";
+import { clearMessage } from "./actions/message";
+
+import { history } from './helpers/history';
+import {RiMenuLine} from "react-icons/all";
+
+
 
 class App extends Component {
   constructor(props) {
@@ -100,100 +103,110 @@ class App extends Component {
       <Router history={history}>
         <div>
           <nav className="navbar navbar-expand-sm navbar-custom">
-            <Link to={"/"} className="navbar-brand">
+            <Link to={"/"} className="navbar-brand ">
               KU LEUVEN
             </Link>
 
-            <div className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <Link to={"/home"} className="nav-link">
-                  Home
-                </Link>
-              </li>
+            <input type="checkbox" id="toggler" />
+            <label htmlFor="toggler"><RiMenuLine/></label>
 
-              {showCoordinatorBoard && (
-                  <li className="nav-item">
-                    <Link to={"/student toewijzing"} className="nav-link">
-                      Student toewijzing
-                    </Link>
-                  </li>
-              )}
-
-              {showCoordinatorBoard && (
-                  <li className="nav-item">
-                    <Link to={"/judgeSubjects"} className="nav-link">
-                      Subjects
-                    </Link>
-                  </li>
-              )}
-
-              {showStudentBoard && (
+            <div className="navbar-nav mr-auto menu">
+              <ul className="nav-list">
                 <li className="nav-item">
-                  <Link to={"/addSubject"} className="nav-link">
-                    Add Subject
+                  <Link to={"/home"} className="nav-link">
+                    Home
                   </Link>
                 </li>
-              )}
 
-              {showStudentBoard && (
-                  <li className="nav-item">
-                    <Link to={"/subjects"} className="nav-link">
-                       Subjects
-                    </Link>
-                  </li>
-              )}
+                {showCoordinatorBoard && (
+                    <li className="nav-item">
+                      <Link to={"/studentToewijzing"} className="nav-link">
+                        Student toewijzing
+                      </Link>
+                    </li>
+                )}
 
-              {showStudentBoard && (
-                  <li className="nav-item">
-                    <Link to={"/student"} className="nav-link">
-                      Student Dashboard
-                    </Link>
-                  </li>
-              )}
+                {showCoordinatorBoard && (
+                    <li className="nav-item">
+                      <Link to={"/judgeSubjects"} className="nav-link">
+                        Subjects
+                      </Link>
+                    </li>
+                )}
 
-              {showBedrijfBoard && (
-                  <li className="nav-item">
-                    <Link to={"/addSubjectBedrijf"} className="nav-link">
-                      Add subject
-                    </Link>
-                  </li>
-              )}
+                {showStudentBoard && (
+                    <li className="nav-item">
+                      <Link to={"/addSubject"} className="nav-link">
+                        Add Subject
+                      </Link>
+                    </li>
+                )}
 
-              {showPromotorBoard && (
-                  <li className="nav-item">
-                    <Link to={`/listSubjectsPromotor/${this.props.user.username}`} className="nav-link">
-                      Boost Students
-                    </Link>
-                  </li>
-              )}
+                {showStudentBoard && (
+                    <li className="nav-item">
+                      <Link to={"/subjects"} className="nav-link">
+                        Subjects
+                      </Link>
+                    </li>
+                )}
+
+                {showStudentBoard && (
+                    <li className="nav-item">
+                      <Link to={"/student"} className="nav-link">
+                        Student Dashboard
+                      </Link>
+                    </li>
+                )}
+
+                {showBedrijfBoard && (
+                    <li className="nav-item">
+                      <Link to={"/addSubjectBedrijf"} className="nav-link">
+                        Add subject
+                      </Link>
+                    </li>
+                )}
+
+                {showPromotorBoard && (
+                    <li className="nav-item">
+                      <Link to={`/listSubjectsPromotor/${this.props.user.username}`} className="nav-link">
+                        Boost Students
+                      </Link>
+                    </li>
+                )}
+              </ul>
+
             </div>
 
             {currentUser ? (
-              <div className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link to={"/profile"} className="nav-link">
-                    {currentUser.username}
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <a href="/login" className="nav-link" onClick={this.logOut}>
-                    LogOut
-                  </a>
-                </li>
+              <div className="navbar-nav ml-auto menu">
+                <ul className="nav-list">
+                  <li className="nav-item">
+                    <Link to={"/profile"} className="nav-link">
+                      {currentUser.username}
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <a href="/login" className="nav-link" onClick={this.logOut}>
+                      LogOut
+                    </a>
+                  </li>
+                </ul>
               </div>
             ) : (
-              <div className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link to={"/login"} className="nav-link">
-                    Login
-                  </Link>
-                </li>
+              <div className="navbar-nav ml-auto menu">
+                <ul className="nav-list">
+                  <li className="nav-item">
+                    <Link to={"/login"} className="nav-link">
+                      Login
+                    </Link>
+                  </li>
 
-                <li className="nav-item">
-                  <Link to={"/register"} className="nav-link">
-                    Registreren als bedrijf
-                  </Link>
-                </li>
+                  <li className="nav-item">
+                    <Link to={"/register"} className="nav-link">
+                      Registreren als bedrijf
+                    </Link>
+                  </li>
+                </ul>
               </div>
             )}
           </nav>
@@ -218,6 +231,7 @@ class App extends Component {
               <ProtectedRouteBedrijf exact path="/addSubjectBedrijf" component={AddSubjectBedrijf} />
               <ProtectedRoutePromotor exact path="/listSubjectsPromotor:name" component={ListSubjectsPromotor} />
               <ProtectedRoutePromotor exact path="/subjectDetailsPromotor:id" component={SubjectDetailsPromotor} />
+              <ProtectedRouteCoordinator exact path="/studentToewijzing" component={StudentToewijzing}/>
 
             </Switch>
           </div>

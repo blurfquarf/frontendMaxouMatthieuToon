@@ -75,9 +75,9 @@ class AddSubject extends Component {
         });
     }
 
-    onChangePromotor(e) {
+    onChangePromotor = (selectedOption) => {
         this.setState({
-            promotor: e.target.value,
+            promotor: selectedOption,
         });
     }
 
@@ -160,7 +160,7 @@ class AddSubject extends Component {
         const isSubmitted = this.state.isSubmitted;
         let content;
         if(!isSubmitted) {
-            content = (<div className="card big-card-container">
+            content = (<div className="big-card ">
                 <h1>Add Subject</h1>
                 <Form
                     onSubmit={this.handleSubject}
@@ -199,7 +199,7 @@ class AddSubject extends Component {
                                 <label htmlFor="campus">Campus</label>
                                 <Select
                                     components={animatedComponents}
-                                    closeMenuOnSelect={false}
+                                    closeMenuOnSelect={true}
                                     className="basic-multi-select"
                                     name="campus"
                                     value={this.state.campus}
@@ -216,13 +216,18 @@ class AddSubject extends Component {
 
                             <div className="form-group">
                                 <label htmlFor="promotor">Promotor (mail-address)</label>
-                                <Input
-                                    required
-                                    type="text"
-                                    className="form-control"
+                                <Select
+                                    components={animatedComponents}
+                                    closeMenuOnSelect={true}
+                                    className="basic-multi-select"
                                     name="promotor"
                                     value={this.state.promotor}
                                     onChange={this.onChangePromotor}
+                                    options={this.state.contentPromotor}
+                                    getOptionLabel={(option) => option.email}
+                                    getOptionValue={(option) => option.id}
+                                    classNamePrefix="select"
+                                    defaultOptions={false}
                                 />
                             </div>
 
@@ -230,14 +235,14 @@ class AddSubject extends Component {
                                 <label htmlFor="coPros">Co-promotors (mail-address)</label>
                                 <Select
                                     components={animatedComponents}
-                                    closeMenuOnSelect={false}
+                                    closeMenuOnSelect={true}
                                     className="basic-multi-select"
                                     name="coPros"
                                     value={this.state.coPros}
                                     onChange={this.onChangeCoPros}
                                     options={this.state.contentPromotor}
                                     getOptionLabel={(option) => option.email}
-                                    getOptionValue={(option) => option.email}
+                                    getOptionValue={(option) => option.id}
                                     classNamePrefix="select"
                                     isMulti
                                     defaultOptions={false}
@@ -277,120 +282,15 @@ class AddSubject extends Component {
                 </Form>
             </div>);
         }
-        else (
+        else {
             content = (
-                <div className="card card-container">
-                    <h2 style={{textAlign:"center"}}>Your subject was submitted!</h2>
-                    <p className="center-content">It is now up to the coordinator to approve or reject your subject.</p>
+                <div className="big-card">
+                    <h2>Your subject was submitted!</h2>
+                    <p>It is now up to the coordinator to approve or reject your subject.</p>
                 </div>)
-        )
+        }
         return (
-            <div className="center-content" >
-                <div className="card card-container">
-                    <h1>Add Subject</h1>
-                    <Form
-                        onSubmit={this.handleSubject}
-                        ref={(c) => {
-                            this.form = c;
-                        }}
-                    >
-                        {!this.state.successful && (
-                            <div>
-                                <div className="form-group">
-                                    <label htmlFor="title">Title</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="title"
-                                        value={this.state.title}
-                                        onChange={this.onChangeTitle}
-                                        required
-                                    />
-                                </div>
-
-
-                                <div className="form-group">
-                                    <label htmlFor="campus">Campus</label>
-                                    <Select
-                                        components={animatedComponents}
-                                        closeMenuOnSelect={false}
-                                        className="basic-multi-select"
-                                        name="campus"
-                                        value={this.state.campus}
-                                        onChange={this.onChangeCampus}
-                                        options={this.state.contentCampus}
-                                        getOptionLabel={(option) => option.name}
-                                        getOptionValue={(option) => option.name}
-                                        classNamePrefix="select"
-                                        isMulti
-                                        defaultOptions={false}
-                                    />
-                                </div>
-
-
-                                <div className="form-group">
-                                    <label htmlFor="promotor">Promotor (mail-adres)</label>
-                                    <Input
-                                        required
-                                        type="text"
-                                        className="form-control"
-                                        name="promotor"
-                                        value={this.state.promotor}
-                                        onChange={this.onChangePromotor}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="coPros">Co-promotoren (mail-adres)</label>
-                                    <Select
-                                        components={animatedComponents}
-                                        closeMenuOnSelect={false}
-                                        className="basic-multi-select"
-                                        name="coPros"
-                                        value={this.state.coPros}
-                                        onChange={this.onChangeCoPros}
-                                        options={this.state.contentPromotor}
-                                        getOptionLabel={(option) => option.email}
-                                        getOptionValue={(option) => option.email}
-                                        classNamePrefix="select"
-                                        isMulti
-                                        defaultOptions={false}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="description">Description</label>
-                                    <textarea
-                                        className="form-control"
-                                        name="description"
-                                        value={this.state.description}
-                                        onChange={this.onChangeDescription}
-                                        required
-                                        ref={c=>this.textarea=c}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <button className="btn btn-primary btn-block">Add</button>
-                                </div>
-                            </div>
-                        )}
-                        {message && (
-                            <div className="form-group">
-                                <div className={ this.state.successful ? "alert alert-success" : "alert alert-danger" } role="alert">
-                                    {message}
-                                </div>
-                            </div>
-                        )}
-                        <CheckButton
-                            style={{ display: "none" }}
-                            ref={(c) => {
-                                this.checkBtn = c;
-                            }}
-                        />
-                    </Form>
-                </div>
-            </div>
+            <div className="big-card-wrapper">{content}</div>
         );
     }
 }
