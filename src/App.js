@@ -43,6 +43,28 @@ import {RiMenuLine} from "react-icons/all";
 
 
 
+//indienen als promotor
+const indienenPromotorStart = new Date(2022, 2, 8);
+const indienenPromotorEind = new Date(2022, 3, 30);
+
+//goedkeuren
+const goedkeurenStart = indienenPromotorStart;
+const goedkeurenEind = new Date(2022, 3, 31);
+
+//keuzeStudent
+const keuzeStudentStart = new Date(2022, 4, 1);
+const keuzeStudentEind = new Date(2022, 4, 30);
+
+//boost
+const boostStart = new Date(2022, 5, 1);
+const boostEind = new Date(2022, 5, 15);
+
+//finaletoewijzing
+const toewijzingStart = new Date(2022, 5, 16);
+const toewijzingEind = new Date(2022, 5, 20);
+
+
+
 class App extends Component {
   constructor(props) {
     super(props);
