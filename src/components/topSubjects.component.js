@@ -24,12 +24,26 @@ const CardContainer = (props) => (
             props.cards.filter(subject => subject.approved).map((card) => {
                 let promotor;
                 if(card.promotor != null){
-                    promotor = (<ListGroupItem><BsPersonSquare/>{card.promotor.username}</ListGroupItem>);
+                    promotor = (<ListGroupItem>
+                        <Row xs={2}>
+                            <Col className="col-1"><BsPersonSquare/></Col>
+                            <Col style={{display: "flex"}} className="col-10">
+                                <p>{card.promotor.username}</p>
+                            </Col>
+                        </Row>
+                    </ListGroupItem>);
                 }
                 else {
-                    promotor = (<ListGroupItem><BsPersonSquare /><p>no promotor available yet</p></ListGroupItem>);
+                    promotor = (<ListGroupItem>
+                        <Row xs={2}>
+                            <Col className="col-1"><BsPersonSquare/></Col>
+                            <Col style={{display: "flex"}} className="col-10">
+                                <p>no promotor available yet</p>
+                            </Col>
+                        </Row>
+                    </ListGroupItem>);
                 }
-                return (<Card key={card.id} className="small-card small-cards-container">
+                return (<Card key={card.id} className="small-card small-cards-container" style={{textAlign:"center"}}>
                         <CardBody>
                             <CardTitle tag="h5">{card.name}</CardTitle>
                             <CardText>
@@ -40,10 +54,10 @@ const CardContainer = (props) => (
                             <ListGroupItem>
                                 <Row xs={2}>
                                     <Col className="col-1"><HiLocationMarker/></Col>
-                                    <Col style={{display: "flex"}}>
-                                        <ul>
+                                    <Col style={{display: "flex"}} className="col-10">
+                                        <ul className="campus-ul">
                                             {card.campussen.map(function (d, idx) {
-                                                return (<li key={idx} className="campus-li">{d.name}</li>)
+                                                return (<li key={idx} style={{listStyleType:"none"}}>{d.name}</li>)
                                             })}
                                         </ul>
                                     </Col>
@@ -81,32 +95,38 @@ class TopSubjects extends Component {
 
         this.state = {
             content: [],
-            subject1: "",
-            subject2:"",
-            subject3:"",
-            successful:false,
-            submitted:false
+            subject1: [],
+            keuze1:"",
+            subject2: [],
+            keuze2:"",
+            subject3: [],
+            keuze3:"",
+            successful: false,
+            submitted: false
         };
     }
 
     onChangeSubject1 = (selectedOption) => {
-        console.log(selectedOption);
+        console.log("keuze1", selectedOption.name);
         this.setState({
             subject1: selectedOption,
+            keuze1: selectedOption.name
         });
     }
 
     onChangeSubject2 = (selectedOption) => {
-        console.log(selectedOption);
+        console.log("keuze2",selectedOption);
         this.setState({
             subject2: selectedOption,
+            keuze2: selectedOption.name
         });
     }
 
     onChangeSubject3 = (selectedOption) => {
-        console.log(selectedOption);
+        console.log("keuze3",selectedOption);
         this.setState({
             subject3: selectedOption,
+            keuze3: selectedOption.name
         });
     }
 
@@ -169,100 +189,108 @@ class TopSubjects extends Component {
         console.log("content:",content);
         const { message } = this.props;
         const animatedComponents = makeAnimated();
+        const submitted = this.state.submitted;
 
+        let form;
+        if(!submitted)
+        {
+            form = (<div style={{marginTop:"2rem"}}>
+                <h1>Top 3 Subjects</h1>
+                <Form
+                    onSubmit={this.handleSubmit}
+                    ref={(c) => {
+                        this.form = c;
+                    }}
+                >
+                    {!this.state.successful && (
+                        <div>
+                            <div className="form-group">
+                                <label htmlFor="subject1">First Choice</label>
+                                <Select
+                                    components={animatedComponents}
+                                    closeMenuOnSelect={true}
+                                    className="basic-single-select"
+                                    name="subject1"
+                                    value={this.state.subject1}
+                                    onChange={this.onChangeSubject1}
+                                    validations={[required]}
+                                    options={content.filter(subject => subject.approved)}
+                                    getOptionLabel={(option) => option.name}
+                                    getOptionValue={(option) => option.name}
+                                    classNamePrefix="select"
+                                    defaultOptions={false}
+                                />
+                            </div>
 
+                            <div className="form-group">
+                                <label htmlFor="subject2">Second Choice</label>
+                                <Select
+                                    components={animatedComponents}
+                                    closeMenuOnSelect={true}
+                                    className="basic-single-select"
+                                    name="subject2"
+                                    value={this.state.subject2}
+                                    onChange={this.onChangeSubject2}
+                                    validations={[required]}
+                                    options={content.filter(subject => subject.approved)}
+                                    getOptionLabel={(option) => option.name}
+                                    getOptionValue={(option) => option.name}
+                                    classNamePrefix="select"
+                                    defaultOptions={false}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="subject3">Third Choice</label>
+                                <Select
+                                    components={animatedComponents}
+                                    closeMenuOnSelect={true}
+                                    className="basic-single-select"
+                                    name="subject3"
+                                    value={this.state.subject3}
+                                    onChange={this.onChangeSubject3}
+                                    validations={[required]}
+                                    options={content.filter(subject => subject.approved)}
+                                    getOptionLabel={(option) => option.name}
+                                    getOptionValue={(option) => option.name}
+                                    classNamePrefix="select"
+                                    defaultOptions={false}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <button className="btn btn-primary btn-block">Submit Preferences</button>
+                            </div>
+                        </div>
+                    )}
+                    {message && (
+                        <div className="form-group">
+                            <div className={ this.state.successful ? "alert alert-success" : "alert alert-danger" } role="alert">
+                                {message}
+                            </div>
+                        </div>
+                    )}
+                    <CheckButton
+                        style={{ display: "none" }}
+                        ref={(c) => {
+                            this.checkBtn = c;
+                        }}
+                    />
+                </Form>
+            </div>);
+        }
+        else{
+            form = (<div className="big-card">
+                <h2>Your Top 3 subjects were submitted!</h2>
+                <p>It is now up to the coordinator to assign you one of the subjects you chose!</p>
+            </div>);
+        }
 
         return (
             <div className="container">
                 <div>
                     <CardContainer cards={content}/>
                 </div>
-
-                <div style={{marginTop:"2rem"}}>
-                    <h1>Top 3 Subjects</h1>
-                    <Form
-                        onSubmit={this.handleSubmit}
-                        ref={(c) => {
-                            this.form = c;
-                        }}
-                    >
-                        {!this.state.successful && (
-                            <div>
-                                <div className="form-group">
-                                    <label htmlFor="subject1">First Choice</label>
-                                    <Select
-                                        components={animatedComponents}
-                                        closeMenuOnSelect={true}
-                                        className="basic-single-select"
-                                        name="subject1"
-                                        value={this.state.subject1}
-                                        onChange={this.onChangeSubject1}
-                                        validations={[required]}
-                                        options={content.filter(subject => subject.approved)}
-                                        getOptionLabel={(option) => option.name}
-                                        getOptionValue={(option) => option.name}
-                                        classNamePrefix="select"
-                                        defaultOptions={false}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="subject2">Second Choice</label>
-                                    <Select
-                                        components={animatedComponents}
-                                        closeMenuOnSelect={true}
-                                        className="basic-single-select"
-                                        name="subject2"
-                                        value={this.state.subject2}
-                                        onChange={this.onChangeSubject2}
-                                        validations={[required]}
-                                        options={content.filter(subject => subject.approved)}
-                                        getOptionLabel={(option) => option.name}
-                                        getOptionValue={(option) => option.name}
-                                        classNamePrefix="select"
-                                        defaultOptions={false}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="subject3">Third Choice</label>
-                                    <Select
-                                        components={animatedComponents}
-                                        closeMenuOnSelect={true}
-                                        className="basic-single-select"
-                                        name="subject3"
-                                        value={this.state.subject3}
-                                        onChange={this.onChangeSubject3}
-                                        validations={[required]}
-                                        options={content.filter(subject => subject.approved)}
-                                        getOptionLabel={(option) => option.name}
-                                        getOptionValue={(option) => option.name}
-                                        classNamePrefix="select"
-                                        defaultOptions={false}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <button className="btn btn-primary btn-block">Submit Preferences</button>
-                                </div>
-                            </div>
-                        )}
-                        {message && (
-                            <div className="form-group">
-                                <div className={ this.state.successful ? "alert alert-success" : "alert alert-danger" } role="alert">
-                                    {message}
-                                </div>
-                            </div>
-                        )}
-                        <CheckButton
-                            style={{ display: "none" }}
-                            ref={(c) => {
-                                this.checkBtn = c;
-                            }}
-                        />
-                    </Form>
-                </div>
-
-
+                <div className="big-card-wrapper">{form}</div>
             </div>
         );
     }

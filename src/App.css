@@ -202,8 +202,12 @@ h1 {
   overflow: auto;
 }
 
+.campus-ul {
+  padding-left: 0em;
+}
+
 .campus-li {
-  list-style-type: none;
+  list-style: none;
   text-align: left;
 }
 

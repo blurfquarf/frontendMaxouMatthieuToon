@@ -5,8 +5,6 @@ import {
     Col,
     Container, ListGroupItem, Row
 } from 'reactstrap';
-import {HiLocationMarker} from "react-icons/hi";
-import {BsFillPersonFill} from "react-icons/all";
 
 export default class subjectDetails extends Component {
     constructor(props) {

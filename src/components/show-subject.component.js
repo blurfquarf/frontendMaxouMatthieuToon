@@ -10,7 +10,6 @@ import {HiLocationMarker} from "react-icons/hi";
 import {BsFillPersonFill, BsPersonSquare} from "react-icons/all";
 import store from "../store";
 
-
 export default class ShowSubject extends Component {
     constructor(props) {
         super(props);
@@ -66,7 +65,7 @@ export default class ShowSubject extends Component {
                                 <Row xs={2}>
                                     <Col className="col-1"><HiLocationMarker /></Col>
                                     <Col style={{display:"flex"}}>
-                                        <ul>
+                                        <ul className="campus-ul">
                                             {subject.campussen.map(function(d, idx){
                                                 return (<li key={idx}  className="campus-li">{d.name}</li>)
                                             })}

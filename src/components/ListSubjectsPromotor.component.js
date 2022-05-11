@@ -7,23 +7,28 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Link} from "react-router-dom";
 import {HiLocationMarker} from "react-icons/hi";
-import {BsFillPersonFill, BsPersonSquare} from "react-icons/all";
+import {BsFillPersonFill, BsPeopleFill, BsPersonSquare} from "react-icons/all";
+import store from "../store";
 
 
-export default class ListSubjectsPromotor extends Component {
+export default class listSubjectsPromotor extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            content: []
+            content: [],
         };
     }
 
     componentDidMount(){
-        subjectService.getSubject().then(
+        const state = store.getState();
+        console.log(state.auth);
+        subjectService.getSperPro(state.auth.user.email).then(
             response => {
                 this.setState({
                     content: response.data,
                 });
+                console.log(response.data);
             },
             error => {
                 this.setState({
@@ -38,34 +43,20 @@ export default class ListSubjectsPromotor extends Component {
         );
     }
 
-
     render() {
         const {content} = this.state;
         console.log("username", this.props);
         return (
-            <Container >
+            <Container>
                 <Row xs={3} className="center-content">
-                    {content.filter(subject => subject.promotor == this.props.params.name).map(subject => {
-                        let campussen;
-                        if(subject.campussen.length != 0){
-                            campussen = (<ListGroupItem>
-                                <Row xs={2}>
-                                    <Col className="col-1"><HiLocationMarker /></Col>
-                                    <Col style={{display:"flex"}}>
-                                        <ul>
-                                            {subject.campussen.map(function(d, idx){
-                                                return (<li key={idx}  className="campus-li">{d.name}</li>)
-                                            })}
-                                        </ul>
-                                    </Col>
-                                </Row>
-                            </ListGroupItem>)
-                        }
+                    {content.map(subject => {
+                        console.log("subject", subject);
+                        console.log("content", content);
                         let copromotoren;
                         if(subject.copromotoren.length !=0){
                             copromotoren = (<ListGroupItem>
                                 <Row xs={2}>
-                                    <Col className="col-1"><BsFillPersonFill/> </Col>
+                                    <Col className="col-1"><BsFillPersonFill/></Col>
                                     <Col>
                                         <ul>
                                             {subject.copromotoren.map(function(d, idx){
@@ -86,9 +77,15 @@ export default class ListSubjectsPromotor extends Component {
                                         </CardText>
                                     </CardBody>
                                     <ListGroup className="list-group-flush">
-                                        {campussen}
-                                        <ListGroupItem><BsPersonSquare />{subject.promotor}</ListGroupItem>
                                         {copromotoren}
+                                        <ListGroupItem>
+                                            <Row xs={2}>
+                                                <Col className="col-1"><BsPeopleFill/></Col>
+                                                <Col>
+                                                    <p>{subject.gekozen}</p>
+                                                </Col>
+                                            </Row>
+                                        </ListGroupItem>
                                     </ListGroup>
                                     <Link to={`/subjectDetailsPromotor/${subject.id}`} className="btn btn-primary judge-subjects-btn">Details</Link>
                                 </Card>

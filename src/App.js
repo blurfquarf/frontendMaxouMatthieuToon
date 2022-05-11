@@ -29,7 +29,7 @@ import TopSubjects from "./components/topSubjects.component";
 import ProtectedRouteBedrijf from "./components/ProtectedRouteBedrijf";
 import AddSubjectBedrijf from "./components/add-subject-bedrijf.component";
 import ProtectedRoutePromotor from "./components/ProtectedRoutePromotor";
-import ListSubjectsPromotor from "./components/ListSubjectsPromotor.component";
+import listSubjectsPromotor from "./components/ListSubjectsPromotor.component";
 import SubjectDetailsPromotor from "./components/subjectDetailsPromotor.component";
 import ProtectedRouteCoordinator from "./components/ProtectedRouteCoordinator";
 import StudentToewijzing from "./components/studentToewijzing.component";
@@ -251,8 +251,8 @@ class App extends Component {
               <Route exact path="/subjectDetails/:id" component={subjectDetails} />
               <ProtectedRouteStudent exact path="/topSubjects" component={TopSubjects} />
               <ProtectedRouteBedrijf exact path="/addSubjectBedrijf" component={AddSubjectBedrijf} />
-              <ProtectedRoutePromotor exact path="/listSubjectsPromotor:name" component={ListSubjectsPromotor} />
-              <ProtectedRoutePromotor exact path="/subjectDetailsPromotor:id" component={SubjectDetailsPromotor} />
+              <ProtectedRoutePromotor exact path="/listSubjectsPromotor/:name" component={listSubjectsPromotor} />
+              <ProtectedRoutePromotor exact path="/subjectDetailsPromotor/:id" component={SubjectDetailsPromotor} />
               <ProtectedRouteCoordinator exact path="/studentToewijzing" component={StudentToewijzing}/>
 
             </Switch>

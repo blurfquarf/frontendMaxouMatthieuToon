@@ -5,6 +5,7 @@ import {
     Col,
     Container, ListGroupItem, Row
 } from 'reactstrap';
+import {BsPeopleFill} from "react-icons/all";
 
 export default class subjectDetailsPromotor extends Component {
     constructor(props) {
@@ -20,8 +21,6 @@ export default class subjectDetailsPromotor extends Component {
                 this.setState({
                     content: response.data,
                 });
-                console.log("response: ", response.data);
-                console.log("props.match.params.id: ", this.props.match.params.id);
             },
             error => {
                 this.setState({
@@ -46,7 +45,7 @@ export default class subjectDetailsPromotor extends Component {
                     if(content.campussen.length != 0){
                         campussen = (
                             <div style={{display:"flex"}}>
-                                <ul>
+                                <ul className="campus-ul">
                                     {content.campussen.map(function(d, idx){
                                         return (<li key={idx}  className="campus-li">{d.name}</li>)
                                     })}
@@ -67,10 +66,24 @@ export default class subjectDetailsPromotor extends Component {
                     else {
                         copromotoren = (
                             <div>
-                                <p>There are no co-promotors for this subject</p>
+                                <p>There are no co-promotors for this subject.</p>
                             </div>
                         )
                     }
+                    let studenten;
+                    if(content.gekozen != 0) {
+                        studenten = (<div style={{display:"flex"}}>
+                                <p>{content.gekozen}</p>
+                            </div>
+                        );
+                    }
+                    else {
+                        studenten = (<div>
+                                <p>This subject isn't chosen by a student yet.</p>
+                            </div>
+                        );
+                    }
+
                     return(
                         <Container key={content.id}>
                             <div>
@@ -87,11 +100,15 @@ export default class subjectDetailsPromotor extends Component {
                             </div>
                             <div>
                                 <h3>Promotor</h3>
-                                <p>{content.promotor}</p>
+                                <p>{content.promotor.username}</p>
                             </div>
                             <div>
                                 <h3>Co-promotors</h3>
                                 {copromotoren}
+                            </div>
+                            <div>
+                                <h3>Gekozen door:</h3>
+                                {studenten}
                             </div>
                         </Container>
                     );

@@ -13,6 +13,7 @@ import {coProsSubject} from "../actions/coProsSubject";
 import subjectService from "../services/subject.service";
 import CampusService from "../services/campus.service";
 import PromotorService from "../services/person.service";
+import store from "../store";
 
 class AddSubject extends Component {
 
@@ -91,7 +92,6 @@ class AddSubject extends Component {
 
         this.form.validateAll();
         const { dispatch } = this.props;
-
         if (this.checkBtn.context._errors.length === 0) {
             this.props
                 .dispatch(

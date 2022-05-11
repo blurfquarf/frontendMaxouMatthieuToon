@@ -3,7 +3,7 @@ import axios from "axios";
 const user = JSON.parse(localStorage.getItem("user"));
 
 class SubjectService{
-    postSubject(title,description,campussen,copromotoren,bedrijf,promotor) {
+    postSubject(title,description,campussen,copromotoren,bedrijf,promotor,opleiding) {
         const config = {
             headers: { Authorization: "Bearer " + user.accessToken}
         };
@@ -15,10 +15,13 @@ class SubjectService{
             copromotoren: copromotoren,
             bedrijf: bedrijf,
             promotor: promotor,
+            opleidingen: opleiding
         }
 
         return axios.post("http://localhost:8080/api/v1/subject", data, config);
     }
+
+
 
     getSubject(){
         return axios.get('http://localhost:8080/api/v1/subject', {
@@ -32,7 +35,6 @@ class SubjectService{
             headers: { Authorization: "Bearer " + user.accessToken},
             params: {subjectName : title, mail:proMail}
         };
-
 
         return axios.post("http://localhost:8080/api/v1/subject/pro", config);
     }
@@ -81,6 +83,32 @@ class SubjectService{
 
         return axios.get("http://localhost:8080/api/v1/subject/targetsubjects", config);
     }
+
+
+    //subjects per promotor
+    getSperPro(mail) {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken },
+            params: { mail : mail }
+        };
+
+        return axios.get("http://localhost:8080/api/v1/subject/subjectsprom", config);
+    }
+
+
+    //aantal stud per subj
+    getStudCount(subjectName) {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken },
+            params: { subjectName : subjectName }
+        };
+
+        return axios.get("http://localhost:8080/api/v1/subject/count", config);
+    }
+
+
+
+
 
 }
 
