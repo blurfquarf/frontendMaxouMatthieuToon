@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import {Link} from "react-router-dom";
 import {HiLocationMarker} from "react-icons/hi";
 import {BsFillPersonFill, BsPersonSquare} from "react-icons/all";
+import store from "../store";
 
 
 export default class ShowSubject extends Component {
@@ -19,7 +20,8 @@ export default class ShowSubject extends Component {
     }
 
     componentDidMount(){
-        subjectService.getSubject().then(
+        const state = store.getState();
+        subjectService.getTargetSubjects(state.auth.user.email).then(
             response => {
                 this.setState({
                     content: response.data
