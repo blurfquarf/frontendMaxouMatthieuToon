@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {Container} from "reactstrap";
+import store from "../store";
 
 class StudentToewijzing extends Component {
 
@@ -15,8 +16,8 @@ class StudentToewijzing extends Component {
     }
 
     componentDidMount(){
-        console.log("page mounted");
-        subjectService.getSubject().then(
+        const state = store.getState();
+        subjectService.getSubject(state.auth.user.email).then(
             response => {
                 this.setState({
                     content: response.data

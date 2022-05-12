@@ -249,6 +249,12 @@ h1 {
   align-self: stretch;
 }
 
+.BoostStudentView{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media screen and (max-width: 625px) {
   .container {
     width: 100%

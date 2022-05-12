@@ -21,15 +21,6 @@ class SubjectService{
         return axios.post("http://localhost:8080/api/v1/subject", data, config);
     }
 
-
-
-    getSubject(){
-        return axios.get('http://localhost:8080/api/v1/subject', {
-            headers: {
-                'Authorization': "Bearer " + user.accessToken}
-        });
-    }
-
     getOneSubject(name){
         return axios.get('http://localhost:8080/api/v1/subject/subjectdetails', {
             headers: {'Authorization': "Bearer " + user.accessToken},
@@ -133,6 +124,40 @@ class SubjectService{
 
         return axios.get("http://localhost:8080/api/v1/subject/bedrijven", config);
     }
+
+
+
+    ///////////////////////COORDINATOR
+
+    //met promotor
+    getSubject(email){
+        return axios.get('http://localhost:8080/api/v1/prosub', {
+            headers: {'Authorization': "Bearer " + user.accessToken},
+            params: {mail: email}
+        });
+    }
+
+
+    getSubjectsNoPro(email) {
+        const config ={
+            headers: { Authorization: "Bearer " + user.accessToken },
+            params: {mail: email}
+        }
+
+        return axios.get("http://localhost:8080/api/v1/subject/noproforu", config);
+    }
+
+    postPromotor(name, email) {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken},
+            params: {subjectName : name, mail: email}
+        };
+
+        const data = {};
+
+        return axios.post("http://localhost:8080/api/v1/subject/reedsgoedgekeurd",data, config);
+    }
+
 }
 
 export default new SubjectService();

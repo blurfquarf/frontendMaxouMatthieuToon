@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import subjectService from "../services/subject.service";
 import {
     Card, CardText, CardBody,
-    CardTitle, Container, Row, Col, ListGroup, ListGroupItem
+    CardTitle, Row, Col, ListGroup, ListGroupItem
 } from 'reactstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Link} from "react-router-dom";

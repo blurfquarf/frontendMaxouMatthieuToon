@@ -12,24 +12,38 @@ import {HiLocationMarker} from "react-icons/hi";
 import {BsFillPersonFill, BsPersonSquare} from "react-icons/all";
 import {connect} from "react-redux";
 import store from "../store";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
+import personService from "../services/person.service";
+import PromotorService from "../services/person.service";
 
-class JudgeSubject extends Component {
+class subjectAssignPromotor extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            content: []
+            content: [],
+            contentPromotor: [],
         };
         this.handleSubject = this.handleSubject.bind(this);
+        this.onChangePromotor = this.onChangePromotor.bind(this);
     }
+
+    onChangePromotor = (selectedOption, name) => {
+        let content = [...this.state.content];
+        let subject = content.find(subject => subject.name == name);
+        subject.promotor = selectedOption;
+        this.setState({content});
+    }
+
 
     componentDidMount(){
         const state = store.getState();
-        subjectService.getSubject(state.auth.user.email).then(
+        subjectService.getSubjectsNoPro(state.auth.user.email).then(
             response => {
                 this.setState({
                     content: response.data
-                });
+                }, () => console.log(response.data));
             },
 
             error => {
@@ -43,6 +57,30 @@ class JudgeSubject extends Component {
                 });
             }
         );
+        PromotorService.getPromotor().then(
+            response => {
+                this.setState({
+                    contentPromotor: response.data
+                });
+            },
+            error => {
+                this.setState({
+                    contentPromotor:
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString()
+                });
+            }
+        );
+    }
+
+    addPromotor(event, name) {
+        event.preventDefault();
+        const state = store.getState();
+        subjectService.postPromotor(name, state.auth.user.email);
+        window.location.reload(false);
     }
 
     handleSubject(event, bool, id) {
@@ -65,11 +103,11 @@ class JudgeSubject extends Component {
 
     render() {
         const {content} = this.state;
-        console.log(content);
+        const animatedComponents = makeAnimated();
         return (
             <Container fluid>
                 <div className="subject-wrapper" >
-                    {content.filter((content) => content.reedsGoedgekeurd === false).map(subject => {
+                    {content.map(subject => {
                         let campussen;
                         if(subject.campussen.length != 0){
                             campussen = (<ListGroupItem>
@@ -83,7 +121,7 @@ class JudgeSubject extends Component {
                                         </ul>
                                     </Col>
                                 </Row>
-                            </ListGroupItem>)
+                            </ListGroupItem>);
                         }
                         let copromotoren;
                         if(subject.copromotoren.length !=0){
@@ -100,28 +138,6 @@ class JudgeSubject extends Component {
                                 </Row>
                             </ListGroupItem>)
                         }
-
-                        let promotor;
-                        if(subject.promotor != null){
-                            promotor = (<ListGroupItem>
-                                <Row xs={2}>
-                                    <Col className="col-1"><BsPersonSquare/></Col>
-                                    <Col style={{display: "flex"}} className="col-10">
-                                        <p>{subject.promotor.username}</p>
-                                    </Col>
-                                </Row>
-                            </ListGroupItem>);
-                        }
-                        else {
-                            promotor = (<ListGroupItem>
-                                <Row xs={2}>
-                                    <Col className="col-1"><BsPersonSquare/></Col>
-                                    <Col style={{display: "flex"}} className="col-10">
-                                        <p>no promotor available yet</p>
-                                    </Col>
-                                </Row>
-                            </ListGroupItem>);
-                        }
                         return (
                             <div key={subject.id}>
                                 <Card className="subject-card">
@@ -133,11 +149,22 @@ class JudgeSubject extends Component {
                                     </CardBody>
                                     <ListGroup className="list-group-flush">
                                         {campussen}
-                                        {promotor}
                                         {copromotoren}
                                     </ListGroup>
-                                    <Button onClick={(event) => this.handleSubject(event,true, subject.id)} className="btn btn-success judge-subjects-btn">Approve</Button>
-                                    <Button onClick={(event) => this.handleSubject(event,false, subject.id)} className="btn btn-danger judge-subjects-btn">Reject</Button>
+                                    <Select
+                                        components={animatedComponents}
+                                        closeMenuOnSelect={true}
+                                        className="basic-multi-select"
+                                        name="promotor"
+                                        value={this.state.content.promotor}
+                                        onChange={(selectedOption) => this.onChangePromotor(selectedOption, subject.name)}
+                                        options={this.state.contentPromotor}
+                                        getOptionLabel={(option) => option.username}
+                                        getOptionValue={(option) => option.email}
+                                        classNamePrefix="select"
+                                        defaultOptions={false}
+                                    />
+                                    <Button onClick={(event) => this.addPromotor(event, subject.name)} className="btn btn-primary">Add!</Button>
                                     <Link to={`/subjectDetails/${subject.name}`} className="btn btn-primary judge-subjects-btn">Details</Link>
                                 </Card>
                             </div>
@@ -157,4 +184,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(JudgeSubject);
+export default connect(mapStateToProps)(subjectAssignPromotor);
