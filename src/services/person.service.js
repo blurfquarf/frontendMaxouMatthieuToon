@@ -66,6 +66,15 @@ class PersonService {
         return axios.get("http://localhost:8080/api/v1/subject/nonboostedstud", config);
     }
 
+    //alle bedrijven
+    getBedrijven() {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken },
+        }
+
+        return axios.get("http://localhost:8080/api/v1/subject/bedrijven", config);
+    }
+
 
 
 

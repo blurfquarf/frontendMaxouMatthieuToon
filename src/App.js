@@ -33,6 +33,7 @@ import listSubjectsPromotor from "./components/ListSubjectsPromotor.component";
 import SubjectDetailsPromotor from "./components/subjectDetailsPromotor.component";
 import ProtectedRouteCoordinator from "./components/ProtectedRouteCoordinator";
 import StudentToewijzing from "./components/studentToewijzing.component";
+import ShowBedrijfSubjects from "./components/showBedrijfSubjects.component"
 
 
 import { logout } from "./actions/auth";
@@ -195,6 +196,15 @@ class App extends Component {
                       </Link>
                     </li>
                 )}
+
+                {showBedrijfBoard && (
+                    <li className="nav-item">
+                      <Link to={"/showBedrijfSubjects"} className="nav-link">
+                        Subjects
+                      </Link>
+                    </li>
+                )}
+
               </ul>
 
             </div>
@@ -254,6 +264,7 @@ class App extends Component {
               <ProtectedRoutePromotor exact path="/listSubjectsPromotor/:name" component={listSubjectsPromotor} />
               <ProtectedRoutePromotor exact path="/subjectDetailsPromotor/:id" component={SubjectDetailsPromotor} />
               <ProtectedRouteCoordinator exact path="/studentToewijzing" component={StudentToewijzing}/>
+              <ProtectedRouteBedrijf exact path="/showBedrijfSubjects" component={ShowBedrijfSubjects}/>
 
             </Switch>
           </div>

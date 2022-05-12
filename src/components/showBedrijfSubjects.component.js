@@ -10,17 +10,17 @@ import {HiLocationMarker} from "react-icons/hi";
 import {BsFillPersonFill, BsPersonSquare} from "react-icons/all";
 import store from "../store";
 
-export default class ShowSubject extends Component {
+export default class ShowBedrijfSubjects extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            content: []
+            content: [],
         };
     }
 
     componentDidMount(){
         const state = store.getState();
-        subjectService.getTargetSubjects(state.auth.user.email).then(
+        subjectService.getBedrijfSubjects(state.auth.user.email).then(
             response => {
                 this.setState({
                     content: response.data
@@ -40,23 +40,12 @@ export default class ShowSubject extends Component {
         );
     }
 
-
     render() {
         const {content} = this.state;
         console.log("content: ", content);
-
         return (
             <div>
-                <Row xs={2} className="center-content">
-                    <Col>
-                        <h1>Subjects</h1>
-                    </Col>
-                    <Col>
-                        <div style={{float: "right"}}>
-                            <Link className="btn btn-primary link-btn" to="/topSubjects">Submit Top 3</Link>
-                        </div>
-                    </Col>
-                </Row>
+                <h1>Subjects</h1>
                 <div className="subject-wrapper">
                     {content.map(subject => {
                         let campussen;

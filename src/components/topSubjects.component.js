@@ -21,7 +21,7 @@ import {postTop3} from "../actions/postTop3";
 const CardContainer = (props) => (
     <div className="small-cards-slider">
         {
-            props.cards.filter(subject => subject.approved).map((card) => {
+            props.cards.map((card) => {
                 let promotor;
                 if(card.promotor != null){
                     promotor = (<ListGroupItem>

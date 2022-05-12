@@ -31,7 +31,7 @@ class SubjectService{
     }
 
     getOneSubject(name){
-        return axios.get('http://localhost:8080/api/v1/subjectdetails', {
+        return axios.get('http://localhost:8080/api/v1/subject/subjectdetails', {
             headers: {'Authorization': "Bearer " + user.accessToken},
             params: { subjectName: name }
         });
@@ -70,7 +70,9 @@ class SubjectService{
             params: {subjectName : title}
         };
 
-        return axios.post("http://localhost:8080/api/v1/subject/approved", config);
+        const data = {};
+
+        return axios.post("http://localhost:8080/api/v1/subject/approved",data, config);
     }
 
     postRGGSubject(title) {
@@ -79,7 +81,9 @@ class SubjectService{
             params: {subjectName : title}
         };
 
-        return axios.post("http://localhost:8080/api/v1/subject/reedsgoedgekeurd", config);
+        const data = {};
+
+        return axios.post("http://localhost:8080/api/v1/subject/reedsgoedgekeurd",data, config);
     }
 
     getTargetSubjects(mail) {
@@ -110,6 +114,15 @@ class SubjectService{
         };
 
         return axios.get("http://localhost:8080/api/v1/subject/count", config);
+    }
+
+    getBedrijfSubjects(mail) {
+        const config = {
+            headers: {Authorization: "Bearer " + user.accessToken},
+            params: {mail: mail}
+        };
+
+        return axios.get("http://localhost:8080/api/v1/subject/onderwerpperbedrijf", config);
     }
 
 }

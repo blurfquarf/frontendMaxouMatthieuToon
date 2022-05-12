@@ -38,6 +38,7 @@ class AddSubject extends Component {
             bedrijf:"",
             contentCampus: [],
             contentPromotor: [],
+            contentBedrijven: [],
             isSubmitted: false
         };
 
@@ -49,9 +50,9 @@ class AddSubject extends Component {
         });
     }
 
-    onChangeCompany(e) {
+    onChangeCompany = (selectedOption) => {
         this.setState({
-            bedrijf: e.target.value,
+            bedrijf: selectedOption,
         });
     }
 
@@ -150,6 +151,23 @@ class AddSubject extends Component {
                 });
             }
         );
+        PromotorService.getBedrijven().then(
+            response => {
+                this.setState({
+                    contentBedrijven: response.data
+                });
+            },
+            error => {
+                this.setState({
+                    contentBedrijven:
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString()
+                });
+            }
+        );
     }
 
 
@@ -184,13 +202,18 @@ class AddSubject extends Component {
 
                             <div className="form-group">
                                 <label htmlFor="bedrijf">Company</label>
-                                <Input
-                                    type="text"
-                                    className="form-control"
-                                    name="bedrijf"
+                                <Select
+                                    components={animatedComponents}
+                                    closeMenuOnSelect={true}
+                                    className="basic-multi-select"
+                                    name="bedrjif"
                                     value={this.state.bedrijf}
                                     onChange={this.onChangeCompany}
-                                    required
+                                    options={this.state.contentBedrijven}
+                                    getOptionLabel={(option) => option.username}
+                                    getOptionValue={(option) => option.id}
+                                    classNamePrefix="select"
+                                    defaultOptions={false}
                                 />
                             </div>
 
@@ -224,7 +247,7 @@ class AddSubject extends Component {
                                     value={this.state.promotor}
                                     onChange={this.onChangePromotor}
                                     options={this.state.contentPromotor}
-                                    getOptionLabel={(option) => option.email}
+                                    getOptionLabel={(option) => option.username}
                                     getOptionValue={(option) => option.id}
                                     classNamePrefix="select"
                                     defaultOptions={false}

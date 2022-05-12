@@ -11,6 +11,8 @@ import makeAnimated from 'react-select/animated';
 import autosize from 'autosize';
 import {coProsSubject} from "../actions/coProsSubject";
 import CampusService from "../services/campus.service";
+import PromotorService from "../services/person.service";
+import store from "../store";
 
 class AddSubjectBedrijf extends Component {
 
@@ -21,7 +23,6 @@ class AddSubjectBedrijf extends Component {
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangeCampus = this.onChangeCampus.bind(this);
         this.onChangePromotor = this.onChangePromotor.bind(this);
-        this.onChangeBedrijf = this.onChangeBedrijf.bind(this);
 
         this.state = {
             title: "",
@@ -32,6 +33,8 @@ class AddSubjectBedrijf extends Component {
             promotor: "",
             bedrijf:"",
             contentCampus: [],
+            contentBedrijven: [],
+            contentPromotor: [],
             isSubmitted: false
         };
 
@@ -59,12 +62,6 @@ class AddSubjectBedrijf extends Component {
     onChangePromotor(e) {
         this.setState({
             promotor: e.target.value,
-        });
-    }
-
-    onChangeBedrijf(e) {
-        this.setState({
-            bedrijf: e.target.value,
         });
     }
 
@@ -103,6 +100,8 @@ class AddSubjectBedrijf extends Component {
 
     componentDidMount(){
         autosize(this.textarea);
+        const state = store.getState();
+        console.log("state", state);
         CampusService.getCampus().then(
             response => {
                 this.setState({
@@ -122,6 +121,40 @@ class AddSubjectBedrijf extends Component {
                 });
             }
         );
+        PromotorService.getPromotor().then(
+            response => {
+                this.setState({
+                    contentPromotor: response.data
+                }, () => {console.log("promotoren:", this.state.contentPromotor)});
+            },
+            error => {
+                this.setState({
+                    contentPromotor:
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString()
+                });
+            }
+        );
+        PromotorService.getBedrijven().then(
+            response => {
+                this.setState({
+                    bedrijf: response.data.filter(bedrijf => bedrijf.username == state.auth.user.username)
+                }, () => {console.log("bedrijf:", this.state.bedrijf)});
+            },
+            error => {
+                this.setState({
+                    bedrijf:
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString()
+                });
+            }
+        );
     }
 
 
@@ -131,9 +164,11 @@ class AddSubjectBedrijf extends Component {
         const animatedComponents = makeAnimated();
         const isSubmitted = this.state.isSubmitted;
         let content;
+        const state = store.getState();
         if(!isSubmitted) {
             content = (<div className="big-card ">
                 <h1>Add Subject</h1>
+                <h5 style={{textAlign:"center"}}>Company: {state.auth.user.username}</h5>
                 <Form
                     onSubmit={this.handleSubject}
                     ref={(c) => {
@@ -174,25 +209,18 @@ class AddSubjectBedrijf extends Component {
 
                             <div className="form-group">
                                 <label htmlFor="promotor">Promotor (mail-address)</label>
-                                <Input
-                                    required
-                                    type="text"
-                                    className="form-control"
+                                <Select
+                                    components={animatedComponents}
+                                    closeMenuOnSelect={true}
+                                    className="basic-multi-select"
                                     name="promotor"
                                     value={this.state.promotor}
                                     onChange={this.onChangePromotor}
-                                />
-                            </div>
-
-                            <div className="form-group">
-                                <label htmlFor="bedrijf">Company</label>
-                                <Input
-                                    required
-                                    type="text"
-                                    className="form-control"
-                                    name="bedrijf"
-                                    value={this.state.bedrijf}
-                                    onChange={this.onChangeBedrijf}
+                                    options={this.state.contentPromotor}
+                                    getOptionLabel={(option) => option.username}
+                                    getOptionValue={(option) => option.id}
+                                    classNamePrefix="select"
+                                    defaultOptions={false}
                                 />
                             </div>
 

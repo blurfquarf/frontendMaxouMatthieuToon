@@ -2,15 +2,21 @@ import {Component} from "react";
 import React from "react";
 import subjectService from "../services/subject.service";
 import {
+    Card, CardBody, CardText, CardTitle,
     Col,
-    Container, ListGroupItem, Row
+    Container, ListGroup, ListGroupItem, Row
 } from 'reactstrap';
+import {BsPersonSquare} from "react-icons/all";
+import {HiLocationMarker} from "react-icons/hi";
+import {Link} from "react-router-dom";
+
 
 export default class subjectDetails extends Component {
     constructor(props) {
         super(props);
+        console.log(props);
         this.state = {
-            subject : [],
+            content : [],
         };
     }
 
@@ -18,9 +24,11 @@ export default class subjectDetails extends Component {
         subjectService.getOneSubject(this.props.match.params.name).then(
             response => {
                 this.setState({
-                    subject: response.data,
+                    content: response.data,
                 });
                 console.log("response: ", response.data);
+                console.log("params.name", this.props.match.params);
+                console.log("subject: ", this.state.subject);
             },
             error => {
                 this.setState({
@@ -36,16 +44,17 @@ export default class subjectDetails extends Component {
     }
 
     render () {
-        const {subject} = this.state;
-        console.log(subject);
+        const {content} = this.state;
+        console.log("content", content);
         return(
             <div className="center-content">
-                {subject.map(subject => {
+                {content.map(subject => {
+                    console.log(subject);
                     let campussen;
                     if(subject.campussen.length != 0){
                         campussen = (
                             <div style={{display:"flex"}}>
-                                <ul>
+                                <ul className="campus-ul">
                                     {subject.campussen.map(function(d, idx){
                                         return (<li key={idx}  className="campus-li">{d.name}</li>)
                                     })}
@@ -70,11 +79,11 @@ export default class subjectDetails extends Component {
                             </div>
                         )
                     }
+
                     return(
                         <Container key={subject.id}>
                             <div>
                                 <h1 className="subj-details-title">{subject.name}</h1>
-
                             </div>
                             <div>
                                 <h3>Description</h3>
@@ -86,7 +95,7 @@ export default class subjectDetails extends Component {
                             </div>
                             <div>
                                 <h3>Promotor</h3>
-                                <p>{subject.promotor}</p>
+                                {subject.promotor.username}
                             </div>
                             <div>
                                 <h3>Co-promotors</h3>
