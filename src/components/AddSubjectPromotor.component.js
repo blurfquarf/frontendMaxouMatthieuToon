@@ -10,12 +10,13 @@ import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import autosize from 'autosize';
 import {coProsSubject} from "../actions/coProsSubject";
+import subjectService from "../services/subject.service";
 import CampusService from "../services/campus.service";
 import PromotorService from "../services/person.service";
 import store from "../store";
 import SubjectService from "../services/subject.service";
 
-class AddSubjectBedrijf extends Component {
+class AddSubjectPromotor extends Component {
 
     constructor(props) {
         super(props);
@@ -24,6 +25,8 @@ class AddSubjectBedrijf extends Component {
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangeCampus = this.onChangeCampus.bind(this);
         this.onChangePromotor = this.onChangePromotor.bind(this);
+        this.onChangeCoPros = this.onChangeCoPros.bind(this);
+        this.onChangeCompany = this.onChangeCompany.bind(this);
 
         this.state = {
             title: "",
@@ -32,27 +35,27 @@ class AddSubjectBedrijf extends Component {
             successful: false,
             campus: [],
             promotor: "",
+            coPros: [],
             bedrijf:"",
             opleiding: [],
             contentCampus: [],
-            contentBedrijven: [],
             contentPromotor: [],
+            contentBedrijven: [],
             contentOpleidingen: [],
             isSubmitted: false
         };
 
     }
 
-    onChangeOpleidingen = (selectedOptions) => {
-        console.log(selectedOptions);
-        this.setState({
-            opleiding: selectedOptions,
-        });
-    }
-
     onChangeTitle(e) {
         this.setState({
             title: e.target.value,
+        });
+    }
+
+    onChangeCompany = (selectedOption) => {
+        this.setState({
+            bedrijf: selectedOption,
         });
     }
 
@@ -69,9 +72,24 @@ class AddSubjectBedrijf extends Component {
         });
     }
 
-    onChangePromotor(e) {
+    onChangeOpleidingen = (selectedOptions) => {
+        console.log(selectedOptions);
         this.setState({
-            promotor: e.target.value,
+            opleiding: selectedOptions,
+        });
+    }
+
+
+    onChangeCoPros = (selectedOptions) => {
+        console.log(selectedOptions);
+        this.setState({
+            coPros: selectedOptions,
+        });
+    }
+
+    onChangePromotor = (selectedOption) => {
+        this.setState({
+            promotor: selectedOption,
         });
     }
 
@@ -85,7 +103,6 @@ class AddSubjectBedrijf extends Component {
 
         this.form.validateAll();
         const { dispatch } = this.props;
-
         if (this.checkBtn.context._errors.length === 0) {
             this.props
                 .dispatch(
@@ -109,7 +126,6 @@ class AddSubjectBedrijf extends Component {
     componentDidMount(){
         autosize(this.textarea);
         const state = store.getState();
-        console.log("state", state);
         CampusService.getCampus().then(
             response => {
                 this.setState({
@@ -132,7 +148,8 @@ class AddSubjectBedrijf extends Component {
         PromotorService.getPromotor().then(
             response => {
                 this.setState({
-                    contentPromotor: response.data
+                    contentPromotor: response.data.filter(pro => pro.username != state.auth.user.username),
+                    promotor: response.data.filter(pro => pro.username == state.auth.user.username)
                 }, () => {console.log("promotoren:", this.state.contentPromotor)});
             },
             error => {
@@ -149,12 +166,12 @@ class AddSubjectBedrijf extends Component {
         SubjectService.getBedrijven().then(
             response => {
                 this.setState({
-                    bedrijf: response.data.filter(bedrijf => bedrijf.username == state.auth.user.username)
-                }, () => {console.log("bedrijf:", this.state.bedrijf)});
+                    contentBedrijven: response.data
+                });
             },
             error => {
                 this.setState({
-                    bedrijf:
+                    contentBedrijven:
                         (error.response &&
                             error.response.data &&
                             error.response.data.message) ||
@@ -189,11 +206,9 @@ class AddSubjectBedrijf extends Component {
         const animatedComponents = makeAnimated();
         const isSubmitted = this.state.isSubmitted;
         let content;
-        const state = store.getState();
         if(!isSubmitted) {
             content = (<div className="big-card ">
                 <h1>Add Subject</h1>
-                <h5 style={{textAlign:"center"}}>Company: {state.auth.user.username}</h5>
                 <Form
                     onSubmit={this.handleSubject}
                     ref={(c) => {
@@ -215,10 +230,28 @@ class AddSubjectBedrijf extends Component {
                             </div>
 
                             <div className="form-group">
+                                <label htmlFor="bedrijf">Company</label>
+                                <Select
+                                    components={animatedComponents}
+                                    closeMenuOnSelect={true}
+                                    className="basic-multi-select"
+                                    name="bedrjif"
+                                    value={this.state.bedrijf}
+                                    onChange={this.onChangeCompany}
+                                    options={this.state.contentBedrijven}
+                                    getOptionLabel={(option) => option.username}
+                                    getOptionValue={(option) => option.id}
+                                    classNamePrefix="select"
+                                    defaultOptions={false}
+                                />
+                            </div>
+
+
+                            <div className="form-group">
                                 <label htmlFor="campus">Campus</label>
                                 <Select
                                     components={animatedComponents}
-                                    closeMenuOnSelect={false}
+                                    closeMenuOnSelect={true}
                                     className="basic-multi-select"
                                     name="campus"
                                     value={this.state.campus}
@@ -231,6 +264,7 @@ class AddSubjectBedrijf extends Component {
                                     defaultOptions={false}
                                 />
                             </div>
+
 
                             <div className="form-group">
                                 <label htmlFor="promotor">Promotor</label>
@@ -245,6 +279,24 @@ class AddSubjectBedrijf extends Component {
                                     getOptionLabel={(option) => option.username}
                                     getOptionValue={(option) => option.id}
                                     classNamePrefix="select"
+                                    defaultOptions={false}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="coPros">Co-promotors</label>
+                                <Select
+                                    components={animatedComponents}
+                                    closeMenuOnSelect={true}
+                                    className="basic-multi-select"
+                                    name="coPros"
+                                    value={this.state.coPros}
+                                    onChange={this.onChangeCoPros}
+                                    options={this.state.contentPromotor}
+                                    getOptionLabel={(option) => option.username}
+                                    getOptionValue={(option) => option.id}
+                                    classNamePrefix="select"
+                                    isMulti
                                     defaultOptions={false}
                                 />
                             </div>
@@ -308,7 +360,7 @@ class AddSubjectBedrijf extends Component {
                 </div>)
         }
         return (
-            <div className="big-card-wrapper" >{content}</div>
+            <div className="big-card-wrapper">{content}</div>
         );
     }
 }
@@ -320,4 +372,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(AddSubjectBedrijf);
+export default connect(mapStateToProps)(AddSubjectPromotor);

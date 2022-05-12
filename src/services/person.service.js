@@ -29,7 +29,7 @@ class PersonService {
             params: { subjectName : subjectName }
         };
 
-        return axios.get("http://localhost:8080/api/v1/subject/studentenpersubkeuze", config);
+        return axios.get("http://localhost:8080/api/v1/person/studentenpersubkeuze", config);
     }
 
 
@@ -44,8 +44,6 @@ class PersonService {
     }
 
 
-
-
     //gebooste studenten per subject voor coordinator
     getBoostedStudCoord(subjectName) {
         const config = {
@@ -53,7 +51,7 @@ class PersonService {
             params: { subjectName : subjectName }
         };
 
-        return axios.get("http://localhost:8080/api/v1/subject/boostedstud", config);
+        return axios.get("http://localhost:8080/api/v1/person/boostedstud", config);
     }
 
     //niet gebooste studenten per subject voor coordinator
@@ -63,32 +61,26 @@ class PersonService {
             params: { subjectName : subjectName }
         };
 
-        return axios.get("http://localhost:8080/api/v1/subject/nonboostedstud", config);
+        return axios.get("http://localhost:8080/api/v1/person/nonboostedstud", config);
     }
 
-    //alle bedrijven
-    getBedrijven() {
+    getOpleidingen() {
         const config = {
             headers: { Authorization: "Bearer " + user.accessToken },
         }
 
-        return axios.get("http://localhost:8080/api/v1/subject/bedrijven", config);
+        return axios.get("http://localhost:8080/api/v1/person/opleidingen", config);
     }
 
+    //aantal stud per subj
+    getStudCount(subjectName) {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken },
+            params: { subjectName : subjectName }
+        };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return axios.get("http://localhost:8080/api/v1/person/count", config);
+    }
 
 }
 

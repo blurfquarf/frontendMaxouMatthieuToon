@@ -125,6 +125,14 @@ class SubjectService{
         return axios.get("http://localhost:8080/api/v1/subject/onderwerpperbedrijf", config);
     }
 
+    //alle bedrijven
+    getBedrijven() {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken },
+        }
+
+        return axios.get("http://localhost:8080/api/v1/subject/bedrijven", config);
+    }
 }
 
 export default new SubjectService();

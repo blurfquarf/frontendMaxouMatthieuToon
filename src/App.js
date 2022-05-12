@@ -33,7 +33,8 @@ import listSubjectsPromotor from "./components/ListSubjectsPromotor.component";
 import SubjectDetailsPromotor from "./components/subjectDetailsPromotor.component";
 import ProtectedRouteCoordinator from "./components/ProtectedRouteCoordinator";
 import StudentToewijzing from "./components/studentToewijzing.component";
-import ShowBedrijfSubjects from "./components/showBedrijfSubjects.component"
+import ShowBedrijfSubjects from "./components/showBedrijfSubjects.component";
+import AddSubjectPromotor from "./components/AddSubjectPromotor.component";
 
 
 import { logout } from "./actions/auth";
@@ -197,6 +198,14 @@ class App extends Component {
                     </li>
                 )}
 
+                {showPromotorBoard && (
+                    <li className="nav-item">
+                      <Link to={"/addSubjectPromotor"} className="nav-link">
+                        Add Subject
+                      </Link>
+                    </li>
+                )}
+
                 {showBedrijfBoard && (
                     <li className="nav-item">
                       <Link to={"/showBedrijfSubjects"} className="nav-link">
@@ -265,6 +274,7 @@ class App extends Component {
               <ProtectedRoutePromotor exact path="/subjectDetailsPromotor/:id" component={SubjectDetailsPromotor} />
               <ProtectedRouteCoordinator exact path="/studentToewijzing" component={StudentToewijzing}/>
               <ProtectedRouteBedrijf exact path="/showBedrijfSubjects" component={ShowBedrijfSubjects}/>
+              <ProtectedRoutePromotor exact path="/addSubjectPromotor" component={AddSubjectPromotor}/>
 
             </Switch>
           </div>
