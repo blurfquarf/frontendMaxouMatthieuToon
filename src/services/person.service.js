@@ -82,6 +82,17 @@ class PersonService {
         return axios.get("http://localhost:8080/api/v1/person/count", config);
     }
 
+    postBoostStudent(subjectName, studentMail){
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken },
+            params: { subjectName : subjectName, studentMail: studentMail }
+        };
+
+        const data = {};
+
+        return axios.post("http://localhost:8080/api/v1/person/boost",data, config );
+    }
+
 }
 
 

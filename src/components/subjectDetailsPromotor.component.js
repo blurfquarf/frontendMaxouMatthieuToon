@@ -2,6 +2,7 @@ import {Component} from "react";
 import React from "react";
 import subjectService from "../services/subject.service";
 import {
+    Button,
     Col,
     Container, ListGroupItem, Row
 } from 'reactstrap';
@@ -14,6 +15,7 @@ export default class subjectDetailsPromotor extends Component {
         this.state = {
             content : [],
             studenten: [],
+            boostedStudenten: [],
         };
     }
 
@@ -54,6 +56,16 @@ export default class subjectDetailsPromotor extends Component {
         );
     }
 
+
+
+    handleBoost(event, subjectName, email) {
+        event.preventDefault();
+        personService.postBoostStudent(subjectName, email);
+
+    }
+
+
+
     render () {
         const {content} = this.state;
         console.log(content);
@@ -91,16 +103,61 @@ export default class subjectDetailsPromotor extends Component {
                     }
                     let studenten;
                     if(this.state.studenten.size != 0) {
-                        const kiezers = [];
-                        {for(let i=0, keys=Object.keys(this.state.studenten), ii=keys.length; i<ii; i++){
-                            kiezers[keys[i]] = this.state.studenten[keys[i]];
-                        }}
-                        studenten = (<div style={{display:"flex"}}>
-                                <ul className="campus-ul">
-                                    {kiezers.map(student => {
-                                        return(<li key={student.id} className="campus-li"><h5>{student.username}</h5></li>);
-                                    })}
-                                </ul>
+                        const keuzes = [];
+                        let kiezers1 = [];
+                        let kiezers2 = [];
+                        let kiezers3 = [];
+                        console.log("studenten", this.state.studenten);
+                        for(let i=0, keys=Object.keys(this.state.studenten), ii=keys.length; i<ii; i++){
+                            keuzes[keys[i]] = this.state.studenten[keys[i]];
+                            console.log("keuzes", keuzes);
+                            for(let j=1; j<keuzes.length; j++){
+                                if(j==1){
+                                    kiezers1 = keuzes[j];
+                                    console.log("kiezers1", kiezers1);
+                                }
+                                if(j==2){
+                                    kiezers2 = keuzes[j];
+                                    console.log("kiezers2", kiezers2);
+                                }
+                                if(j==3) {
+                                    kiezers3 = keuzes[j];
+                                    console.log("kiezers3", kiezers3);
+                                }
+                            }
+                        }
+
+                        studenten = (
+                            <div style={{display:"flex"}}>
+                                <div>
+                                    <h5>1e keuze</h5>
+                                    <div>
+                                        {kiezers1.map(student => {
+                                            let boostButton;
+                                            if(student.geboostVoor.find(subject => subject.name == this.props.match.params.name) == null){
+                                                boostButton = (
+                                                    <Button onClick={(event) => this.handleBoost(event,this.props.match.params.name, student.email)} className="btn btn-success judge-subjects-btn">Boost</Button>
+                                                );
+                                            }
+                                            else{
+                                                boostButton = (
+                                                    <p>Already Boosted</p>
+                                                );
+                                            }
+                                            return(<Row xs={3} key={student.id}>
+                                                <Col className="col-4">
+                                                    <p>{student.username}</p>
+                                                </Col>
+                                                <Col className="col-4">
+                                                    <p>{student.opleiding.name}</p>
+                                                </Col>
+                                                <Col className="col-4">
+                                                    {boostButton}
+                                                </Col>
+                                            </Row>);
+                                        })}
+                                    </div>
+                                </div>
                             </div>
                         );
                     }
@@ -110,6 +167,7 @@ export default class subjectDetailsPromotor extends Component {
                             </div>
                         );
                     }
+
 
                     return(
                         <Container key={content.id}>
