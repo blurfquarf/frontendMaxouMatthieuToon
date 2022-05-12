@@ -30,6 +30,13 @@ class SubjectService{
         });
     }
 
+    getOneSubject(name){
+        return axios.get('http://localhost:8080/api/v1/subjectdetails', {
+            headers: {'Authorization': "Bearer " + user.accessToken},
+            params: { subjectName: name }
+        });
+    }
+
     postProSubject(title, proMail) {
         const config = {
             headers: { Authorization: "Bearer " + user.accessToken},
@@ -84,7 +91,6 @@ class SubjectService{
         return axios.get("http://localhost:8080/api/v1/subject/targetsubjects", config);
     }
 
-
     //subjects per promotor
     getSperPro(mail) {
         const config = {
@@ -105,10 +111,6 @@ class SubjectService{
 
         return axios.get("http://localhost:8080/api/v1/subject/count", config);
     }
-
-
-
-
 
 }
 

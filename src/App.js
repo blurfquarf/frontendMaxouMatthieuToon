@@ -248,7 +248,7 @@ class App extends Component {
               <ProtectedRoute exact path="/addsubject" component={AddSubject} />
               <ProtectedRoute exact path="/subjects" component={ShowSubject} />
               <ProtectedRoute exact path="/judgeSubjects" component={JudgeSubject} />
-              <Route exact path="/subjectDetails/:id" component={subjectDetails} />
+              <Route exact path="/subjectDetails/:name" component={subjectDetails} />
               <ProtectedRouteStudent exact path="/topSubjects" component={TopSubjects} />
               <ProtectedRouteBedrijf exact path="/addSubjectBedrijf" component={AddSubjectBedrijf} />
               <ProtectedRoutePromotor exact path="/listSubjectsPromotor/:name" component={listSubjectsPromotor} />

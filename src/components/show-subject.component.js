@@ -110,7 +110,7 @@ export default class ShowSubject extends Component {
                                         {promotor}
                                         {copromotoren}
                                     </ListGroup>
-                                    <Link to={`/subjectDetails/${subject.id}`} className="btn btn-primary">Details</Link>
+                                    <Link to={`/subjectDetails/${subject.name}`} className="btn btn-primary">Details</Link>
                                 </Card>
                             </div>
                         );

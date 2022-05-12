@@ -10,22 +10,21 @@ export default class subjectDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            content : [],
+            subject : [],
         };
     }
 
     componentDidMount(){
-        subjectService.getSubject().then(
+        subjectService.getOneSubject(this.props.match.params.name).then(
             response => {
                 this.setState({
-                    content: response.data,
+                    subject: response.data,
                 });
                 console.log("response: ", response.data);
-                console.log("props.match.params.id: ", this.props.match.params.id);
             },
             error => {
                 this.setState({
-                    content:
+                    subject:
                         (error.response &&
                             error.response.data &&
                             error.response.data.message) ||
@@ -37,28 +36,28 @@ export default class subjectDetails extends Component {
     }
 
     render () {
-        const {content} = this.state;
-        console.log(content);
+        const {subject} = this.state;
+        console.log(subject);
         return(
             <div className="center-content">
-                {content.filter((content) => content.id == this.props.match.params.id).map(content => {
+                {subject.map(subject => {
                     let campussen;
-                    if(content.campussen.length != 0){
+                    if(subject.campussen.length != 0){
                         campussen = (
                             <div style={{display:"flex"}}>
                                 <ul>
-                                    {content.campussen.map(function(d, idx){
+                                    {subject.campussen.map(function(d, idx){
                                         return (<li key={idx}  className="campus-li">{d.name}</li>)
                                     })}
                                 </ul>
                             </div>)
                     }
                     let copromotoren;
-                    if(content.copromotoren.length !=0){
+                    if(subject.copromotoren.length !=0){
                         copromotoren = (
                                 <div style={{display:"flex"}}>
                                     <ul>
-                                        {content.copromotoren.map(function(d, idx){
+                                        {subject.copromotoren.map(function(d, idx){
                                             return (<li key={idx}  className="campus-li">{d.name}</li>)
                                         })}
                                     </ul>
@@ -72,14 +71,14 @@ export default class subjectDetails extends Component {
                         )
                     }
                     return(
-                        <Container key={content.id}>
+                        <Container key={subject.id}>
                             <div>
-                                <h1 className="subj-details-title">{content.name}</h1>
+                                <h1 className="subj-details-title">{subject.name}</h1>
 
                             </div>
                             <div>
                                 <h3>Description</h3>
-                                <p>{content.description}</p>
+                                <p>{subject.description}</p>
                             </div>
                             <div>
                                 <h3>Campuses</h3>
@@ -87,7 +86,7 @@ export default class subjectDetails extends Component {
                             </div>
                             <div>
                                 <h3>Promotor</h3>
-                                <p>{content.promotor}</p>
+                                <p>{subject.promotor}</p>
                             </div>
                             <div>
                                 <h3>Co-promotors</h3>
