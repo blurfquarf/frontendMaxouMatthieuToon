@@ -97,16 +97,6 @@ class SubjectService{
     }
 
 
-    //aantal stud per subj
-    getStudCount(subjectName) {
-        const config = {
-            headers: { Authorization: "Bearer " + user.accessToken },
-            params: { subjectName : subjectName }
-        };
-
-        return axios.get("http://localhost:8080/api/v1/subject/count", config);
-    }
-
     getBedrijfSubjects(mail) {
         const config = {
             headers: {Authorization: "Bearer " + user.accessToken},
@@ -131,7 +121,7 @@ class SubjectService{
 
     //met promotor
     getSubject(email){
-        return axios.get('http://localhost:8080/api/v1/prosub', {
+        return axios.get('http://localhost:8080/api/v1/subject/prosub', {
             headers: {'Authorization': "Bearer " + user.accessToken},
             params: {mail: email}
         });
@@ -140,7 +130,7 @@ class SubjectService{
 
 
     getSubjectsNoPro(email) {
-        const config ={
+        const config = {
             headers: { Authorization: "Bearer " + user.accessToken },
             params: {mail: email}
         }
@@ -156,12 +146,9 @@ class SubjectService{
 
         const data = {};
 
-        return axios.post("http://localhost:8080/api/v1/subject/reedsgoedgekeurd",data, config);
+        return axios.post("http://localhost:8080/api/v1/subject/pro",data, config);
     }
-
-
-
-
 }
+
 
 export default new SubjectService();

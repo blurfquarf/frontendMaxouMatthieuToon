@@ -11,28 +11,10 @@ export default class Home extends Component {
     };
   }
 
-  componentDidMount() {
-    UserService.getPublicContent().then(
-      response => {
-        this.setState({
-          content: response.data
-        });
-      },
-      error => {
-        this.setState({
-          content:
-            (error.response && error.response.data) ||
-            error.message ||
-            error.toString()
-        });
-      }
-    );
-  }
-
   render() {
     return (
         <header className="jumbotron">
-          <h3>Hallo</h3>
+          <h3>Welkom op het thesisplatform! Kijk gerust even rond!</h3>
         </header>
 
 

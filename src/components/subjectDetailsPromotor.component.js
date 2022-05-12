@@ -252,5 +252,4 @@ export default class subjectDetailsPromotor extends Component {
                 })}
             </div>
         );
-    }
-}
+    }}

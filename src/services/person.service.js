@@ -42,7 +42,7 @@ class PersonService {
             params: { mail : mail }
         };
 
-        return axios.get("http://localhost:8080/api/v1/subject/subsvoorcoord", config);
+        return axios.get("http://localhost:8080/api/v1/person/subsvoorcoord", config);
     }
 
 
@@ -55,6 +55,7 @@ class PersonService {
 
         return axios.get("http://localhost:8080/api/v1/person/boostedstud", config);
     }
+
 
     //niet gebooste studenten per subject voor coordinator
     getNONBoostedStudCoord(subjectName) {

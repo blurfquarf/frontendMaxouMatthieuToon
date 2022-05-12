@@ -69,6 +69,14 @@ const toewijzingEind = new Date(2022, 5, 20);
 
 
 
+///////////////////////////////////////////////////////////////
+const currentDate = new Date(2022, 5, 20);
+///////////////////////////////////////////////////////////////
+
+
+
+
+
 class App extends Component {
   constructor(props) {
     super(props);
