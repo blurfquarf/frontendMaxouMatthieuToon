@@ -114,7 +114,7 @@ class subjectAssignPromotor extends Component {
                                 <Row xs={2}>
                                     <Col className="col-1"><HiLocationMarker /></Col>
                                     <Col style={{display:"flex"}} className="col-10">
-                                        <ul>
+                                        <ul className="campus-ul">
                                             {subject.campussen.map(function(d, idx){
                                                 return (<li key={idx}  className="campus-li">{d.name}</li>)
                                             })}
