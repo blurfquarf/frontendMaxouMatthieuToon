@@ -98,6 +98,8 @@ export default class subjectDetailsPromotor extends Component {
                             </div>
                         )
                     }
+
+
                     let studenten;
                     if(this.state.studenten.size != 0) {
                         const keuzes = [];

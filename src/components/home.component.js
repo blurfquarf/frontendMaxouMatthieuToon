@@ -35,6 +35,8 @@ export default class Home extends Component {
           <h3>Hallo</h3>
         </header>
 
+
+
     );
   }
 }

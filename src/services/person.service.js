@@ -22,6 +22,8 @@ class PersonService {
     }
 
 
+
+
     //studenten per subject voor promotor
     getSperSub(subjectName) {
         const config = {

@@ -158,6 +158,9 @@ class SubjectService{
         return axios.post("http://localhost:8080/api/v1/subject/reedsgoedgekeurd",data, config);
     }
 
+
+
+
 }
 
 export default new SubjectService();
