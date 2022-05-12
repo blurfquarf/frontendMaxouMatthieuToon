@@ -32,7 +32,8 @@ class subjectAssignPromotor extends Component {
     onChangePromotor = (selectedOption, name) => {
         let content = [...this.state.content];
         let subject = content.find(subject => subject.name == name);
-        subject.promotor = selectedOption;
+        subject.promotor = selectedOption.email;
+        console.log("promotor", selectedOption);
         this.setState({content});
     }
 
@@ -78,8 +79,9 @@ class subjectAssignPromotor extends Component {
 
     addPromotor(event, name) {
         event.preventDefault();
-        const state = store.getState();
-        subjectService.postPromotor(name, state.auth.user.email);
+        let content = [...this.state.content];
+        let subject = content.find(subject => subject.name == name);
+        subjectService.postPromotor(name, subject.promotor.email);
         window.location.reload(false);
     }
 
