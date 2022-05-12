@@ -81,8 +81,9 @@ class subjectAssignPromotor extends Component {
         event.preventDefault();
         let content = [...this.state.content];
         let subject = content.find(subject => subject.name == name);
-        subjectService.postPromotor(name, subject.promotor.email);
-        window.location.reload(false);
+        console.log(subject.promotor);
+        subjectService.postPromotor(name, subject.promotor);
+        console.log("post");
     }
 
     handleSubject(event, bool, id) {
