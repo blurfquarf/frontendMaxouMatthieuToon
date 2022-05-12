@@ -82,7 +82,7 @@ export default class ShowSubject extends Component {
                                     <Col>
                                         <ul className="campus-ul">
                                             {subject.copromotoren.map(function(d, idx){
-                                                return (<li key={idx}  className="campus-li">{d.name}</li>)
+                                                return (<li key={idx}  className="campus-li">{d.username}</li>)
                                             })}
                                         </ul>
                                     </Col>
