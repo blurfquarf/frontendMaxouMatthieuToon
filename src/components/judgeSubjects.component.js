@@ -110,12 +110,12 @@ class JudgeSubject extends Component {
                                     </CardBody>
                                     <ListGroup className="list-group-flush">
                                         {campussen}
-                                        <ListGroupItem><BsPersonSquare />{content.promotor}</ListGroupItem>
+                                        <ListGroupItem><BsPersonSquare />{content.promotor.username}</ListGroupItem>
                                         {copromotoren}
                                     </ListGroup>
                                     <Button onClick={(event) => this.handleSubject(event,true, subject.id)} className="btn btn-success judge-subjects-btn">Approve</Button>
                                     <Button onClick={(event) => this.handleSubject(event,false, subject.id)} className="btn btn-danger judge-subjects-btn">Reject</Button>
-                                    <Link to={`/subjectDetails/${subject.id}`} className="btn btn-primary judge-subjects-btn">Details</Link>
+                                    <Link to={`/subjectDetails/${subject.name}`} className="btn btn-primary judge-subjects-btn">Details</Link>
                                 </Card>
                             </div>
                         )

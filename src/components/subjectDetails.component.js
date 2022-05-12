@@ -79,6 +79,17 @@ export default class subjectDetails extends Component {
                             </div>
                         )
                     }
+                    let promotor;
+                    if(subject.promotor != null){
+                        promotor = (<div>
+                            <p>{subject.promotor.username}</p>
+                        </div>);
+                    }
+                    else {
+                        promotor = (<div>
+                            <p>no promotor available yet</p>
+                        </div>);
+                    }
 
                     return(
                         <Container key={subject.id}>
@@ -95,7 +106,7 @@ export default class subjectDetails extends Component {
                             </div>
                             <div>
                                 <h3>Promotor</h3>
-                                {subject.promotor.username}
+                                {promotor}
                             </div>
                             <div>
                                 <h3>Co-promotors</h3>
