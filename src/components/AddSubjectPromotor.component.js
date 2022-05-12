@@ -148,8 +148,7 @@ class AddSubjectPromotor extends Component {
         PromotorService.getPromotor().then(
             response => {
                 this.setState({
-                    contentPromotor: response.data.filter(pro => pro.username != state.auth.user.username),
-                    promotor: response.data.filter(pro => pro.username == state.auth.user.username)
+                    contentPromotor: response.data
                 }, () => {console.log("promotoren:", this.state.contentPromotor)});
             },
             error => {
