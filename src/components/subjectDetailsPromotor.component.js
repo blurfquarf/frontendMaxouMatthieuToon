@@ -6,12 +6,14 @@ import {
     Container, ListGroupItem, Row
 } from 'reactstrap';
 import {BsPeopleFill} from "react-icons/all";
+import personService from "../services/person.service";
 
 export default class subjectDetailsPromotor extends Component {
     constructor(props) {
         super(props);
         this.state = {
             content : [],
+            studenten: [],
         };
     }
 
@@ -33,6 +35,23 @@ export default class subjectDetailsPromotor extends Component {
                 });
             }
         );
+        personService.getSperSub( this.props.match.params.name).then(
+            response => {
+                this.setState({
+                    studenten: response.data,
+                }, () => console.log(this.state.studenten));
+            },
+            error => {
+                this.setState({
+                    studenten:
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString()
+                });
+            }
+        );
     }
 
     render () {
@@ -40,7 +59,7 @@ export default class subjectDetailsPromotor extends Component {
         console.log(content);
         return(
             <div className="center-content">
-                {content.filter((content) => content.id == this.props.match.params.id).map(content => {
+                {this.state.content.filter((content) => content.name == this.props.match.params.name).map(content => {
                     let campussen;
                     if(content.campussen.length != 0){
                         campussen = (
@@ -56,9 +75,9 @@ export default class subjectDetailsPromotor extends Component {
                     if(content.copromotoren.length !=0){
                         copromotoren = (
                             <div style={{display:"flex"}}>
-                                <ul>
+                                <ul className="campus-ul">
                                     {content.copromotoren.map(function(d, idx){
-                                        return (<li key={idx}  className="campus-li">{d.name}</li>)
+                                        return (<li key={idx}  className="campus-li">{d.username}</li>)
                                     })}
                                 </ul>
                             </div>)
@@ -71,9 +90,17 @@ export default class subjectDetailsPromotor extends Component {
                         )
                     }
                     let studenten;
-                    if(content.gekozen != 0) {
+                    if(this.state.studenten.size != 0) {
+                        const kiezers = [];
+                        {for(let i=0, keys=Object.keys(this.state.studenten), ii=keys.length; i<ii; i++){
+                            kiezers[keys[i]] = this.state.studenten[keys[i]];
+                        }}
                         studenten = (<div style={{display:"flex"}}>
-                                <p>{content.gekozen}</p>
+                                <ul className="campus-ul">
+                                    {kiezers.map(student => {
+                                        return(<li key={student.id} className="campus-li"><h5>{student.username}</h5></li>);
+                                    })}
+                                </ul>
                             </div>
                         );
                     }

@@ -87,7 +87,7 @@ export default class listSubjectsPromotor extends Component {
                                             </Row>
                                         </ListGroupItem>
                                     </ListGroup>
-                                    <Link to={`/subjectDetailsPromotor/${subject.id}`} className="btn btn-primary judge-subjects-btn">Details</Link>
+                                    <Link to={`/subjectDetailsPromotor/${subject.name}`} className="btn btn-primary judge-subjects-btn">Details</Link>
                                 </Card>
                             </Col>
                         )

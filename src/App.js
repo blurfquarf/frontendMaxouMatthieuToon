@@ -192,7 +192,7 @@ class App extends Component {
 
                 {showPromotorBoard && (
                     <li className="nav-item">
-                      <Link to={`/listSubjectsPromotor/${this.props.user.username}`} className="nav-link">
+                      <Link to={"/listSubjectsPromotor"} className="nav-link">
                         Boost Students
                       </Link>
                     </li>
@@ -270,8 +270,8 @@ class App extends Component {
               <Route exact path="/subjectDetails/:name" component={subjectDetails} />
               <ProtectedRouteStudent exact path="/topSubjects" component={TopSubjects} />
               <ProtectedRouteBedrijf exact path="/addSubjectBedrijf" component={AddSubjectBedrijf} />
-              <ProtectedRoutePromotor exact path="/listSubjectsPromotor/:name" component={listSubjectsPromotor} />
-              <ProtectedRoutePromotor exact path="/subjectDetailsPromotor/:id" component={SubjectDetailsPromotor} />
+              <ProtectedRoutePromotor exact path="/listSubjectsPromotor" component={listSubjectsPromotor} />
+              <ProtectedRoutePromotor exact path="/subjectDetailsPromotor/:name" component={SubjectDetailsPromotor} />
               <ProtectedRouteCoordinator exact path="/studentToewijzing" component={StudentToewijzing}/>
               <ProtectedRouteBedrijf exact path="/showBedrijfSubjects" component={ShowBedrijfSubjects}/>
               <ProtectedRoutePromotor exact path="/addSubjectPromotor" component={AddSubjectPromotor}/>

@@ -70,7 +70,6 @@ const CardContainer = (props) => (
                 }
             )
         }
-        {console.log("props.cards:", props.cards)}
     </div>
 );
 
