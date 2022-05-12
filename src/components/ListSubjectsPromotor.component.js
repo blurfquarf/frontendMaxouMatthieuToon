@@ -57,10 +57,10 @@ export default class listSubjectsPromotor extends Component {
                             copromotoren = (<ListGroupItem>
                                 <Row xs={2}>
                                     <Col className="col-1"><BsFillPersonFill/></Col>
-                                    <Col>
-                                        <ul>
+                                    <Col className="col-10">
+                                        <ul className="campus-ul">
                                             {subject.copromotoren.map(function(d, idx){
-                                                return (<li key={idx}  className="campus-li">{d.name}</li>)
+                                                return (<li key={idx}  className="campus-li">{d.username}</li>)
                                             })}
                                         </ul>
                                     </Col>
