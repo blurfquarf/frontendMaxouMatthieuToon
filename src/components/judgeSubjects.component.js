@@ -47,22 +47,24 @@ class JudgeSubject extends Component {
     handleSubject(event, bool, id) {
         event.preventDefault();
         let content = [...this.state.content];
-        let subject = {...content[id]};
+        let subject = content.find(subject => subject.id == id);
         subject.approved = bool;
         subject.reedsGoedgekeurd = true;
-        content[id] = subject;
+        console.log(id);
+        console.log(subject);
         this.setState({content});
         if(bool){
             console.log("approve");
-            this.props.dispatch(judgeSubject(subject.name));
+            subjectService.postApprovedSubject(subject.name);
         }
         else{
-            this.props.dispatch(RGGSubject(subject.name));
+            subjectService.postRGGSubject(subject.name);
         }
     }
 
     render() {
         const {content} = this.state;
+        console.log(content);
         return (
             <Container fluid>
                 <div className="subject-wrapper" >
@@ -111,8 +113,8 @@ class JudgeSubject extends Component {
                                         <ListGroupItem><BsPersonSquare />{content.promotor}</ListGroupItem>
                                         {copromotoren}
                                     </ListGroup>
-                                    <Button onClick={(event) => this.handleSubject(event,true, subject.id-1)} className="btn btn-success judge-subjects-btn">Approve</Button>
-                                    <Button onClick={(event) => this.handleSubject(event,false, subject.id-1)} className="btn btn-danger judge-subjects-btn">Reject</Button>
+                                    <Button onClick={(event) => this.handleSubject(event,true, subject.id)} className="btn btn-success judge-subjects-btn">Approve</Button>
+                                    <Button onClick={(event) => this.handleSubject(event,false, subject.id)} className="btn btn-danger judge-subjects-btn">Reject</Button>
                                     <Link to={`/subjectDetails/${subject.id}`} className="btn btn-primary judge-subjects-btn">Details</Link>
                                 </Card>
                             </div>
