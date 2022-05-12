@@ -130,6 +130,8 @@ class SubjectService{
     ///////////////////////COORDINATOR
 
     //met promotor
+
+
     getSubject(email){
         return axios.get('http://localhost:8080/api/v1/prosub', {
             headers: {'Authorization': "Bearer " + user.accessToken},
