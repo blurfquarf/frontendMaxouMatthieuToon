@@ -74,7 +74,7 @@ class JudgeSubject extends Component {
                             campussen = (<ListGroupItem>
                                 <Row xs={2}>
                                     <Col className="col-1"><HiLocationMarker /></Col>
-                                    <Col style={{display:"flex"}}>
+                                    <Col style={{display:"flex"}} className="col-10">
                                         <ul>
                                             {subject.campussen.map(function(d, idx){
                                                 return (<li key={idx}  className="campus-li">{d.name}</li>)
@@ -89,15 +89,37 @@ class JudgeSubject extends Component {
                             copromotoren = (<ListGroupItem>
                                 <Row xs={2}>
                                     <Col className="col-1"><BsFillPersonFill/> </Col>
-                                    <Col>
+                                    <Col className="col-10">
                                         <ul>
                                             {subject.copromotoren.map(function(d, idx){
-                                                return (<li key={idx}  className="campus-li">{d.name}</li>)
+                                                return (<li key={idx}  className="campus-li">{d.username}</li>)
                                             })}
                                         </ul>
                                     </Col>
                                 </Row>
                             </ListGroupItem>)
+                        }
+
+                        let promotor;
+                        if(subject.promotor != null){
+                            promotor = (<ListGroupItem>
+                                <Row xs={2}>
+                                    <Col className="col-1"><BsPersonSquare/></Col>
+                                    <Col style={{display: "flex"}} className="col-10">
+                                        <p>{subject.promotor.username}</p>
+                                    </Col>
+                                </Row>
+                            </ListGroupItem>);
+                        }
+                        else {
+                            promotor = (<ListGroupItem>
+                                <Row xs={2}>
+                                    <Col className="col-1"><BsPersonSquare/></Col>
+                                    <Col style={{display: "flex"}} className="col-10">
+                                        <p>no promotor available yet</p>
+                                    </Col>
+                                </Row>
+                            </ListGroupItem>);
                         }
                         return (
                             <div key={subject.id}>
@@ -110,7 +132,7 @@ class JudgeSubject extends Component {
                                     </CardBody>
                                     <ListGroup className="list-group-flush">
                                         {campussen}
-                                        <ListGroupItem><BsPersonSquare />{content.promotor.username}</ListGroupItem>
+                                        {promotor}
                                         {copromotoren}
                                     </ListGroup>
                                     <Button onClick={(event) => this.handleSubject(event,true, subject.id)} className="btn btn-success judge-subjects-btn">Approve</Button>
