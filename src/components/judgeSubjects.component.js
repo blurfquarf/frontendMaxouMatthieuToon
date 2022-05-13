@@ -55,7 +55,6 @@ class JudgeSubject extends Component {
         console.log(subject);
         this.setState({content});
         if(bool){
-            console.log("approve");
             subjectService.postApprovedSubject(subject.name);
         }
         else{

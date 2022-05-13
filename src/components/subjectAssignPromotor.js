@@ -24,17 +24,24 @@ class subjectAssignPromotor extends Component {
         this.state = {
             content: [],
             contentPromotor: [],
+            promotor: "",
         };
         this.handleSubject = this.handleSubject.bind(this);
         this.onChangePromotor = this.onChangePromotor.bind(this);
     }
 
     onChangePromotor = (selectedOption, name) => {
+        this.setState({
+            promotor: selectedOption,
+        })
+        {/*}
         let content = [...this.state.content];
         let subject = content.find(subject => subject.name == name);
+        console.log("subject2", subject);
         subject.promotor = selectedOption.email;
         console.log("promotor", selectedOption);
         this.setState({content});
+        */}
     }
 
 
@@ -81,9 +88,12 @@ class subjectAssignPromotor extends Component {
         event.preventDefault();
         let content = [...this.state.content];
         let subject = content.find(subject => subject.name == name);
-        console.log(subject.promotor);
+        console.log("subject1", subject);
+        console.log(this.state.promotor.email);
+        subject.promotor = this.state.promotor.email;
         subjectService.postPromotor(name, subject.promotor);
         console.log("post");
+        this.setState({content});
     }
 
     handleSubject(event, bool, id) {
@@ -106,11 +116,12 @@ class subjectAssignPromotor extends Component {
 
     render() {
         const {content} = this.state;
+        console.log(content);
         const animatedComponents = makeAnimated();
         return (
             <Container fluid>
                 <div className="subject-wrapper" >
-                    {content.map(subject => {
+                    {content.filter(subject => subject.promotor == null).map(subject => {
                         let campussen;
                         if(subject.campussen.length != 0){
                             campussen = (<ListGroupItem>
