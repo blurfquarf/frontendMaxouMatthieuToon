@@ -72,14 +72,25 @@ const toewijzingEind = new Date(2022, 5, 20);
 
 
 ///////////////////////////////////////////////////////////////
-const currentDate = new Date(2022, 5, 20);
+var currentDate = new Date(2022, 5, 20);
 ///////////////////////////////////////////////////////////////
 
 
 
 
+const indienFASE = (currentDate >= indienenPromotorStart) && (currentDate <= indienenPromotorEind);
+const goedkeurenFASE = (currentDate >= goedkeurenStart) && (currentDate <= goedkeurenEind);
+const keuzeFASE = (currentDate >= keuzeStudentStart) && (currentDate <= keuzeStudentEind);
+const boostFASE = (currentDate >= boostStart) && (currentDate <= boostEind);
+const toewijzingFASE = (currentDate >= toewijzingStart) && (currentDate <= toewijzingEind);
 
-class App extends Component {
+
+
+
+
+
+
+    class App extends Component {
   constructor(props) {
     super(props);
     this.logOut = this.logOut.bind(this);
@@ -284,7 +295,9 @@ class App extends Component {
               <Route exact path="/promotor" component={BoardPromotor} />
               <Route exact path="/bedrijf" component={BoardBedrijf} />
               <Route exact path="/coordinator" component={BoardCoordinator} />
+
               <ProtectedRoute exact path="/addsubject" component={AddSubject} />
+
               <ProtectedRoute exact path="/subjects" component={ShowSubject} />
               <ProtectedRoute exact path="/judgeSubjects" component={JudgeSubject} />
               <Route exact path="/subjectDetails/:name" component={subjectDetails} />
