@@ -22,8 +22,6 @@ class PersonService {
     }
 
 
-
-
     //studenten per subject voor promotor
     getSperSub(subjectName) {
         const config = {
@@ -96,6 +94,34 @@ class PersonService {
         return axios.post("http://localhost:8080/api/v1/person/boost",data, config );
     }
 
+    postToewijzing(name, mail) {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken },
+            params: { subjectName : name, studentMail: mail }
+        };
+
+        const data = {};
+
+        return axios.post("http://localhost:8080/api/v1/person/toewijzing",data, config);
+    }
+
+    getToegewezenStudent(subjectName) {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken },
+            params: { subjectName : subjectName }
+        };
+
+        return axios.get("http://localhost:8080/api/v1/person/student", config);
+    }
+
+    getKeuzesIngediend(email) {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken },
+            params: { mail : email }
+        };
+
+        return axios.get("http://localhost:8080/api/v1/person/keuzesingediend", config);
+    }
 }
 
 

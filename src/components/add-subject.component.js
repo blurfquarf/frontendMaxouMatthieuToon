@@ -100,13 +100,14 @@ class AddSubject extends Component {
         this.setState({
             successful: false,
         });
-
+        const state = store.getState();
+        console.log(state);
         this.form.validateAll();
         const { dispatch } = this.props;
         if (this.checkBtn.context._errors.length === 0) {
             this.props
                 .dispatch(
-                    addSubject(this.state.title, this.state.description, this.state.campus, this.state.coPros,this.state.bedrijf,this.state.promotor,this.state.opleiding)
+                    addSubject(this.state.title, this.state.description, this.state.campus, this.state.coPros,this.state.bedrijf,this.state.promotor,this.state.opleiding,state.auth.user.email)
                 )
                 .then(() => {
                     this.setState({

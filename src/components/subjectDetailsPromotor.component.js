@@ -101,123 +101,126 @@ export default class subjectDetailsPromotor extends Component {
 
 
                     let studenten;
-                    if(this.state.studenten.size != 0) {
-                        const keuzes = [];
-                        let kiezers1 = [];
-                        let kiezers2 = [];
-                        let kiezers3 = [];
-                        for(let i=0, keys=Object.keys(this.state.studenten), ii=keys.length; i<ii; i++){
-                            keuzes[keys[i]] = this.state.studenten[keys[i]];
-                            for(let j=1; j<keuzes.length; j++){
-                                if(j==1){
-                                    kiezers1 = keuzes[j];
-                                }
-                                if(j==2){
-                                    kiezers2 = keuzes[j];
-                                }
-                                if(j==3) {
-                                    kiezers3 = keuzes[j];
-                                }
+                    const keuzes = [];
+                    let kiezers1 = [];
+                    let kiezers2 = [];
+                    let kiezers3 = [];
+                    for(let i=0, keys=Object.keys(this.state.studenten), ii=keys.length; i<ii; i++){
+                        keuzes[keys[i]] = this.state.studenten[keys[i]];
+                        console.log("keuzes", keuzes);
+                        for(let j=1; j<keuzes.length; j++){
+                            if(j==1){
+                                kiezers1 = keuzes[j];
+                            }
+                            if(j==2){
+                                kiezers2 = keuzes[j];
+                            }
+                            if(j==3) {
+                                kiezers3 = keuzes[j];
                             }
                         }
-
-                        studenten = (
-                            <div>
+                    }
+                    if(kiezers1.length != 0 || kiezers2.length != 0 || kiezers3.length != 0) {
+                        studenten = (<div style={{justifyContent:"center", textAlign:"center"}}>
+                                <h3>Gekozen door:</h3>
                                 <div>
-                                    <h5>1e keuze</h5>
                                     <div>
-                                        {kiezers1.map(student => {
-                                            let boostButton;
-                                            if(student.geboostVoor.find(subject => subject.name == this.props.match.params.name) == null){
-                                                boostButton = (
-                                                    <Button onClick={(event) => this.handleBoost(event,this.props.match.params.name, student.email)} className="btn btn-info">Boost</Button>
-                                                );
-                                            }
-                                            else{
-                                                boostButton = (
-                                                    <p>Already Boosted</p>
-                                                );
-                                            }
-                                            return(<Row xs={3} key={student.id} style={{backgroundColor:"lightgrey"}}>
-                                                <Col className="col-4 BoostStudentView" >
-                                                    <p>{student.username}</p>
-                                                </Col>
-                                                <Col className="col-4 BoostStudentView">
-                                                    <p>{student.opleiding.name}</p>
-                                                </Col>
-                                                <Col className="col-4">
-                                                    {boostButton}
-                                                </Col>
-                                            </Row>);
-                                        })}
+                                        <h5>1e keuze</h5>
+                                        <div>
+                                            {kiezers1.map(student => {
+                                                let boostButton;
+                                                if(student.geboostVoor.find(subject => subject.name == this.props.match.params.name) == null){
+                                                    boostButton = (
+                                                        <Button onClick={(event) => this.handleBoost(event,this.props.match.params.name, student.email)} className="btn btn-info">Boost</Button>
+                                                    );
+                                                }
+                                                else{
+                                                    boostButton = (
+                                                        <p>Already Boosted</p>
+                                                    );
+                                                }
+                                                return(<Row xs={3} key={student.id} style={{backgroundColor:"lightgrey"}}>
+                                                    <Col className="col-4 BoostStudentView" >
+                                                        <p>{student.username}</p>
+                                                    </Col>
+                                                    <Col className="col-4 BoostStudentView">
+                                                        <p>{student.opleiding.name}</p>
+                                                    </Col>
+                                                    <Col className="col-4">
+                                                        {boostButton}
+                                                    </Col>
+                                                </Row>);
+                                            })}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h5>2e keuze</h5>
+                                        <div>
+                                            {kiezers2.map(student => {
+                                                let boostButton;
+                                                if(student.geboostVoor.find(subject => subject.name == this.props.match.params.name) == null){
+                                                    boostButton = (
+                                                        <Button onClick={(event) => this.handleBoost(event,this.props.match.params.name, student.email)} className="btn btn-info">Boost</Button>
+                                                    );
+                                                }
+                                                else{
+                                                    boostButton = (
+                                                        <p>Already Boosted</p>
+                                                    );
+                                                }
+                                                return(<Row xs={3} key={student.id} style={{backgroundColor:"lightgrey"}} >
+                                                    <Col className="col-4 BoostStudentView">
+                                                        <p>{student.username}</p>
+                                                    </Col>
+                                                    <Col className="col-4 BoostStudentView">
+                                                        <p>{student.opleiding.name}</p>
+                                                    </Col>
+                                                    <Col className="col-4">
+                                                        {boostButton}
+                                                    </Col>
+                                                </Row>);
+                                            })}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h5>3e keuze</h5>
+                                        <div>
+                                            {kiezers3.map(student => {
+                                                let boostButton;
+                                                if(student.geboostVoor.find(subject => subject.name == this.props.match.params.name) == null){
+                                                    boostButton = (
+                                                        <Button onClick={(event) => this.handleBoost(event,this.props.match.params.name, student.email)} className="btn btn-info">Boost</Button>
+                                                    );
+                                                }
+                                                else{
+                                                    boostButton = (
+                                                        <p>Already Boosted</p>
+                                                    );
+                                                }
+                                                return(<Row xs={3} key={student.id} style={{backgroundColor:"lightgrey"}}>
+                                                    <Col className="col-4 BoostStudentView">
+                                                        <p>{student.username}</p>
+                                                    </Col>
+                                                    <Col className="col-4 BoostStudentView">
+                                                        <p>{student.opleiding.name}</p>
+                                                    </Col>
+                                                    <Col className="col-4">
+                                                        {boostButton}
+                                                    </Col>
+                                                </Row>);
+                                            })}
+                                        </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <h5>2e keuze</h5>
-                                    <div>
-                                        {kiezers2.map(student => {
-                                            let boostButton;
-                                            if(student.geboostVoor.find(subject => subject.name == this.props.match.params.name) == null){
-                                                boostButton = (
-                                                    <Button onClick={(event) => this.handleBoost(event,this.props.match.params.name, student.email)} className="btn btn-info">Boost</Button>
-                                                );
-                                            }
-                                            else{
-                                                boostButton = (
-                                                    <p>Already Boosted</p>
-                                                );
-                                            }
-                                            return(<Row xs={3} key={student.id} style={{backgroundColor:"lightgrey"}} >
-                                                <Col className="col-4 BoostStudentView">
-                                                    <p>{student.username}</p>
-                                                </Col>
-                                                <Col className="col-4 BoostStudentView">
-                                                    <p>{student.opleiding.name}</p>
-                                                </Col>
-                                                <Col className="col-4">
-                                                    {boostButton}
-                                                </Col>
-                                            </Row>);
-                                        })}
-                                    </div>
-                                </div>
-                                <div>
-                                    <h5>3e keuze</h5>
-                                    <div>
-                                        {kiezers3.map(student => {
-                                            let boostButton;
-                                            if(student.geboostVoor.find(subject => subject.name == this.props.match.params.name) == null){
-                                                boostButton = (
-                                                    <Button onClick={(event) => this.handleBoost(event,this.props.match.params.name, student.email)} className="btn btn-info">Boost</Button>
-                                                );
-                                            }
-                                            else{
-                                                boostButton = (
-                                                    <p>Already Boosted</p>
-                                                );
-                                            }
-                                            return(<Row xs={3} key={student.id} style={{backgroundColor:"lightgrey"}}>
-                                                <Col className="col-4 BoostStudentView">
-                                                    <p>{student.username}</p>
-                                                </Col>
-                                                <Col className="col-4 BoostStudentView">
-                                                    <p>{student.opleiding.name}</p>
-                                                </Col>
-                                                <Col className="col-4">
-                                                    {boostButton}
-                                                </Col>
-                                            </Row>);
-                                        })}
-                                    </div>
-                                </div>
-                            </div>
-                        );
+                        </div>);
                     }
                     else {
-                        studenten = (<div>
+                        studenten = (<div >
+                            <h3>Gekozen door:</h3>
+                            <div>
                                 <p>This subject isn't chosen by a student yet.</p>
                             </div>
-                        );
+                        </div>);
                     }
 
 
@@ -243,10 +246,7 @@ export default class subjectDetailsPromotor extends Component {
                                 <h3>Co-promotors</h3>
                                 {copromotoren}
                             </div>
-                            <div style={{justifyContent:"center", textAlign:"center"}}>
-                                <h3>Gekozen door:</h3>
-                                {studenten}
-                            </div>
+                            {studenten}
                         </Container>
                     );
                 })}

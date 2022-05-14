@@ -15,63 +15,9 @@ import {connect} from "react-redux";
 import store from "../store";
 import PersonService from "../services/person.service";
 import {postTop3} from "../actions/postTop3";
+import personService from "../services/person.service";
+import CardSlider from "../components/cardSlider.component";
 
-
-
-const CardContainer = (props) => (
-    <div className="small-cards-slider">
-        {
-            props.cards.map((card) => {
-                let promotor;
-                if(card.promotor != null){
-                    promotor = (<ListGroupItem>
-                        <Row xs={2}>
-                            <Col className="col-1"><BsPersonSquare/></Col>
-                            <Col style={{display: "flex"}} className="col-10">
-                                <p>{card.promotor.username}</p>
-                            </Col>
-                        </Row>
-                    </ListGroupItem>);
-                }
-                else {
-                    promotor = (<ListGroupItem>
-                        <Row xs={2}>
-                            <Col className="col-1"><BsPersonSquare/></Col>
-                            <Col style={{display: "flex"}} className="col-10">
-                                <p>no promotor available yet</p>
-                            </Col>
-                        </Row>
-                    </ListGroupItem>);
-                }
-                return (<Card key={card.id} className="small-card small-cards-container" style={{textAlign:"center"}}>
-                        <CardBody>
-                            <CardTitle tag="h5">{card.name}</CardTitle>
-                            <CardText>
-                                {card.description}
-                            </CardText>
-                        </CardBody>
-                        <ListGroup className="list-group-flush">
-                            <ListGroupItem>
-                                <Row xs={2}>
-                                    <Col className="col-1"><HiLocationMarker/></Col>
-                                    <Col style={{display: "flex"}} className="col-10">
-                                        <ul className="campus-ul">
-                                            {card.campussen.map(function (d, idx) {
-                                                return (<li key={idx} style={{listStyleType:"none"}}>{d.name}</li>)
-                                            })}
-                                        </ul>
-                                    </Col>
-                                </Row>
-                            </ListGroupItem>
-                            {promotor}
-                        </ListGroup>
-                        <Link to={`/subjectDetails/${card.id}`} className="btn btn-primary">Details</Link>
-                    </Card>)
-                }
-            )
-        }
-    </div>
-);
 
 const required = (value) => {
     if (!value) {
@@ -101,7 +47,8 @@ class TopSubjects extends Component {
             subject3: [],
             keuze3:"",
             successful: false,
-            submitted: false
+            submitted: false,
+            keuzesIngediend: false,
         };
     }
 
@@ -131,7 +78,7 @@ class TopSubjects extends Component {
 
     componentDidMount(){
         const state = store.getState();
-        subjectService.getTargetSubjects(state.auth.user.email).then(
+        subjectService.getTargetSubsStuds(state.auth.user.email).then(
             response => {
                 this.setState({
                     content: response.data
@@ -148,15 +95,33 @@ class TopSubjects extends Component {
                 });
             }
         );
+        personService.getKeuzesIngediend(state.auth.user.email).then(
+            response => {
+                this.setState({
+                    keuzesIngediend: response.data
+                });
+            },
+            error => {
+                this.setState({
+                    keuzesIngediend:
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString()
+                });
+            });
     }
 
     handleSubmit(e) {
         const state = store.getState();
+        console.log(state);
         e.preventDefault();
 
         this.setState({
             successful: false,
-            submitted:false
+            submitted:false,
+            keuzesIngediend:false,
         });
 
         this.form.validateAll();
@@ -170,13 +135,15 @@ class TopSubjects extends Component {
                 .then(() => {
                     this.setState({
                         successful: true,
-                        submitted:true
+                        submitted:true,
+                        keuzesIngediend: true,
                     });
                 })
                 .catch(() => {
                     this.setState({
                         successful: false,
-                        submitted:false
+                        submitted:false,
+                        keuzesIngediend: false,
                     });
                 });
         }
@@ -188,10 +155,10 @@ class TopSubjects extends Component {
         console.log("content:",content);
         const { message } = this.props;
         const animatedComponents = makeAnimated();
-        const submitted = this.state.submitted;
+        const keuzesIngediend = this.state.keuzesIngediend;
 
         let form;
-        if(!submitted)
+        if(!keuzesIngediend)
         {
             form = (<div style={{marginTop:"2rem"}}>
                 <h1>Top 3 Subjects</h1>
@@ -287,7 +254,7 @@ class TopSubjects extends Component {
         return (
             <div className="container">
                 <div>
-                    <CardContainer cards={content}/>
+                    <CardSlider cards={content}/>
                 </div>
                 <div className="big-card-wrapper">{form}</div>
             </div>

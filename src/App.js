@@ -36,6 +36,8 @@ import StudentToewijzing from "./components/studentToewijzing.component";
 import ShowBedrijfSubjects from "./components/showBedrijfSubjects.component";
 import AddSubjectPromotor from "./components/AddSubjectPromotor.component";
 import subjectAssignPromotor from "./components/subjectAssignPromotor";
+import studentToewijzingDetails from "./components/studentToewijzingDetails.component";
+import Footer from './components/footer.component'
 
 
 
@@ -135,7 +137,7 @@ class App extends Component {
 
     return (
       <Router history={history}>
-        <div>
+        <div style={{marginBottom:"100px"}}>
           <nav className="navbar navbar-expand-sm navbar-custom">
             <Link to={"/"} className="navbar-brand ">
               KU LEUVEN
@@ -294,11 +296,15 @@ class App extends Component {
               <ProtectedRouteBedrijf exact path="/showBedrijfSubjects" component={ShowBedrijfSubjects}/>
               <ProtectedRoutePromotor exact path="/addSubjectPromotor" component={AddSubjectPromotor}/>
               <ProtectedRouteCoordinator exact path="/assignPromotor" component={subjectAssignPromotor}/>
+              <ProtectedRouteCoordinator exact path="/studentToewijzingDetails/:name" component={studentToewijzingDetails} />
 
             </Switch>
           </div>
           {/* <AuthVerify logOut={this.logOut}/> */}
         </div>
+          <div className="App">
+              <Footer/>
+          </div>
       </Router>
     );
   }

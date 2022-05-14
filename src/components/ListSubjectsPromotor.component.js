@@ -45,7 +45,6 @@ export default class listSubjectsPromotor extends Component {
 
     render() {
         const {content} = this.state;
-        console.log("username", this.props);
         return (
             <Container>
                 <Row xs={3} className="center-content">

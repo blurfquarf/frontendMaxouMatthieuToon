@@ -20,7 +20,7 @@ export default class ShowSubject extends Component {
 
     componentDidMount(){
         const state = store.getState();
-        subjectService.getTargetSubjects(state.auth.user.email).then(
+        subjectService.getTargetSubsStuds(state.auth.user.email).then(
             response => {
                 this.setState({
                     content: response.data

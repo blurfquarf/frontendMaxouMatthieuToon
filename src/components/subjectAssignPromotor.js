@@ -168,7 +168,7 @@ class subjectAssignPromotor extends Component {
                                     <Select
                                         components={animatedComponents}
                                         closeMenuOnSelect={true}
-                                        className="basic-multi-select"
+                                        className="basic-multi-select judge-subjects-btn"
                                         name="promotor"
                                         value={this.state.content.promotor}
                                         onChange={(selectedOption) => this.onChangePromotor(selectedOption, subject.name)}
@@ -178,7 +178,7 @@ class subjectAssignPromotor extends Component {
                                         classNamePrefix="select"
                                         defaultOptions={false}
                                     />
-                                    <Button onClick={(event) => this.addPromotor(event, subject.name)} className="btn btn-primary">Add!</Button>
+                                    <Button onClick={(event) => this.addPromotor(event, subject.name)} className="btn btn-primary judge-subjects-btn">Add!</Button>
                                     <Link to={`/subjectDetails/${subject.name}`} className="btn btn-primary judge-subjects-btn">Details</Link>
                                 </Card>
                             </div>

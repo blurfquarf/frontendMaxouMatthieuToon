@@ -21,6 +21,7 @@ export default class subjectDetails extends Component {
     }
 
     componentDidMount(){
+        console.log("params.name", this.props.match.params.name);
         subjectService.getOneSubject(this.props.match.params.name).then(
             response => {
                 this.setState({

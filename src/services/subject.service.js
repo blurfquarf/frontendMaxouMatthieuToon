@@ -3,9 +3,10 @@ import axios from "axios";
 const user = JSON.parse(localStorage.getItem("user"));
 
 class SubjectService{
-    postSubject(title,description,campussen,copromotoren,bedrijf,promotor,opleiding) {
+    postSubject(title,description,campussen,copromotoren,bedrijf,promotor,opleiding,email) {
         const config = {
-            headers: { Authorization: "Bearer " + user.accessToken}
+            headers: { Authorization: "Bearer " + user.accessToken},
+            params: {mail: email}
         };
 
         const data = {
@@ -15,7 +16,7 @@ class SubjectService{
             copromotoren: copromotoren,
             bedrijf: bedrijf,
             promotor: promotor,
-            opleidingen: opleiding
+            opleidingen: opleiding,
         }
 
         return axios.post("http://localhost:8080/api/v1/subject", data, config);
@@ -141,14 +142,90 @@ class SubjectService{
     postPromotor(name, email) {
         const config = {
             headers: { Authorization: "Bearer " + user.accessToken},
-            params: {subjectName : name, mail: email}
+            params: {subjectName : name, mail : email}
         };
 
         const data = {};
 
         return axios.post("http://localhost:8080/api/v1/subject/pro",data, config);
     }
+
+
+
+    ///////////////////////////////////////////////////
+
+
+    //////PROMOTOR
+    getAllSubsPerPro(email) {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken },
+            params: {mail: email}
+        }
+
+        return axios.get("http://localhost:8080/api/v1/subject/allsubsperpro", config);
+    }
+
+
+
+    /////////STUDENT
+    //studentkeuzes, map met als int keuznr en ernaast onderwerp
+    getAllKeuzes(email) {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken },
+            params: {mail: email}
+        }
+
+        return axios.get("http://localhost:8080/api/v1/subject/allkeuzesstudent", config);
+    }
+
+    //student toegewezen onderwerp
+    getGekregen(email) {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken },
+            params: {mail: email}
+        }
+
+        return axios.get("http://localhost:8080/api/v1/subject/gekregensubj", config);
+    }
+
+
+    ////////BEDRIJF
+    //studenten die onderwerp bij dit bedrijf hebben, vorm Map<User, Subject>
+    getStudMetBedrijf(email) {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken },
+            params: {mail: email}
+        }
+
+        return axios.get("http://localhost:8080/api/v1/subject/getstudentenmetjouwsubjects", config);
+    }
+
+
+    //COORDINATOR
+    //alle target en approved onderwerpen los van beschikbaarheid
+    getAll(email) {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken },
+            params: {mail: email}
+        }
+
+        return axios.get("http://localhost:8080/api/v1/subject/getAllTargetSubs", config);
+    }
+
+    getTargetSubsStuds(email) {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken },
+            params: {mail: email}
+        }
+
+        return axios.get("http://localhost:8080/api/v1/subject/getTSubForS", config);
+    }
+
+
+
 }
+
+
 
 
 export default new SubjectService();
