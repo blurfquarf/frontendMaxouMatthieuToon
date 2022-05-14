@@ -48,6 +48,11 @@ class homePromotor extends Component {
                 </div>
             </div>);
         }
+        else {
+            subjects = (<div>
+                <h4>You curently have no subjects assigned.</h4>
+            </div>)
+        }
         return (
             <div>
                 {subjects}
