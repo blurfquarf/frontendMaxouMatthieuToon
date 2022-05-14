@@ -6,6 +6,7 @@ import { isEmail } from "validator";
 
 import { connect } from "react-redux";
 import { register } from "../actions/auth";
+import MapChart from "./MapChart";
 
 const required = (value) => {
   if (!value) {
@@ -129,7 +130,7 @@ class Register extends Component {
             {!this.state.successful && (
               <div>
                 <div className="form-group">
-                  <label htmlFor="username">Username</label>
+                  <label htmlFor="username">Company</label>
                   <Input
                     type="text"
                     className="form-control"
@@ -184,6 +185,10 @@ class Register extends Component {
               }}
             />
           </Form>
+        </div>
+        <div>
+          <h1>Onze campussen: </h1>
+          <MapChart />
         </div>
       </div>
     );

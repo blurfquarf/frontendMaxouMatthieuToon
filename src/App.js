@@ -89,8 +89,7 @@ const toewijzingFASE = (currentDate >= toewijzingStart) && (currentDate <= toewi
 
 
 
-
-    class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.logOut = this.logOut.bind(this);

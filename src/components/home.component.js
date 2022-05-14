@@ -32,7 +32,7 @@ export default class Home extends Component {
     return (
         <div>
             <header className="jumbotron">
-                <h3>Welkom op het thesisplatform! Kijk gerust even rond! Voor u gelden voorlopig onderstaande zaken:</h3>
+                <h3>Welkom op het thesisplatform! Kijk gerust even rond!</h3>
             </header>
             {subjects}
         </div>
