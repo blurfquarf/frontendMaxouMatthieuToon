@@ -11,6 +11,7 @@ const geenfase = dateService.getGeenFase();
 const toewijsfase = dateService.getToewijzingFase();
 const goedkeurfase = dateService.getGoedkeurfase();
 const keuzefase =dateService.getKeuzefase();
+const boostfase = dateService.getBoostFase();
 
 class homePromotor extends Component {
     constructor(props) {
@@ -46,11 +47,11 @@ class homePromotor extends Component {
         if(this.state.content.length != 0){
             subjects = (<div>
                 {toewijsfase && <div style={{marginTop:"1rem", marginBottom:"1rem"}}>
-                    <h2>Already assigned subjects:</h2>
+                    <h2>Students have been assigned to the following subjects:</h2>
                     <CardSlider cards={this.state.content.filter(subject => subject.nietMeerBeschikbaar === true)}/>
                 </div> }
-                {(!toewijsfase && !geenfase) && <div style={{marginTop:"1rem", marginBottom:"1rem"}}>
-                    <h2>Approved subjects:</h2>
+                {(!geenfase) && <div style={{marginTop:"1rem", marginBottom:"1rem"}}>
+                    <h2>Your approved subjects:</h2>
                     <CardSlider cards={this.state.content.filter(subject => subject.nietMeerBeschikbaar === false)}/>
                 </div>}
 
@@ -67,8 +68,10 @@ class homePromotor extends Component {
             <div>
                 <h2>Notifications:</h2>
                 {(!geenfase) ? <header className="jumbotron">
-                    {(indienfase || goedkeurfase) && <h4>You can submit subjects now.</h4>}
+                    {(indienfase) && <h4>You can submit subjects now.</h4>}
                     {(keuzefase) && <h4>Students can now submit their choices.</h4>}
+                    {(boostfase) && <h4>You can now boost students for subjects.</h4>}
+                    {(toewijsfase) &&  <h4>Students can now be assigned to subjects.</h4>}
                     </header>
                     : <header className="jumbotron">
                         <h4>You can submit subjects starting from 8/02 until 30/3.</h4>
