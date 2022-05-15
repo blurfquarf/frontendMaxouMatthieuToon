@@ -28,7 +28,6 @@ class homeStudent extends Component {
 
     componentDidMount() {
         const state = store.getState();
-        console.log()
         subjectService.getGekregen(state.auth.user.email).then(
             response => {
                 this.setState({
@@ -63,7 +62,6 @@ class homeStudent extends Component {
             });
         subjectService.getAllKeuzes(state.auth.user.email).then(
             response => {
-                console.log(response.data[1]);
                 this.setState({
                     keuzes: [response.data[1], response.data[2], response.data[3]],
                 })
@@ -110,7 +108,6 @@ class homeStudent extends Component {
         ///////////////////////////////////////////////////////////////
 
         let subjects;
-        console.log(indienenPromotorStart <= currentDate && currentDate <= goedkeurenEind);
         if(indienenPromotorStart <= currentDate && currentDate <= goedkeurenEind){
             subjects=(<HomeStudentIndienen />);
         }
