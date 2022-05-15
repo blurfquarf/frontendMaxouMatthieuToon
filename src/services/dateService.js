@@ -1,8 +1,10 @@
-const currentDate = new Date(2022, 9, 1);
+const currentDate = new Date(2022, 4, 2);
 
 
 
 ///////////////////////////////////1111111111/////////////////////////////////////////////
+//januari is hier nulde maand!
+
 
 //STUDENT
 //addsubjects
@@ -12,14 +14,14 @@ const currentDate = new Date(2022, 9, 1);
 
 //BEDRIJF
 //indienen, overzicht
-const indienenPromotorStart = new Date(2022, 2, 8);
-const indienenPromotorEind = new Date(2022, 3, 30);
+const indienenPromotorStart = new Date(2022, 1, 8);
+const indienenPromotorEind = new Date(2022, 2, 30);
 
 ///////////////////////////////////2222222222/////////////////////////////////////////////
 
 //goedkeuren
 const goedkeurenStart = indienenPromotorStart;
-const goedkeurenEind = new Date(2022, 3, 31);
+const goedkeurenEind = new Date(2022, 2, 31);
 
 
 ///////////////////////////////////3333333333/////////////////////////////////////////////
@@ -28,8 +30,8 @@ const goedkeurenEind = new Date(2022, 3, 31);
 
 //STUDENT
 //keuzeStudent, addsubj weg + submit choices erbij
-const keuzeStudentStart = new Date(2022, 4, 1);
-const keuzeStudentEind = new Date(2022, 4, 30);
+const keuzeStudentStart = new Date(2022, 3, 1);
+const keuzeStudentEind = new Date(2022, 3, 30);
 
 
 
@@ -39,8 +41,8 @@ const keuzeStudentEind = new Date(2022, 4, 30);
 
 //STUDENT
 //boost, submit choices terug weg
-const boostStart = new Date(2022, 5, 1);
-const boostEind = new Date(2022, 5, 15);
+const boostStart = new Date(2022, 4, 1);
+const boostEind = new Date(2022, 4, 15);
 
 
 
@@ -48,8 +50,8 @@ const boostEind = new Date(2022, 5, 15);
 
 
 //finaletoewijzing
-const toewijzingStart = new Date(2022, 5, 16);
-const toewijzingEind = new Date(2022, 5, 20);
+const toewijzingStart = new Date(2022, 4, 16);
+const toewijzingEind = new Date(2022, 4, 20);
 
 
 

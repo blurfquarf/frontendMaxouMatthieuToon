@@ -54,7 +54,6 @@ class homePromotor extends Component {
                     <h2>Your approved subjects:</h2>
                     <CardSlider cards={this.state.content.filter(subject => subject.nietMeerBeschikbaar === false)}/>
                 </div>}
-
             </div>);
         }
         else {
