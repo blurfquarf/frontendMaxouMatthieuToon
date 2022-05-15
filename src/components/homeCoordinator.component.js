@@ -68,7 +68,7 @@ class homeCoordinator extends Component {
                     <CardSlider cards={this.state.content.filter(subject => subject.nietMeerBeschikbaar === true)}/>
                 </div> }
                 {(!geenfase) && <div style={{marginTop:"1rem", marginBottom:"1rem"}}>
-                    <h2>Your approved subjects:</h2>
+                    <h2>Approved subjects:</h2>
                     <CardSlider cards={this.state.content.filter(subject => subject.nietMeerBeschikbaar === false)}/>
                 </div>}
             </div>);
