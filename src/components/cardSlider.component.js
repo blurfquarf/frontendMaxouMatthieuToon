@@ -35,12 +35,24 @@ class cardSlider extends Component{
                                 </ListGroupItem>);
                             }
                             let opleiding;
+                            console.log("opleidingen", card.opleidingen);
+                            let cte =0;
                             if(card.opleidingen != null){
                                 opleiding =(<ListGroupItem>
                                     <Row xs={2}>
                                         <Col className="col-1"><FaGraduationCap/></Col>
                                         <Col style={{display: "flex"}} className="col-10">
-                                            <p>{card.opleidingen[0].name}</p>
+                                            {card.opleidingen.map(opleiding => {
+                                                cte= cte+1;
+                                                if(cte == 1) {
+                                                    return(<p style={{textAlign:"left"}} key={opleiding.id}>{opleiding.name}</p>);
+                                                }
+                                                else{
+                                                    return(<p style={{textAlign:"left"}} key={opleiding.id}>/ {opleiding.name}</p>);
+                                                }
+
+
+                                            })}
                                         </Col>
                                     </Row>
                                 </ListGroupItem>);
@@ -51,7 +63,7 @@ class cardSlider extends Component{
                                     <Row xs={2}>
                                         <Col className="col-1"><BsPersonSquare/></Col>
                                         <Col style={{display: "flex"}} className="col-10">
-                                            <p>{card.promotor.username}</p>
+                                            <p style={{textAlign:"left"}}>{card.promotor.username}</p>
                                         </Col>
                                     </Row>
                                 </ListGroupItem>);
@@ -61,7 +73,7 @@ class cardSlider extends Component{
                                     <Row xs={2}>
                                         <Col className="col-1"><BsPersonSquare/></Col>
                                         <Col style={{display: "flex"}} className="col-10">
-                                            <p>no promotor available yet</p>
+                                            <p style={{textAlign:"left"}}>no promotor available yet</p>
                                         </Col>
                                     </Row>
                                 </ListGroupItem>);

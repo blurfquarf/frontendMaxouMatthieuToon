@@ -69,15 +69,16 @@ class AddSubjectBedrijf extends Component {
         });
     }
 
-    onChangePromotor(e) {
+    onChangePromotor = (selectedOption) => {
         this.setState({
-            promotor: e.target.value,
+            promotor: selectedOption,
         });
     }
 
 
     handleSubject(e) {
         e.preventDefault();
+        const state = store.getState();
 
         this.setState({
             successful: false,
@@ -89,7 +90,7 @@ class AddSubjectBedrijf extends Component {
         if (this.checkBtn.context._errors.length === 0) {
             this.props
                 .dispatch(
-                    addSubject(this.state.title, this.state.description, this.state.campus, this.state.coPros,this.state.bedrijf,this.state.promotor,this.state.opleiding)
+                    addSubject(this.state.title, this.state.description, this.state.campus, this.state.coPros,this.state.bedrijf.email,this.state.promotor,this.state.opleiding,state.auth.user.email )
                 )
                 .then(() => {
                     this.setState({

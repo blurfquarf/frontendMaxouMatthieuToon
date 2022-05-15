@@ -53,7 +53,6 @@ class TopSubjects extends Component {
     }
 
     onChangeSubject1 = (selectedOption) => {
-        console.log("keuze1", selectedOption.name);
         this.setState({
             subject1: selectedOption,
             keuze1: selectedOption.name
@@ -61,7 +60,6 @@ class TopSubjects extends Component {
     }
 
     onChangeSubject2 = (selectedOption) => {
-        console.log("keuze2",selectedOption);
         this.setState({
             subject2: selectedOption,
             keuze2: selectedOption.name
@@ -69,7 +67,6 @@ class TopSubjects extends Component {
     }
 
     onChangeSubject3 = (selectedOption) => {
-        console.log("keuze3",selectedOption);
         this.setState({
             subject3: selectedOption,
             keuze3: selectedOption.name
@@ -152,7 +149,6 @@ class TopSubjects extends Component {
 
     render() {
         const {content} = this.state;
-        console.log("content:",content);
         const { message } = this.props;
         const animatedComponents = makeAnimated();
         const keuzesIngediend = this.state.keuzesIngediend;
@@ -180,7 +176,7 @@ class TopSubjects extends Component {
                                     value={this.state.subject1}
                                     onChange={this.onChangeSubject1}
                                     validations={[required]}
-                                    options={content.filter(subject => subject.approved)}
+                                    options={content.filter(subject => subject.approved &&  subject.name != this.state.keuze2 &&  subject.name != this.state.keuze3)}
                                     getOptionLabel={(option) => option.name}
                                     getOptionValue={(option) => option.name}
                                     classNamePrefix="select"
@@ -198,7 +194,7 @@ class TopSubjects extends Component {
                                     value={this.state.subject2}
                                     onChange={this.onChangeSubject2}
                                     validations={[required]}
-                                    options={content.filter(subject => subject.approved)}
+                                    options={content.filter(subject => subject.approved &&  subject.name != this.state.keuze1 &&  subject.name != this.state.keuze3)}
                                     getOptionLabel={(option) => option.name}
                                     getOptionValue={(option) => option.name}
                                     classNamePrefix="select"
@@ -216,7 +212,7 @@ class TopSubjects extends Component {
                                     value={this.state.subject3}
                                     onChange={this.onChangeSubject3}
                                     validations={[required]}
-                                    options={content.filter(subject => subject.approved)}
+                                    options={content.filter(subject => subject.approved &&  subject.name != this.state.keuze1 &&  subject.name != this.state.keuze2)}
                                     getOptionLabel={(option) => option.name}
                                     getOptionValue={(option) => option.name}
                                     classNamePrefix="select"

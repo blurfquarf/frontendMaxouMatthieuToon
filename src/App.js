@@ -54,8 +54,11 @@ import dateService from "./services/dateService";
 ///////////////////////////////////////////////////////////////
 
 
-
-
+const indienfase = dateService.getIndienfase();
+const goedkeurfase = dateService.getGoedkeurfase();
+const keuzefase = dateService.getKeuzefase();
+const boostfase = dateService.getBoostFase();
+const toewijzingsfase = dateService.getToewijzingFase();
 
 
 
@@ -119,18 +122,17 @@ class App extends Component {
       <Router history={history}>
         <div style={{marginBottom:"100px"}}>
           <nav className="navbar navbar-expand-sm navbar-custom">
-            <Link to={"/"} className="navbar-brand ">
+            <Link to={"/home"} className="navbar-brand ">
               KU LEUVEN
             </Link>
-
             <input type="checkbox" id="toggler" />
             <label htmlFor="toggler"><RiMenuLine/></label>
             <div className="navbar-nav mr-auto menu">
               <ul className="nav-list">
                 <li className="nav-item">
-                  <Link to={"/home"} className="nav-link">
+                  {currentUser && <Link to={"/home"} className="nav-link">
                     Home
-                  </Link>
+                  </Link>}
                 </li>
 
                 {showCoordinatorBoard && (
@@ -157,7 +159,7 @@ class App extends Component {
                     </li>
                 )}
 
-                {showStudentBoard && (
+                {showStudentBoard && indienfase && (
                     <li className="nav-item">
                       <Link to={"/addSubject"} className="nav-link">
                         Add Subject
@@ -173,15 +175,7 @@ class App extends Component {
                     </li>
                 )}
 
-                {showStudentBoard && (
-                    <li className="nav-item">
-                      <Link to={"/student"} className="nav-link">
-                        Student Dashboard
-                      </Link>
-                    </li>
-                )}
-
-                {showBedrijfBoard && (
+                {showBedrijfBoard && indienfase && (
                     <li className="nav-item">
                       <Link to={"/addSubjectBedrijf"} className="nav-link">
                         Add subject
@@ -197,7 +191,7 @@ class App extends Component {
                     </li>
                 )}
 
-                {showPromotorBoard && (
+                {showPromotorBoard && indienfase && (
                     <li className="nav-item">
                       <Link to={"/addSubjectPromotor"} className="nav-link">
                         Add Subject

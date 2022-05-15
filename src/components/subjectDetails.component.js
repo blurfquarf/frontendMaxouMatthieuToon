@@ -6,7 +6,7 @@ import {
     Col,
     Container, ListGroup, ListGroupItem, Row
 } from 'reactstrap';
-import {BsPersonSquare} from "react-icons/all";
+import {BsPersonSquare, FaGraduationCap} from "react-icons/all";
 import {HiLocationMarker} from "react-icons/hi";
 import {Link} from "react-router-dom";
 
@@ -66,19 +66,19 @@ export default class subjectDetails extends Component {
                     if(subject.copromotoren.length !=0){
                         copromotoren = (
                                 <div style={{display:"flex"}}>
-                                    <ul>
+                                    <ul className="campus-ul">
                                         {subject.copromotoren.map(function(d, idx){
-                                            return (<li key={idx}  className="campus-li">{d.name}</li>)
+                                            return (<li key={idx}  className="campus-li">{d.username}</li>)
                                         })}
                                     </ul>
-                                </div>)
+                                </div>);
                     }
                     else {
                         copromotoren = (
                             <div>
                                 <p>There are no co-promotors for this subject</p>
                             </div>
-                        )
+                        );
                     }
                     let promotor;
                     if(subject.promotor != null){
@@ -89,6 +89,16 @@ export default class subjectDetails extends Component {
                     else {
                         promotor = (<div>
                             <p>no promotor available yet</p>
+                        </div>);
+                    }
+                    let opleiding;
+                    if(subject.opleidingen != null){
+                        opleiding =(<div>
+                            <ul className="campus-ul">
+                                {subject.opleidingen.map(function(d, idx){
+                                    return (<li key={idx}  className="campus-li">{d.name}</li>)
+                                })}
+                            </ul>
                         </div>);
                     }
 
@@ -112,6 +122,10 @@ export default class subjectDetails extends Component {
                             <div>
                                 <h3>Co-promotors</h3>
                                 {copromotoren}
+                            </div>
+                            <div>
+                                <h3>Education:</h3>
+                                {opleiding}
                             </div>
                         </Container>
                     );

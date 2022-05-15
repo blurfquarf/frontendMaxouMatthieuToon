@@ -18,17 +18,19 @@ class Profile extends Component {
                   Profiel
               </h2>
         </header>
-          <h3>
-              <strong>Welkom {currentUser.username}</strong>
-          </h3>
-        <p>
-          <strong>Email:</strong> {currentUser.email}
-        </p>
-        <strong>Machtigingen:</strong>
-        <ul>
-          {currentUser.roles &&
-            currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-        </ul>
+        <div style={{textAlign:"center"}}>
+            <h3>
+                <strong>Welkom {currentUser.username}</strong>
+            </h3>
+            <p>
+                <strong>Email:</strong> {currentUser.email}
+            </p>
+
+            <ul className="campus-ul">
+                {currentUser.roles &&
+                    currentUser.roles.map((role, index) => <li className="campus-li" key={index} style={{textAlign:"center"}}><strong>Machtigingen:</strong>{role}</li>)}
+            </ul></div>
+
       </div>
     );
   }

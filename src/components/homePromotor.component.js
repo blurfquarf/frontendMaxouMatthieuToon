@@ -4,6 +4,13 @@ import UserService from "../services/user.service";
 import store from "../store";
 import subjectService from "../services/subject.service";
 import CardSlider from "../components/cardSlider.component";
+import dateService from "../services/dateService";
+
+const indienfase = dateService.getIndienfase();
+const geenfase = dateService.getGeenFase();
+const toewijsfase = dateService.getToewijzingFase();
+const goedkeurfase = dateService.getGoedkeurfase();
+const keuzefase =dateService.getKeuzefase();
 
 class homePromotor extends Component {
     constructor(props) {
@@ -38,14 +45,15 @@ class homePromotor extends Component {
         let subjects;
         if(this.state.content.length != 0){
             subjects = (<div>
-                <div style={{marginTop:"1rem", marginBottom:"1rem"}}>
+                {toewijsfase && <div style={{marginTop:"1rem", marginBottom:"1rem"}}>
                     <h2>Already assigned subjects:</h2>
                     <CardSlider cards={this.state.content.filter(subject => subject.nietMeerBeschikbaar === true)}/>
-                </div>
-                <div style={{marginTop:"1rem", marginBottom:"1rem"}}>
+                </div> }
+                {(!toewijsfase && !geenfase) && <div style={{marginTop:"1rem", marginBottom:"1rem"}}>
                     <h2>Approved subjects:</h2>
                     <CardSlider cards={this.state.content.filter(subject => subject.nietMeerBeschikbaar === false)}/>
-                </div>
+                </div>}
+
             </div>);
         }
         else {
@@ -57,7 +65,15 @@ class homePromotor extends Component {
         }
         return (
             <div>
-                {subjects}
+                <h2>Notifications:</h2>
+                {(!geenfase) ? <header className="jumbotron">
+                    {(indienfase || goedkeurfase) && <h4>You can submit subjects now.</h4>}
+                    {(keuzefase) && <h4>Students can now submit their choices.</h4>}
+                    </header>
+                    : <header className="jumbotron">
+                        <h4>You can submit subjects starting from 8/02 until 30/3.</h4>
+                    </header>}
+                { subjects}
             </div>
         );
     }

@@ -9,12 +9,18 @@ import {Link} from "react-router-dom";
 import {HiLocationMarker} from "react-icons/hi";
 import {BsFillPersonFill, BsPersonSquare} from "react-icons/all";
 import store from "../store";
+import dateService from "../services/dateService";
+
+
+const keuzefase = dateService.getKeuzefase();
+
 
 export default class ShowSubject extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            content: []
+            content: [],
+            date:"",
         };
     }
 
@@ -40,7 +46,6 @@ export default class ShowSubject extends Component {
         );
     }
 
-
     render() {
         const {content} = this.state;
         console.log("content: ", content);
@@ -51,11 +56,11 @@ export default class ShowSubject extends Component {
                     <Col>
                         <h1>Subjects</h1>
                     </Col>
-                    <Col>
+                    {keuzefase && <Col>
                         <div style={{float: "right"}}>
                             <Link className="btn btn-primary link-btn" to="/topSubjects">Submit Top 3</Link>
                         </div>
-                    </Col>
+                    </Col>}
                 </Row>
                 <div className="subject-wrapper">
                     {content.map(subject => {
@@ -75,7 +80,7 @@ export default class ShowSubject extends Component {
                             </ListGroupItem>)
                         }
                         let copromotoren;
-                        if(subject.copromotoren.length !=0){
+                        if(subject.copromotoren.length != 0){
                             copromotoren = (<ListGroupItem>
                                 <Row xs={2}>
                                     <Col className="col-1"><BsFillPersonFill/> </Col>
@@ -91,14 +96,28 @@ export default class ShowSubject extends Component {
                         }
                         let promotor;
                         if(subject.promotor != null){
-                            promotor = (<ListGroupItem><BsPersonSquare />{subject.promotor.username}</ListGroupItem>);
+                            promotor = (<ListGroupItem>
+                                <Row xs={2}>
+                                    <Col className="col-1"><BsPersonSquare/></Col>
+                                    <Col style={{display: "flex"}} className="col-10">
+                                        <p style={{textAlign:"left"}}>{subject.promotor.username}</p>
+                                    </Col>
+                                </Row>
+                            </ListGroupItem>);
                         }
                         else{
-                            promotor = (<ListGroupItem><BsPersonSquare /><p>no promotor available yet</p></ListGroupItem>);
+                            promotor = (<ListGroupItem>
+                                <Row xs={2}>
+                                    <Col className="col-1"><BsPersonSquare/></Col>
+                                    <Col style={{display: "flex"}} className="col-10">
+                                        <p style={{textAlign:"left"}}>no promotor available yet</p>
+                                    </Col>
+                                </Row>
+                            </ListGroupItem>);
                         }
                         return (
                             <div key={subject.id} >
-                                <Card className="subject-card">
+                                <div className="subject-card">
                                     <CardBody>
                                         <CardTitle tag="h5">{subject.name}</CardTitle>
                                         <CardText>
@@ -111,7 +130,7 @@ export default class ShowSubject extends Component {
                                         {copromotoren}
                                     </ListGroup>
                                     <Link to={`/subjectDetails/${subject.name}`} className="btn btn-primary">Details</Link>
-                                </Card>
+                                </div>
                             </div>
                         );
                     })}
