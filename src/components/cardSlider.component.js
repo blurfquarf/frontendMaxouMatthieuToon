@@ -1,5 +1,5 @@
 import {Card, CardBody, CardText, CardTitle, Col, ListGroup, ListGroupItem, Row} from "reactstrap";
-import {BsPersonSquare, FaGraduationCap} from "react-icons/all";
+import {BsPersonSquare, FaGraduationCap, IoPersonCircle} from "react-icons/all";
 import {HiLocationMarker} from "react-icons/hi";
 import {Link} from "react-router-dom";
 import React, {Component} from "react";
@@ -10,6 +10,7 @@ class cardSlider extends Component{
     }
 
     render() {
+        let c =0;
         if(this.props.cards.length == 0){
             return (<div >
                 <p>No subjects available.</p>
@@ -20,8 +21,21 @@ class cardSlider extends Component{
                 <div className="small-cards-slider">
                     {
                         this.props.cards.map((card) => {
+
+                            let student;
+                            if(this.props.students != null && this.props.students.length != 0){
+                                console.log("card student",this.props.students);
+                                student=(<ListGroupItem>
+                                    <Row xs={2}>
+                                        <Col className="col-1"><IoPersonCircle/></Col>
+                                        <Col style={{display: "flex"}} className="col-10">
+                                            <p>{this.props.students[c]}</p>
+                                        </Col>
+                                    </Row>
+                                </ListGroupItem>);
+                            }
                             let opleiding;
-                            if(card.opleidingen.length != 0){
+                            if(card.opleidingen != null){
                                 opleiding =(<ListGroupItem>
                                     <Row xs={2}>
                                         <Col className="col-1"><FaGraduationCap/></Col>
@@ -74,9 +88,11 @@ class cardSlider extends Component{
                                     </ListGroupItem>
                                     {promotor}
                                     {opleiding}
+                                    {student}
                                 </ListGroup>
                                 <Link to={`/subjectDetails/${card.name}`} className="btn btn-primary">Details</Link>
                             </Card>)
+                            c=c+1;
                         })
                     }
                 </div>

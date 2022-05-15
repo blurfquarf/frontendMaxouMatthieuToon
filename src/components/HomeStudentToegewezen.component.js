@@ -5,13 +5,15 @@ import {HiLocationMarker} from "react-icons/hi";
 import {BsFillPersonFill, BsPersonSquare} from "react-icons/all";
 import {Link} from "react-router-dom";
 import store from "../store";
+import personService from "../services/person.service";
 
-class homeStudentKeuzesIngediend extends Component{
+class homeStudentToegewezen extends Component{
     constructor(props) {
         super(props);
 
         this.state ={
             keuzes: [],
+            user: [],
         }
     }
 
@@ -19,6 +21,7 @@ class homeStudentKeuzesIngediend extends Component{
         const state = store.getState();
         subjectService.getAllKeuzes(state.auth.user.email).then(
             response => {
+                console.log("resp",response.data[1]);
                 this.setState({
                     keuzes: [response.data[1], response.data[2], response.data[3]],
                 })
@@ -33,16 +36,32 @@ class homeStudentKeuzesIngediend extends Component{
                         error.toString()
                 });
             });
+        personService.getUser(state.auth.user.email).then(
+            response => {
+                this.setState({
+                    user: response.data,
+                })
+            },
+            error => {
+                this.setState({
+                    user:
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString()
+                });
+            });
     }
 
     render() {
+        console.log("keuzes",this.state.keuzes);
         let c =0;
         return (<div>
             <h2>Notifications:</h2>
             <header className="jumbotron">
-                <h4>You chose the following subjects as your Top 3:</h4>
-                {this.state.keuzes.map(keuze => {
-                    c = c+1;
+                <h4>You were assigned to the following subject:</h4>
+                {this.state.keuzes.filter(subject => subject.name == this.state.user.subject.name).map(keuze => {
                     let campussen;
                     if(keuze.campussen.length != 0){
                         campussen = (<ListGroupItem>
@@ -82,7 +101,6 @@ class homeStudentKeuzesIngediend extends Component{
                     }
                     return(<div key={keuze.id}>
                         <div>
-                            <h5>Choice N°{c}</h5>
                             <Card className="subject-card">
                                 <CardBody>
                                     <CardTitle tag="h5">{keuze.name}</CardTitle>
@@ -107,4 +125,4 @@ class homeStudentKeuzesIngediend extends Component{
     }
 
 }
-export default homeStudentKeuzesIngediend;
+export default homeStudentToegewezen;

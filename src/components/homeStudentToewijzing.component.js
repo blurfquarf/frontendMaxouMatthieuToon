@@ -1,28 +1,28 @@
 import React, {Component} from "react";
 import personService from "../services/person.service";
-import HomeStudentKeuzesIngediend from "./homeStudentKeuzesIngediend.component";
+import HomeStudentToegewezen from "./HomeStudentToegewezen.component";
 import store from "../store";
-import HomeStudentKeuzesNietIngediend from "../components/homeStudentKeuzesNietIngediend.component";
+import HomeStudentNietToegewezen from "../components/homeStudentNietToegewezen.component";
 
-class homeStudentKeuze extends Component{
+class homeStudentToewijzing extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            keuzesIngediend: false,
+            user: [],
         }
     }
 
     componentDidMount() {
         const state = store.getState();
-        personService.getKeuzesIngediend(state.auth.user.email).then(
+        personService.getUser(state.auth.user.email).then(
             response => {
                 this.setState({
-                    keuzesIngediend: response.data,
+                    user: response.data,
                 })
             },
             error => {
                 this.setState({
-                    keuzesIngediend:
+                    user:
                         (error.response &&
                             error.response.data &&
                             error.response.data.message) ||
@@ -34,10 +34,10 @@ class homeStudentKeuze extends Component{
 
     render() {
         return (<div>
-            {this.state.keuzesIngediend && <HomeStudentKeuzesIngediend />}
-            {!this.state.keuzesIngediend && <HomeStudentKeuzesNietIngediend />}
+            {this.state.user.heeftDefinitiefOnderwerp && <HomeStudentToegewezen />}
+            {!this.state.user.heeftDefinitiefOnderwerp && <HomeStudentNietToegewezen />}
         </div>);
     }
 
 }
-export default homeStudentKeuze;
+export default homeStudentToewijzing;

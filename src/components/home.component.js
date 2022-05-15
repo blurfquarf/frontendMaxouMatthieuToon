@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 
-import UserService from "../services/user.service";
 import store from "../store";
 import HomePromotor from "../components/homePromotor.component";
 import HomeCoordinator from "../components/homeCoordinator.component";
 import HomeStudent from "../components/homeStudent.component";
+import HomeBedrijf from "./homeBedrijf.component";
 
 export default class Home extends Component {
   constructor(props) {
@@ -28,11 +28,14 @@ export default class Home extends Component {
       else if(state.auth.user.roles[0] == "ROLE_STUDENT") {
           subjects=(<HomeStudent />);
       }
+      else if(state.auth.user.roles[0] == "ROLE_BEDRIJF") {
+          subjects=(<HomeBedrijf />);
+      }
 
     return (
         <div>
             <header className="jumbotron">
-                <h3>Welkom op het thesisplatform! Kijk gerust even rond!</h3>
+                <h3>Welcome to the thesis platform! Feel free to look around!</h3>
             </header>
             {subjects}
         </div>

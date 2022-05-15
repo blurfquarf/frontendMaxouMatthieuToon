@@ -11,6 +11,7 @@ import {HiLocationMarker} from "react-icons/hi";
 import {BsFillPersonFill, BsPersonSquare} from "react-icons/all";
 import HomeStudentIndienen from "./homeStudentIndienen.component";
 import HomeStudentKeuze from "./homeStudentKeuze.component";
+import HomeStudentToewijzing from "./homeStudentToewijzing.component";
 
 
 
@@ -82,8 +83,7 @@ class homeStudent extends Component {
     render() {
         //indienen als promotor/student
         const indienenPromotorStart = new Date(2022, 2, 8);
-        const indienenPromotorEind = new Date(2022, 3, 30);
-
+        const indienenPromotorEind = new Date(2022, 3,30);
 
 
         //onderwerpen indienen van indienenpromotorstart tot goedkeureneind
@@ -106,7 +106,7 @@ class homeStudent extends Component {
 
         ///////////////////////////////////////////////////////////////
         //const currentDate = new Date(2022, 5, 20);
-        const currentDate = new Date(2022, 4, 4);
+        const currentDate = new Date(2022, 5, 10);
         ///////////////////////////////////////////////////////////////
 
         let subjects;
@@ -116,6 +116,25 @@ class homeStudent extends Component {
         }
         else if(keuzeStudentStart<=currentDate && currentDate <=keuzeStudentEind) {
             subjects = (<HomeStudentKeuze />);
+        }
+        else if(boostStart <= currentDate && currentDate <= boostEind) {
+            subjects =(<div>
+                <h2>Notifications:</h2>
+                <header className="jumbotron">
+                    <h4>It is up to the promotor to boost you for one of your choices!</h4>
+                </header>
+            </div>);
+        }
+        else if(toewijzingStart<=currentDate && currentDate<=toewijzingEind){
+            subjects=(<HomeStudentToewijzing />);
+        }
+        else {
+            subjects =(<div>
+                <h2>Notifications:</h2>
+                <header className="jumbotron">
+                    <h4>The platform is closed now, come back on {indienenPromotorStart.getDate()}/{indienenPromotorStart.getMonth()} to submit a subject.</h4>
+                </header>
+            </div>);
         }
         return(<div>
             {subjects}

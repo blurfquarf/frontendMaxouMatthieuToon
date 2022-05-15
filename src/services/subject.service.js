@@ -222,6 +222,15 @@ class SubjectService{
     }
 
 
+    getAllForBedrijf(email) {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken },
+            params: {mail: email}
+        }
+
+        return axios.get("http://localhost:8080/api/v1/subject/allforbedrijf", config);
+    }
+
 
 }
 

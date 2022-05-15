@@ -1,17 +1,16 @@
 import React, { Component } from "react";
-
-import UserService from "../services/user.service";
 import store from "../store";
 import subjectService from "../services/subject.service";
 import CardSlider from "../components/cardSlider.component";
+import HomeBedrijfSubjects from "./homeBedrijfSubjects.component";
 
-class homeStudent extends Component {
+class homeBedrijf extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            content: [],
-            contentNotApproved: [],
+            contentToegewezen: [],
+            contentApproved: [],
         };
     }
 
@@ -20,12 +19,28 @@ class homeStudent extends Component {
         subjectService.getStudMetBedrijf(state.auth.user.email).then(
             response => {
                 this.setState({
-                    content: response.data,
-                }, () => console.log("gekregen",response.data));
+                    contentToegewezen: response.data,
+                });
             },
             error => {
                 this.setState({
-                    content:
+                    contentToegewezen:
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString()
+                });
+            });
+        subjectService.getAllForBedrijf(state.auth.user.email).then(
+            response => {
+                this.setState({
+                    contentApproved: response.data,
+                });
+            },
+            error => {
+                this.setState({
+                    contentApproved:
                         (error.response &&
                             error.response.data &&
                             error.response.data.message) ||
@@ -36,6 +51,16 @@ class homeStudent extends Component {
     }
 
     render() {
+        console.log("content1",this.state.contentToegewezen);
+        console.log("content2",this.state.contentApproved);
+        return(<div>
+            <HomeBedrijfSubjects subjectsToegewezen={this.state.contentToegewezen} subjectsApproved={this.state.contentApproved} />
+        </div>);
+
+        {/*
+        for(const [studentName, subject] of this.state.content.entries()){
+            console.log("[studentName, Subject]", studentName, subject);
+        }
         let subjects;
         const keuzes = [];
         let kiezers1 = [];
@@ -67,20 +92,19 @@ class homeStudent extends Component {
                 </div>
             </div>);
         }
+        */}
         return (
             <div>
                 <div>
                     <h2>Notifications:</h2>
                     <header className="jumbotron">
-                        <h4>There are {this.state.contentNotApproved.length} subjects up for approval.</h4>
-                        <h4>There are {this.state.content.filter(subject => (subject.approved=== true && subject.nietMeerBeschikbaar === false)).length} subjects that aren't assigned to a student yet.</h4>
+                        <h4>Bedrijf</h4>
                     </header>
 
                 </div>
-                {subjects}
             </div>
         );
     }
 }
 
-export default homeStudent;
+export default homeBedrijf;

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 
-class homeStudentIndienen extends Component{
+class homeStudentKeuzesNietingediend extends Component{
     constructor(props) {
         super(props);
     }
@@ -16,4 +16,4 @@ class homeStudentIndienen extends Component{
     }
 
 }
-export default homeStudentIndienen;
+export default homeStudentKeuzesNietingediend;

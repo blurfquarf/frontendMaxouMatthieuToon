@@ -50,7 +50,9 @@ class homePromotor extends Component {
         }
         else {
             subjects = (<div>
-                <h4>You curently have no subjects assigned.</h4>
+                <header className="jumbotron">
+                    <h4>You currently have no subjects assigned.</h4>
+                </header>
             </div>)
         }
         return (
