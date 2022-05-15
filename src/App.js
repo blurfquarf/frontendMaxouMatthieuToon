@@ -46,43 +46,13 @@ import { clearMessage } from "./actions/message";
 
 import { history } from './helpers/history';
 import {RiMenuLine} from "react-icons/all";
-
-
-
-//indienen als promotor
-const indienenPromotorStart = new Date(2022, 2, 8);
-const indienenPromotorEind = new Date(2022, 3, 30);
-
-//goedkeuren
-const goedkeurenStart = indienenPromotorStart;
-const goedkeurenEind = new Date(2022, 3, 31);
-
-//keuzeStudent
-const keuzeStudentStart = new Date(2022, 4, 1);
-const keuzeStudentEind = new Date(2022, 4, 30);
-
-//boost
-const boostStart = new Date(2022, 5, 1);
-const boostEind = new Date(2022, 5, 15);
-
-//finaletoewijzing
-const toewijzingStart = new Date(2022, 5, 16);
-const toewijzingEind = new Date(2022, 5, 20);
+import dateService from "./services/dateService";
 
 
 
 ///////////////////////////////////////////////////////////////
-var currentDate = new Date(2022, 5, 20);
 ///////////////////////////////////////////////////////////////
 
-
-
-
-const indienFASE = (currentDate >= indienenPromotorStart) && (currentDate <= indienenPromotorEind);
-const goedkeurenFASE = (currentDate >= goedkeurenStart) && (currentDate <= goedkeurenEind);
-const keuzeFASE = (currentDate >= keuzeStudentStart) && (currentDate <= keuzeStudentEind);
-const boostFASE = (currentDate >= boostStart) && (currentDate <= boostEind);
-const toewijzingFASE = (currentDate >= toewijzingStart) && (currentDate <= toewijzingEind);
 
 
 
@@ -155,7 +125,6 @@ class App extends Component {
 
             <input type="checkbox" id="toggler" />
             <label htmlFor="toggler"><RiMenuLine/></label>
-
             <div className="navbar-nav mr-auto menu">
               <ul className="nav-list">
                 <li className="nav-item">
@@ -220,7 +189,7 @@ class App extends Component {
                     </li>
                 )}
 
-                {showPromotorBoard && (
+                {showPromotorBoard && boostfase && (
                     <li className="nav-item">
                       <Link to={"/listSubjectsPromotor"} className="nav-link">
                         Boost Students
@@ -258,7 +227,7 @@ class App extends Component {
                   </li>
                   <li className="nav-item">
                     <a href="/login" className="nav-link" onClick={this.logOut}>
-                      LogOut
+                      Logout
                     </a>
                   </li>
                 </ul>
@@ -284,8 +253,8 @@ class App extends Component {
 
           <div className="container mt-3">
             <Switch>
-              <Route exact path={["/", "/home"]} component={Home} />
-              <Route exact path="/login" component={Login} />
+              <ProtectedRoute exact path="/home" component={Home} />
+              <Route exact path={["/", "/login"]} component={Login} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/profile" component={Profile} />
 
@@ -294,9 +263,7 @@ class App extends Component {
               <Route exact path="/promotor" component={BoardPromotor} />
               <Route exact path="/bedrijf" component={BoardBedrijf} />
               <Route exact path="/coordinator" component={BoardCoordinator} />
-
               <ProtectedRoute exact path="/addsubject" component={AddSubject} />
-
               <ProtectedRoute exact path="/subjects" component={ShowSubject} />
               <ProtectedRoute exact path="/judgeSubjects" component={JudgeSubject} />
               <Route exact path="/subjectDetails/:name" component={subjectDetails} />

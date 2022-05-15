@@ -187,7 +187,7 @@ class Register extends Component {
           </Form>
         </div>
         <div>
-          <h1>Onze campussen: </h1>
+          <h1>Our campusses: </h1>
           <MapChart />
         </div>
       </div>

@@ -14,6 +14,5 @@ class homeStudentKeuzesNietingediend extends Component{
             </header>
         </div>);
     }
-
 }
 export default homeStudentKeuzesNietingediend;
