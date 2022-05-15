@@ -1,9 +1,17 @@
 import React, { Component } from "react";
 
-import UserService from "../services/user.service";
 import store from "../store";
 import subjectService from "../services/subject.service";
 import CardSlider from "../components/cardSlider.component";
+import dateService from "../services/dateService";
+
+const indienfase = dateService.getIndienfase();
+const geenfase = dateService.getGeenFase();
+const toewijsfase = dateService.getToewijzingFase();
+const keuzefase =dateService.getKeuzefase();
+const boostfase = dateService.getBoostFase();
+const goedkeurfase = dateService.getGoedkeurfase();
+
 
 class homeCoordinator extends Component {
     constructor(props) {
@@ -55,25 +63,29 @@ class homeCoordinator extends Component {
         let subjects;
         if(this.state.content.length != 0){
             subjects = (<div>
-                <div style={{marginTop:"1rem", marginBottom:"1rem"}}>
-                    <h2>Already assigned subjects:</h2>
+                {toewijsfase && <div style={{marginTop:"1rem", marginBottom:"1rem"}}>
+                    <h2>Students have been assigned to the following subjects:</h2>
                     <CardSlider cards={this.state.content.filter(subject => subject.nietMeerBeschikbaar === true)}/>
-                </div>
-                <div style={{marginTop:"1rem", marginBottom:"1rem"}}>
-                    <h2>Approved subjects:</h2>
+                </div> }
+                {(!geenfase) && <div style={{marginTop:"1rem", marginBottom:"1rem"}}>
+                    <h2>Your approved subjects:</h2>
                     <CardSlider cards={this.state.content.filter(subject => subject.nietMeerBeschikbaar === false)}/>
-                </div>
+                </div>}
             </div>);
         }
         return (
             <div>
                 <div>
                     <h2>Notifications:</h2>
-                    <header className="jumbotron">
-                        <h4>There are {this.state.contentNotApproved.length} subjects up for approval.</h4>
-                        <h4>There are {this.state.content.filter(subject => (subject.approved=== true && subject.nietMeerBeschikbaar === false)).length} subjects that aren't assigned to a student yet.</h4>
-                    </header>
-
+                    {(!geenfase) ? <header className="jumbotron">
+                            {(goedkeurfase && !keuzefase) && <h4>There are {this.state.contentNotApproved.length} subjects up for approval.</h4>}
+                            {(keuzefase && !goedkeurfase) && <h4>Students can now submit their choices.</h4>}
+                            {(boostfase) && <h4>Students can now be boosted by promotors.</h4>}
+                            {(toewijsfase) &&  <h4>There are {this.state.content.filter(subject => (subject.approved=== true && subject.nietMeerBeschikbaar === false)).length} subjects that aren't assigned to a student yet.</h4>}
+                        </header>
+                        : <header className="jumbotron">
+                            <h4>The platform will open on 8/02.</h4>
+                        </header>}
                 </div>
                 {subjects}
             </div>
