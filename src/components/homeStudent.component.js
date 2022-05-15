@@ -13,6 +13,18 @@ import HomeStudentIndienen from "./homeStudentIndienen.component";
 import HomeStudentKeuze from "./homeStudentKeuze.component";
 import HomeStudentToewijzing from "./homeStudentToewijzing.component";
 
+import dateService from "../services/dateService";
+
+
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+
+
+const indienfase = dateService.getIndienfase();
+const goedkeurfase = dateService.getGoedkeurfase();
+const keuzefase = dateService.getKeuzefase();
+const boostfase = dateService.getBoostFase();
+const toewijzingsfase = dateService.getToewijzingFase();
 
 
 class homeStudent extends Component {
@@ -79,42 +91,14 @@ class homeStudent extends Component {
     }
 
     render() {
-        //indienen als promotor/student
-        const indienenPromotorStart = new Date(2022, 2, 8);
-        const indienenPromotorEind = new Date(2022, 3,30);
-
-
-        //onderwerpen indienen van indienenpromotorstart tot goedkeureneind
-        //goedkeuren
-        const goedkeurenStart = indienenPromotorStart;
-        const goedkeurenEind = new Date(2022, 3, 31);
-
-        //keuzeStudent
-        const keuzeStudentStart = new Date(2022, 4, 1);
-        const keuzeStudentEind = new Date(2022, 4, 30);
-
-        //boost
-        const boostStart = new Date(2022, 5, 1);
-        const boostEind = new Date(2022, 5, 15);
-
-        //finaletoewijzing
-        const toewijzingStart = new Date(2022, 5, 16);
-        const toewijzingEind = new Date(2022, 5, 20);
-
-
-        ///////////////////////////////////////////////////////////////
-        //const currentDate = new Date(2022, 5, 20);
-        const currentDate = new Date(2022, 5, 10);
-        ///////////////////////////////////////////////////////////////
-
         let subjects;
-        if(indienenPromotorStart <= currentDate && currentDate <= goedkeurenEind){
+        if(indienfase || goedkeurfase){
             subjects=(<HomeStudentIndienen />);
         }
-        else if(keuzeStudentStart<=currentDate && currentDate <=keuzeStudentEind) {
+        else if(keuzefase) {
             subjects = (<HomeStudentKeuze />);
         }
-        else if(boostStart <= currentDate && currentDate <= boostEind) {
+        else if(boostfase) {
             subjects =(<div>
                 <h2>Notifications:</h2>
                 <header className="jumbotron">
@@ -122,14 +106,14 @@ class homeStudent extends Component {
                 </header>
             </div>);
         }
-        else if(toewijzingStart<=currentDate && currentDate<=toewijzingEind){
+        else if(toewijzingsfase){
             subjects=(<HomeStudentToewijzing />);
         }
         else {
             subjects =(<div>
                 <h2>Notifications:</h2>
                 <header className="jumbotron">
-                    <h4>The platform is closed now, come back on {indienenPromotorStart.getDate()}/{indienenPromotorStart.getMonth()} to submit a subject.</h4>
+                    <h4>The platform is closed now, come back on 8/2 to submit a subject.</h4>
                 </header>
             </div>);
         }

@@ -8,9 +8,8 @@ class homeStudentKeuzesNietingediend extends Component{
 
     render() {
         return (<div>
-            <header>
-                <h4>You haven't submitted your Top 3 yet!</h4>
-                <Link className="btn btn-primary link-btn" to="/topSubjects"> Submit your Top 3 now!</Link>
+            <header className="jumbotron">
+                <h4 style={{textAlign:"center"}}>You haven't submitted your Top 3 yet!  <Link className="btn btn-primary link-btn" to="/topSubjects"> Submit your Top 3 now!</Link></h4>
             </header>
         </div>);
     }

@@ -8,7 +8,7 @@ class homeStudentNietToegewezen extends Component{
 
     render() {
         return (<div>
-            <header>
+            <header className="jumbotron">
                 <h4>The coordinator hasn't assigned you a subject yet!</h4>
             </header>
         </div>);

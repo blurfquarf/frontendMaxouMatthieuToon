@@ -25,7 +25,6 @@ export default class ShowBedrijfSubjects extends Component {
                 this.setState({
                     content: response.data
                 });
-                console.log(response.data);
             },
             error => {
                 this.setState({
@@ -80,14 +79,28 @@ export default class ShowBedrijfSubjects extends Component {
                         }
                         let promotor;
                         if(subject.promotor != null){
-                            promotor = (<ListGroupItem><BsPersonSquare />{subject.promotor.username}</ListGroupItem>);
+                            promotor = (<ListGroupItem>
+                                <Row xs={2}>
+                                    <Col className="col-1"><BsPersonSquare/></Col>
+                                    <Col style={{display: "flex"}} className="col-10">
+                                        <p style={{textAlign:"left"}}>{subject.promotor.username}</p>
+                                    </Col>
+                                </Row>
+                            </ListGroupItem>);
                         }
                         else{
-                            promotor = (<ListGroupItem><BsPersonSquare /><p>no promotor available yet</p></ListGroupItem>);
+                            promotor = (<ListGroupItem>
+                                <Row xs={2}>
+                                    <Col className="col-1"><BsPersonSquare/></Col>
+                                    <Col style={{display: "flex"}} className="col-10">
+                                        <p style={{textAlign:"left"}}>no promotor available yet</p>
+                                    </Col>
+                                </Row>
+                            </ListGroupItem>);
                         }
                         return (
                             <div key={subject.id} >
-                                <Card className="subject-card">
+                                <div className="subject-card">
                                     <CardBody>
                                         <CardTitle tag="h5">{subject.name}</CardTitle>
                                         <CardText>
@@ -100,7 +113,7 @@ export default class ShowBedrijfSubjects extends Component {
                                         {copromotoren}
                                     </ListGroup>
                                     <Link to={`/subjectDetails/${subject.name}`} className="btn btn-primary">Details</Link>
-                                </Card>
+                                </div>
                             </div>
                         );
                     })}

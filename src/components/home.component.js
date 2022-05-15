@@ -31,12 +31,14 @@ export default class Home extends Component {
       else if(state.auth.user.roles[0] == "ROLE_BEDRIJF") {
           subjects=(<HomeBedrijf />);
       }
+      else {
+          subjects=(<header className="jumbotron">
+              <h3>Welcome to the thesis platform! Feel free to look around!</h3>
+          </header>);
+      }
 
     return (
         <div>
-            <header className="jumbotron">
-                <h3>Welcome to the thesis platform! Feel free to look around!</h3>
-            </header>
             {subjects}
         </div>
 

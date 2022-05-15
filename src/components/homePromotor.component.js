@@ -9,7 +9,6 @@ import dateService from "../services/dateService";
 const indienfase = dateService.getIndienfase();
 const geenfase = dateService.getGeenFase();
 const toewijsfase = dateService.getToewijzingFase();
-const goedkeurfase = dateService.getGoedkeurfase();
 const keuzefase =dateService.getKeuzefase();
 const boostfase = dateService.getBoostFase();
 

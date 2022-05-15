@@ -57,53 +57,7 @@ class homeBedrijf extends Component {
             <HomeBedrijfSubjects subjectsToegewezen={this.state.contentToegewezen} subjectsApproved={this.state.contentApproved} />
         </div>);
 
-        {/*
-        for(const [studentName, subject] of this.state.content.entries()){
-            console.log("[studentName, Subject]", studentName, subject);
-        }
-        let subjects;
-        const keuzes = [];
-        let kiezers1 = [];
-        let kiezers2 = [];
-        let kiezers3 = [];
-        for(let i=0, keys=Object.keys(this.state.content), ii=keys.length; i<ii; i++){
-            keuzes[keys[i]] = this.state.studenten[keys[i]];
-            for(let j=1; j<keuzes.length; j++){
-                if(j==1){
-                    kiezers1 = keuzes[j];
-                }
-                if(j==2){
-                    kiezers2 = keuzes[j];
-                }
-                if(j==3) {
-                    kiezers3 = keuzes[j];
-                }
-            }
-        }
-        if(this.state.content.length != 0){
-            subjects = (<div>
-                <div style={{marginTop:"1rem", marginBottom:"1rem"}}>
-                    <h2>Already assigned subjects:</h2>
-                    <CardSlider cards={this.state.content.filter(subject => subject.nietMeerBeschikbaar === true)}/>
-                </div>
-                <div style={{marginTop:"1rem", marginBottom:"1rem"}}>
-                    <h2>Approved subjects:</h2>
-                    <CardSlider cards={this.state.content.filter(subject => subject.nietMeerBeschikbaar === false)}/>
-                </div>
-            </div>);
-        }
-        */}
-        return (
-            <div>
-                <div>
-                    <h2>Notifications:</h2>
-                    <header className="jumbotron">
-                        <h4>Bedrijf</h4>
-                    </header>
 
-                </div>
-            </div>
-        );
     }
 }
 

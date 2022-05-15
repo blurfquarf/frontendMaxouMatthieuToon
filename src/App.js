@@ -136,15 +136,15 @@ class App extends Component {
                   </Link>}
                 </li>
 
-                {showCoordinatorBoard && (
+                {showCoordinatorBoard && toewijzingsfase && (
                     <li className="nav-item">
                       <Link to={"/studentToewijzing"} className="nav-link">
-                        Student toewijzing
+                        Assign students
                       </Link>
                     </li>
                 )}
 
-                {showCoordinatorBoard && (
+                {showCoordinatorBoard && goedkeurfase && (
                     <li className="nav-item">
                       <Link to={"/judgeSubjects"} className="nav-link">
                         Approve Subjects
@@ -152,7 +152,7 @@ class App extends Component {
                     </li>
                 )}
 
-                {showCoordinatorBoard && (
+                {showCoordinatorBoard && goedkeurfase && (
                     <li className="nav-item">
                       <Link to={"/assignPromotor"} className="nav-link">
                         Assign Promotors

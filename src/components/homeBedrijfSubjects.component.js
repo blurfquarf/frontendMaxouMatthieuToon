@@ -25,7 +25,6 @@ class homeBedrijfSubjects extends Component {
         let valuesTW = Object.values(this.props.subjectsToegewezen);
 
         let valuesApp = Object.values(this.props.subjectsApproved);
-        console.log("valuesTW:", valuesTW);
 
         const aantal = valuesTW.length + valuesApp.length;
 

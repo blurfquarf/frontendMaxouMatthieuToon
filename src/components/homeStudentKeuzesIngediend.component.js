@@ -75,10 +75,20 @@ class homeStudentKeuzesIngediend extends Component{
                     }
                     let promotor;
                     if(keuze.promotor != null){
-                        promotor = (<ListGroupItem><BsPersonSquare />{keuze.promotor.username}</ListGroupItem>);
+                        promotor = (<ListGroupItem>
+                                <Row xs={2}>
+                                    <Col className="col-1"><BsPersonSquare /></Col>
+                                    <Col><ul className="campus-ul"><li className="campus-li">{keuze.promotor.username}</li></ul></Col>
+                                </Row>
+                            </ListGroupItem>);
                     }
                     else{
-                        promotor = (<ListGroupItem><BsPersonSquare /><p>no promotor available yet</p></ListGroupItem>);
+                        promotor = (<ListGroupItem>
+                            <Row xs={2}>
+                                <Col className="col-1"><BsPersonSquare /></Col>
+                                <Col><ul className="campus-ul"><li className="campus-li">no promotor available yet</li></ul></Col>
+                            </Row>
+                        </ListGroupItem>);
                     }
                     return(<div key={keuze.id}>
                         <div>

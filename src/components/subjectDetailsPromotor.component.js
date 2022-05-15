@@ -65,7 +65,6 @@ export default class subjectDetailsPromotor extends Component {
     }
 
     render () {
-        const {content} = this.state;
         return(
             <div className="center-content">
                 {this.state.content.map(content => {
@@ -98,7 +97,6 @@ export default class subjectDetailsPromotor extends Component {
                             </div>
                         )
                     }
-
 
                     let studenten;
                     const keuzes = [];

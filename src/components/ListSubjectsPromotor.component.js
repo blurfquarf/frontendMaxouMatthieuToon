@@ -47,10 +47,9 @@ export default class listSubjectsPromotor extends Component {
         const {content} = this.state;
         return (
             <Container>
+                <h2 style={{textAlign:"center"}}>You can boost students for these subjects:</h2>
                 <Row xs={3} className="center-content">
                     {content.map(subject => {
-                        console.log("subject", subject);
-                        console.log("content", content);
                         let copromotoren;
                         if(subject.copromotoren.length !=0){
                             copromotoren = (<ListGroupItem>

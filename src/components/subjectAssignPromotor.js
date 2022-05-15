@@ -26,22 +26,13 @@ class subjectAssignPromotor extends Component {
             contentPromotor: [],
             promotor: "",
         };
-        this.handleSubject = this.handleSubject.bind(this);
         this.onChangePromotor = this.onChangePromotor.bind(this);
     }
 
     onChangePromotor = (selectedOption, name) => {
         this.setState({
             promotor: selectedOption,
-        })
-        {/*}
-        let content = [...this.state.content];
-        let subject = content.find(subject => subject.name == name);
-        console.log("subject2", subject);
-        subject.promotor = selectedOption.email;
-        console.log("promotor", selectedOption);
-        this.setState({content});
-        */}
+        });
     }
 
 
@@ -94,24 +85,6 @@ class subjectAssignPromotor extends Component {
         subjectService.postPromotor(name, subject.promotor);
         console.log("post");
         this.setState({content});
-    }
-
-    handleSubject(event, bool, id) {
-        event.preventDefault();
-        let content = [...this.state.content];
-        let subject = content.find(subject => subject.id == id);
-        subject.approved = bool;
-        subject.reedsGoedgekeurd = true;
-        console.log(id);
-        console.log(subject);
-        this.setState({content});
-        if(bool){
-            console.log("approve");
-            subjectService.postApprovedSubject(subject.name);
-        }
-        else{
-            subjectService.postRGGSubject(subject.name);
-        }
     }
 
     render() {
