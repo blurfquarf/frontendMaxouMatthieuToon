@@ -274,7 +274,7 @@ class App extends Component {
 
                   <li className="nav-item">
                     <Link to={"/register"} className="nav-link">
-                      Registreren als bedrijf
+                      Registration for companies
                     </Link>
                   </li>
                 </ul>
