@@ -47,14 +47,6 @@ class AddSubject extends Component {
 
     }
 
-
-    onChangeOpleidingen = (selectedOptions) => {
-        console.log(selectedOptions);
-        this.setState({
-            opleiding: selectedOptions,
-        });
-    }
-
     onChangeTitle(e) {
         this.setState({
             title: e.target.value,
@@ -80,6 +72,13 @@ class AddSubject extends Component {
         });
     }
 
+    onChangeOpleidingen = (selectedOptions) => {
+        console.log(selectedOptions);
+        this.setState({
+            opleiding: selectedOptions,
+        });
+    }
+
 
     onChangeCoPros = (selectedOptions) => {
         console.log(selectedOptions);
@@ -97,17 +96,19 @@ class AddSubject extends Component {
 
     handleSubject(e) {
         e.preventDefault();
+
+        const state = store.getState();
+
         this.setState({
             successful: false,
         });
-        const state = store.getState();
-        console.log(state);
+
         this.form.validateAll();
         const { dispatch } = this.props;
         if (this.checkBtn.context._errors.length === 0) {
             this.props
                 .dispatch(
-                    addSubject(this.state.title, this.state.description, this.state.campus, this.state.coPros,this.state.bedrijf,this.state.promotor,this.state.opleiding,state.auth.user.email)
+                    addSubject(this.state.title, this.state.description, this.state.campus, this.state.coPros,this.state.bedrijf,this.state.promotor,this.state.opleiding, state.auth.user.email)
                 )
                 .then(() => {
                     this.setState({
@@ -126,6 +127,7 @@ class AddSubject extends Component {
 
     componentDidMount(){
         autosize(this.textarea);
+        const state = store.getState();
         CampusService.getCampus().then(
             response => {
                 this.setState({
@@ -244,6 +246,7 @@ class AddSubject extends Component {
                                     defaultOptions={false}
                                 />
                             </div>
+
 
                             <div className="form-group">
                                 <label htmlFor="campus">Campus</label>

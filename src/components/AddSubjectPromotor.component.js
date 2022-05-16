@@ -236,7 +236,7 @@ class AddSubjectPromotor extends Component {
                                     components={animatedComponents}
                                     closeMenuOnSelect={true}
                                     className="basic-multi-select"
-                                    name="bedrjif"
+                                    name="bedrijf"
                                     value={this.state.bedrijf}
                                     onChange={this.onChangeCompany}
                                     options={this.state.contentBedrijven}

@@ -4,12 +4,9 @@ import CheckButton from "react-validation/build/button";
 import {connect} from "react-redux";
 import React, {Component} from "react";
 import { addSubject } from "../actions/addsubject";
-import { promotorSubject } from "../actions/promotorSubj";
-import { campusSubject } from "../actions/campusSubject";
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import autosize from 'autosize';
-import {coProsSubject} from "../actions/coProsSubject";
 import CampusService from "../services/campus.service";
 import PromotorService from "../services/person.service";
 import store from "../store";
@@ -23,6 +20,7 @@ class AddSubjectBedrijf extends Component {
         this.onChangeTitle = this.onChangeTitle.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangeCampus = this.onChangeCampus.bind(this);
+        this.onChangeCoPros = this.onChangeCoPros.bind(this);
         this.onChangePromotor = this.onChangePromotor.bind(this);
 
         this.state = {
@@ -32,13 +30,14 @@ class AddSubjectBedrijf extends Component {
             successful: false,
             campus: [],
             promotor: "",
-            bedrijf:"",
+            bedrijf: "",
             opleiding: [],
             contentCampus: [],
             contentBedrijven: [],
             contentPromotor: [],
             contentOpleidingen: [],
-            isSubmitted: false
+            isSubmitted: false,
+            coPros: [],
         };
 
     }
@@ -47,6 +46,13 @@ class AddSubjectBedrijf extends Component {
         console.log(selectedOptions);
         this.setState({
             opleiding: selectedOptions,
+        });
+    }
+
+    onChangeCoPros = (selectedOptions) => {
+        console.log(selectedOptions);
+        this.setState({
+            coPros: selectedOptions,
         });
     }
 
@@ -84,13 +90,15 @@ class AddSubjectBedrijf extends Component {
             successful: false,
         });
 
+        console.log(this.state.promotor);
+
         this.form.validateAll();
         const { dispatch } = this.props;
 
         if (this.checkBtn.context._errors.length === 0) {
             this.props
                 .dispatch(
-                    addSubject(this.state.title, this.state.description, this.state.campus, this.state.coPros,this.state.bedrijf.email,this.state.promotor,this.state.opleiding,state.auth.user.email )
+                    addSubject(this.state.title, this.state.description, this.state.campus, this.state.coPros,this.state.bedrijf,this.state.promotor,this.state.opleiding,state.auth.user.email )
                 )
                 .then(() => {
                     this.setState({
@@ -150,7 +158,7 @@ class AddSubjectBedrijf extends Component {
         SubjectService.getBedrijven().then(
             response => {
                 this.setState({
-                    bedrijf: response.data.filter(bedrijf => bedrijf.username == state.auth.user.username)
+                    bedrijf: response.data.find(bedrijf => bedrijf.username == state.auth.user.username)
                 }, () => {console.log("bedrijf:", this.state.bedrijf)});
             },
             error => {
@@ -246,6 +254,24 @@ class AddSubjectBedrijf extends Component {
                                     getOptionLabel={(option) => option.username}
                                     getOptionValue={(option) => option.id}
                                     classNamePrefix="select"
+                                    defaultOptions={false}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="coPros">Co-promotors</label>
+                                <Select
+                                    components={animatedComponents}
+                                    closeMenuOnSelect={true}
+                                    className="basic-multi-select"
+                                    name="coPros"
+                                    value={this.state.coPros}
+                                    onChange={this.onChangeCoPros}
+                                    options={this.state.contentPromotor}
+                                    getOptionLabel={(option) => option.username}
+                                    getOptionValue={(option) => option.id}
+                                    classNamePrefix="select"
+                                    isMulti
                                     defaultOptions={false}
                                 />
                             </div>
