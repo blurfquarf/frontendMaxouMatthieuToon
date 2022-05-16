@@ -39,9 +39,6 @@ import subjectAssignPromotor from "./components/subjectAssignPromotor";
 import studentToewijzingDetails from "./components/studentToewijzingDetails.component";
 import Footer from './components/footer.component'
 
-import egg from "./easter_egg/eggComponent";
-
-
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
@@ -271,8 +268,6 @@ class App extends Component {
               <ProtectedRoutePromotor exact path="/addSubjectPromotor" component={AddSubjectPromotor}/>
               <ProtectedRouteCoordinator exact path="/assignPromotor" component={subjectAssignPromotor}/>
               <ProtectedRouteCoordinator exact path="/studentToewijzingDetails/:name" component={studentToewijzingDetails} />
-              <Route exact path="/egg" component={egg} />
-
             </Switch>
           </div>
           {/* <AuthVerify logOut={this.logOut}/> */}
