@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import subjectService from "../services/subject.service";
 import {
-    Card, CardText, CardBody,
+    CardText, CardBody,
     CardTitle, Row, Col, ListGroup, ListGroupItem
 } from 'reactstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -31,7 +31,6 @@ export default class ShowSubject extends Component {
                 this.setState({
                     content: response.data
                 });
-                console.log(response.data);
             },
             error => {
                 this.setState({
@@ -48,7 +47,6 @@ export default class ShowSubject extends Component {
 
     render() {
         const {content} = this.state;
-        console.log("content: ", content);
 
         return (
             <div>

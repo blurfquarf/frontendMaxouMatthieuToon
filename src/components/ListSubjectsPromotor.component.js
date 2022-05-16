@@ -2,12 +2,11 @@ import React, { Component } from "react";
 import subjectService from "../services/subject.service";
 import {
     Card, CardText, CardBody,
-    CardTitle, Container, Row, Col, ListGroup, ListGroupItem, Button
+    CardTitle, Container, Row, Col, ListGroup, ListGroupItem
 } from 'reactstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Link} from "react-router-dom";
-import {HiLocationMarker} from "react-icons/hi";
-import {BsFillPersonFill, BsPeopleFill, BsPersonSquare} from "react-icons/all";
+import {BsFillPersonFill, BsPeopleFill} from "react-icons/all";
 import store from "../store";
 
 
@@ -22,13 +21,11 @@ export default class listSubjectsPromotor extends Component {
 
     componentDidMount(){
         const state = store.getState();
-        console.log(state.auth);
         subjectService.getSperPro(state.auth.user.email).then(
             response => {
                 this.setState({
                     content: response.data,
                 });
-                console.log(response.data);
             },
             error => {
                 this.setState({

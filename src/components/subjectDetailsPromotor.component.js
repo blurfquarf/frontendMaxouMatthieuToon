@@ -4,9 +4,8 @@ import subjectService from "../services/subject.service";
 import {
     Button,
     Col,
-    Container, ListGroupItem, Row
+    Container, Row
 } from 'reactstrap';
-import {BsPeopleFill} from "react-icons/all";
 import personService from "../services/person.service";
 
 export default class subjectDetailsPromotor extends Component {
@@ -105,7 +104,6 @@ export default class subjectDetailsPromotor extends Component {
                     let kiezers3 = [];
                     for(let i=0, keys=Object.keys(this.state.studenten), ii=keys.length; i<ii; i++){
                         keuzes[keys[i]] = this.state.studenten[keys[i]];
-                        console.log("keuzes", keuzes);
                         for(let j=1; j<keuzes.length; j++){
                             if(j==1){
                                 kiezers1 = keuzes[j];

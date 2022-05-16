@@ -49,8 +49,6 @@ class JudgeSubject extends Component {
         let subject = content.find(subject => subject.id == id);
         subject.approved = bool;
         subject.reedsGoedgekeurd = true;
-        console.log(id);
-        console.log(subject);
         this.setState({content});
         if(bool){
             subjectService.postApprovedSubject(subject.name);
@@ -62,7 +60,6 @@ class JudgeSubject extends Component {
 
     render() {
         const {content} = this.state;
-        console.log(content);
         return (
             <Container fluid>
                 <div className="subject-wrapper" >

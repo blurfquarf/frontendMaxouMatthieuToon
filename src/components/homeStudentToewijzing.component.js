@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import personService from "../services/person.service";
 import HomeStudentToegewezen from "./HomeStudentToegewezen.component";
 import store from "../store";
 import HomeStudentNietToegewezen from "../components/homeStudentNietToegewezen.component";

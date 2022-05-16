@@ -17,7 +17,6 @@ export default class Home extends Component {
 
   render() {
       const state = store.getState();
-      console.log(state);
       let subjects;
       if(state.auth.user.roles[0] == "ROLE_PROMOTOR"){
           subjects = (<HomePromotor />);

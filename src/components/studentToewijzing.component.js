@@ -3,7 +3,7 @@ import subjectService from "../services/subject.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {Card, CardBody, CardText, CardTitle, Col, Container, ListGroup, ListGroupItem, Row} from "reactstrap";
+import {CardBody, CardText, CardTitle, Col, Container, ListGroup, ListGroupItem, Row} from "reactstrap";
 import store from "../store";
 import {BsFillPersonFill, BsPeopleFill, BsPersonSquare} from "react-icons/all";
 
@@ -45,8 +45,7 @@ class StudentToewijzing extends Component {
         return (
             <Container>
                 <h1>student toewijzing</h1>
-                <div>
-                    <Row xs={3} className="center-content">
+                    <div className="subject-wrapper">
                         {content.filter(subject => subject.promotor != null).map(subject => {
                             let copromotoren;
                             if(subject.copromotoren.length !=0){
@@ -80,8 +79,8 @@ class StudentToewijzing extends Component {
                                 </ListGroupItem>);
                             }
                             return (
-                                <Col key={subject.id}>
-                                    <Card className="card cards-container">
+                                <div key={subject.id}>
+                                    <div className="subject-card">
                                         <CardBody>
                                             <CardTitle tag="h5">{subject.name}</CardTitle>
                                             <CardText>
@@ -109,12 +108,11 @@ class StudentToewijzing extends Component {
                                             {bedrijf}
                                         </ListGroup>
                                         <Link to={`/studentToewijzingDetails/${subject.name}`} className="btn btn-primary judge-subjects-btn">Details</Link>
-                                    </Card>
-                                </Col>
+                                    </div>
+                                </div>
                             )
                         })}
-                    </Row>
-                </div>
+                    </div>
             </Container>
         );
     }

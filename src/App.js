@@ -16,13 +16,9 @@ import BoardCoordinator from "./components/board-coordinator.component";
 import BoardPromotor from "./components/board-promotor.component";
 import AddSubject from "./components/add-subject.component";
 import ShowSubject from "./components/show-subject.component";
-// import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProtectedRouteStudent from "./components/ProtectedRouteStudent";
-import protectedRouteBedrijf from "./components/ProtectedRouteBedrijf";
-import protectedRouteCoordinator from "./components/ProtectedRouteCoordinator";
-import protectedRoutePromotor from "./components/ProtectedRoutePromotor";
 import JudgeSubject from "./components/judgeSubjects.component";
 import subjectDetails from "./components/subjectDetails.component";
 import TopSubjects from "./components/topSubjects.component";
@@ -80,7 +76,6 @@ class App extends Component {
 
   componentDidMount() {
     const user = this.props.user;
-    console.log("user", user);
 
     if (user) {
       this.setState({

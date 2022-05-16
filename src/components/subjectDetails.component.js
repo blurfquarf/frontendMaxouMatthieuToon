@@ -1,20 +1,12 @@
 import {Component} from "react";
 import React from "react";
 import subjectService from "../services/subject.service";
-import {
-    Card, CardBody, CardText, CardTitle,
-    Col,
-    Container, ListGroup, ListGroupItem, Row
-} from 'reactstrap';
-import {BsPersonSquare, FaGraduationCap} from "react-icons/all";
-import {HiLocationMarker} from "react-icons/hi";
-import {Link} from "react-router-dom";
+import {Container} from 'reactstrap';
 import personService from "../services/person.service";
 
 export default class subjectDetails extends Component {
     constructor(props) {
         super(props);
-        console.log(props);
         this.state = {
             content : [],
             student:"",
@@ -22,15 +14,11 @@ export default class subjectDetails extends Component {
     }
 
     componentDidMount(){
-        console.log("params.name", this.props.match.params.name);
         subjectService.getOneSubject(this.props.match.params.name).then(
             response => {
                 this.setState({
                     content: response.data,
                 });
-                console.log("response: ", response.data);
-                console.log("params.name", this.props.match.params);
-                console.log("subject: ", this.state.subject);
             },
             error => {
                 this.setState({
@@ -64,11 +52,9 @@ export default class subjectDetails extends Component {
 
     render () {
         const {content} = this.state;
-        console.log("content", content);
         return(
             <div className="center-content">
                 {content.map(subject => {
-                    console.log(subject);
                     let campussen;
                     if(subject.campussen.length != 0){
                         campussen = (

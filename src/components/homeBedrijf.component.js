@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import store from "../store";
 import subjectService from "../services/subject.service";
-import CardSlider from "../components/cardSlider.component";
 import HomeBedrijfSubjects from "./homeBedrijfSubjects.component";
 
 class homeBedrijf extends Component {
@@ -51,8 +50,6 @@ class homeBedrijf extends Component {
     }
 
     render() {
-        console.log("content1",this.state.contentToegewezen);
-        console.log("content2",this.state.contentApproved);
         return(<div>
             <HomeBedrijfSubjects subjectsToegewezen={this.state.contentToegewezen} subjectsApproved={this.state.contentApproved} />
         </div>);

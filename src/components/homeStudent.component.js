@@ -1,14 +1,8 @@
 import React, { Component } from "react";
 
-import UserService from "../services/user.service";
 import store from "../store";
 import subjectService from "../services/subject.service";
-import CardSlider from "../components/cardSlider.component";
 import personService from "../services/person.service";
-import {Card, CardBody, CardText, CardTitle, Col, ListGroup, ListGroupItem, Row} from "reactstrap";
-import {Link} from "react-router-dom";
-import {HiLocationMarker} from "react-icons/hi";
-import {BsFillPersonFill, BsPersonSquare} from "react-icons/all";
 import HomeStudentIndienen from "./homeStudentIndienen.component";
 import HomeStudentKeuze from "./homeStudentKeuze.component";
 import HomeStudentToewijzing from "./homeStudentToewijzing.component";

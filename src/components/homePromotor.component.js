@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 
-import UserService from "../services/user.service";
 import store from "../store";
 import subjectService from "../services/subject.service";
 import CardSlider from "../components/cardSlider.component";

@@ -2,13 +2,10 @@ import {Component} from "react";
 import React from "react";
 import subjectService from "../services/subject.service";
 import {
-    Button,
     Col,
-    Container, ListGroupItem, Row
+    Container, Row
 } from 'reactstrap';
-import {BsPeopleFill} from "react-icons/all";
 import personService from "../services/person.service";
-import Input from "react-validation/build/input";
 import Select from "react-select";
 import CheckButton from "react-validation/build/button";
 import Form from "react-validation/build/form";
@@ -182,7 +179,6 @@ class studentToewijzingDetails extends Component {
                                 <div>
                                     {kiezers1.map(student => {
                                         let boosted;
-                                        console.log("student", student.geboostVoor.find(subject => subject.name == this.props.match.params.name));
                                         if (student.geboostVoor.find(subject => subject.name == this.props.match.params.name) != null) {
                                             boosted = (
                                                 <p>Boosted</p>

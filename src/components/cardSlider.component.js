@@ -24,7 +24,6 @@ class cardSlider extends Component{
 
                             let student;
                             if(this.props.students != null && this.props.students.length != 0){
-                                console.log("card student",this.props.students);
                                 student=(<ListGroupItem>
                                     <Row xs={2}>
                                         <Col className="col-1"><IoPersonCircle/></Col>
@@ -35,7 +34,6 @@ class cardSlider extends Component{
                                 </ListGroupItem>);
                             }
                             let opleiding;
-                            console.log("opleidingen", card.opleidingen);
                             let cte =0;
                             if(card.opleidingen != null){
                                 opleiding =(<ListGroupItem>

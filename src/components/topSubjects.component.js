@@ -1,19 +1,12 @@
 import React, { Component } from "react";
 import subjectService from "../services/subject.service";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Card, CardBody, CardText, CardTitle, Col, ListGroup, ListGroupItem, Row} from "reactstrap";
-import {Link} from "react-router-dom";
-import {HiLocationMarker} from "react-icons/hi";
 import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
 import Select from "react-select";
 import CheckButton from "react-validation/build/button";
-import {addSubject} from "../actions/addsubject";
 import makeAnimated from "react-select/animated";
-import {BsFillPersonFill, BsPersonSquare} from "react-icons/all";
 import {connect} from "react-redux";
 import store from "../store";
-import PersonService from "../services/person.service";
 import {postTop3} from "../actions/postTop3";
 import personService from "../services/person.service";
 import CardSlider from "../components/cardSlider.component";
@@ -53,7 +46,6 @@ class TopSubjects extends Component {
     }
 
     onChangeSubject1 = (selectedOption) => {
-        console.log("keuze1", selectedOption);
         this.setState({
             subject1: selectedOption,
             keuze1: selectedOption.name
@@ -61,7 +53,6 @@ class TopSubjects extends Component {
     }
 
     onChangeSubject2 = (selectedOption) => {
-        console.log("keuze2", selectedOption);
         this.setState({
             subject2: selectedOption,
             keuze2: selectedOption.name
@@ -69,7 +60,6 @@ class TopSubjects extends Component {
     }
 
     onChangeSubject3 = (selectedOption) => {
-        console.log("keuze3", selectedOption);
         this.setState({
             subject3: selectedOption,
             keuze3: selectedOption.name

@@ -7,7 +7,6 @@ import CheckButton from "react-validation/build/button";
 
 import { connect } from "react-redux";
 import { login } from "../actions/auth";
-import MapChart from "./MapChart";
 
 
 const required = (value) => {

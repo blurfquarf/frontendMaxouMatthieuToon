@@ -5,16 +5,13 @@ import {
     CardTitle, Button, Container, Row, Col, ListGroupItem, ListGroup
 } from 'reactstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
-import {judgeSubject} from "../actions/judgeSubject";
-import {RGGSubject} from "../actions/RGGSubject";
 import {Link} from "react-router-dom";
 import {HiLocationMarker} from "react-icons/hi";
-import {BsFillPersonFill, BsPersonSquare} from "react-icons/all";
+import {BsFillPersonFill} from "react-icons/all";
 import {connect} from "react-redux";
 import store from "../store";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
-import personService from "../services/person.service";
 import PromotorService from "../services/person.service";
 
 class subjectAssignPromotor extends Component {
@@ -42,7 +39,7 @@ class subjectAssignPromotor extends Component {
             response => {
                 this.setState({
                     content: response.data
-                }, () => console.log(response.data));
+                });
             },
 
             error => {
@@ -79,17 +76,13 @@ class subjectAssignPromotor extends Component {
         event.preventDefault();
         let content = [...this.state.content];
         let subject = content.find(subject => subject.name == name);
-        console.log("subject1", subject);
-        console.log(this.state.promotor.email);
         subject.promotor = this.state.promotor.email;
         subjectService.postPromotor(name, subject.promotor);
-        console.log("post");
         this.setState({content});
     }
 
     render() {
         const {content} = this.state;
-        console.log(content);
         const animatedComponents = makeAnimated();
         return (
             <Container fluid>
