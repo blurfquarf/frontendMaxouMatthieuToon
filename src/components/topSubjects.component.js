@@ -53,6 +53,7 @@ class TopSubjects extends Component {
     }
 
     onChangeSubject1 = (selectedOption) => {
+        console.log("keuze1", selectedOption);
         this.setState({
             subject1: selectedOption,
             keuze1: selectedOption.name
@@ -60,6 +61,7 @@ class TopSubjects extends Component {
     }
 
     onChangeSubject2 = (selectedOption) => {
+        console.log("keuze2", selectedOption);
         this.setState({
             subject2: selectedOption,
             keuze2: selectedOption.name
@@ -67,6 +69,7 @@ class TopSubjects extends Component {
     }
 
     onChangeSubject3 = (selectedOption) => {
+        console.log("keuze3", selectedOption);
         this.setState({
             subject3: selectedOption,
             keuze3: selectedOption.name
@@ -112,7 +115,6 @@ class TopSubjects extends Component {
 
     handleSubmit(e) {
         const state = store.getState();
-        console.log(state);
         e.preventDefault();
 
         this.setState({

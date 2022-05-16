@@ -19,6 +19,7 @@ class homeStudentKeuzesIngediend extends Component{
         const state = store.getState();
         subjectService.getAllKeuzes(state.auth.user.email).then(
             response => {
+                console.log("keuzes", response.data);
                 this.setState({
                     keuzes: [response.data[1], response.data[2], response.data[3]],
                 })

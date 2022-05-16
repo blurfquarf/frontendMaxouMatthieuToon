@@ -13,7 +13,6 @@ class homeStudentToegewezen extends Component{
 
         this.state ={
             keuzes: [],
-            user: [],
         }
 
     }
@@ -36,22 +35,6 @@ class homeStudentToegewezen extends Component{
                         error.toString()
                 });
             });
-        personService.getUser(state.auth.user.email).then(
-            response => {
-                this.setState({
-                    user: response.data,
-                })
-            },
-            error => {
-                this.setState({
-                    user:
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString()
-                });
-            });
     }
 
 
@@ -61,7 +44,7 @@ class homeStudentToegewezen extends Component{
             <h2>Notifications:</h2>
             <header className="jumbotron">
                 <h4>You were assigned to the following subject:</h4>
-                {this.state.keuzes.filter(subject => subject.name == this.props.student.subject.name).map(keuze => {
+                {this.state.keuzes.filter(subject => subject.name == this.props.subject.name).map(keuze => {
                     let campussen;
                     if(keuze.campussen.length != 0){
                         campussen = (<ListGroupItem>

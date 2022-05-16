@@ -3,26 +3,27 @@ import personService from "../services/person.service";
 import HomeStudentToegewezen from "./HomeStudentToegewezen.component";
 import store from "../store";
 import HomeStudentNietToegewezen from "../components/homeStudentNietToegewezen.component";
+import subjectService from "../services/subject.service";
 
 class homeStudentToewijzing extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            user: [],
+            subject: [],
         }
     }
 
     componentDidMount() {
         const state = store.getState();
-        personService.getUser(state.auth.user.email).then(
+        subjectService.getGekregen(state.auth.user.email).then(
             response => {
                 this.setState({
-                    user: response.data,
+                    subject: response.data,
                 })
             },
             error => {
                 this.setState({
-                    user:
+                    subject:
                         (error.response &&
                             error.response.data &&
                             error.response.data.message) ||
@@ -34,7 +35,7 @@ class homeStudentToewijzing extends Component{
 
     render() {
         return (<div>
-            {this.props.toegewezen && <HomeStudentToegewezen student={this.state.user} />}
+            {this.props.toegewezen && <HomeStudentToegewezen subject={this.state.subject} />}
             {!this.props.toegewezen && <HomeStudentNietToegewezen />}
         </div>);
     }

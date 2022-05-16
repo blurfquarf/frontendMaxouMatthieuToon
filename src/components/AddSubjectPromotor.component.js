@@ -66,14 +66,12 @@ class AddSubjectPromotor extends Component {
     }
 
     onChangeCampus = (selectedOptions) => {
-        console.log(selectedOptions);
         this.setState({
             campus: selectedOptions,
         });
     }
 
     onChangeOpleidingen = (selectedOptions) => {
-        console.log(selectedOptions);
         this.setState({
             opleiding: selectedOptions,
         });
@@ -81,7 +79,6 @@ class AddSubjectPromotor extends Component {
 
 
     onChangeCoPros = (selectedOptions) => {
-        console.log(selectedOptions);
         this.setState({
             coPros: selectedOptions,
         });
@@ -132,8 +129,6 @@ class AddSubjectPromotor extends Component {
             response => {
                 this.setState({
                     contentCampus: response.data
-                }, () => {
-                    console.log("campussen:", this.state.contentCampus);
                 });
             },
             error => {
@@ -151,7 +146,7 @@ class AddSubjectPromotor extends Component {
             response => {
                 this.setState({
                     contentPromotor: response.data
-                }, () => {console.log("promotoren:", this.state.contentPromotor)});
+                });
             },
             error => {
                 this.setState({
