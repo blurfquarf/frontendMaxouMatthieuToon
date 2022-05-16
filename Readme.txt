@@ -4,7 +4,7 @@ npm install, npm start, runt op poort 3000
 
 fases aanpassen => currentDate variabelen in app.js
 
-ons loginsysteem is gebaseerd op een JWT systeem ontworpen door Bezkoder
+ons loginsysteem is gebaseerd op een JWT systeem ontworpen door Bezkoder, vandaar dat er 3 commits in deze files staan onder een ander account
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
