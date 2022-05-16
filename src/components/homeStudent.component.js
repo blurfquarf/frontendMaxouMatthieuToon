@@ -35,6 +35,7 @@ class homeStudent extends Component {
             content: [],
             keuzesIngediend: false,
             keuzes: "",
+            toegewezen: false,
         };
     }
 
@@ -49,6 +50,22 @@ class homeStudent extends Component {
             error => {
                 this.setState({
                     content:
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString()
+                });
+            });
+        personService.getHeeftDefinitiefOnderwerp(state.auth.user.email).then(
+            response => {
+                this.setState({
+                    toegewezen: response.data,
+                })
+            },
+            error => {
+                this.setState({
+                    toegewezen:
                         (error.response &&
                             error.response.data &&
                             error.response.data.message) ||
@@ -107,7 +124,7 @@ class homeStudent extends Component {
             </div>);
         }
         else if(toewijzingsfase){
-            subjects=(<HomeStudentToewijzing />);
+            subjects=(<HomeStudentToewijzing toegewezen={this.state.toegewezen}/>);
         }
         else {
             subjects =(<div>

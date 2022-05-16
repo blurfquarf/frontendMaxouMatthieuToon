@@ -16,8 +16,6 @@ class PersonService {
             params: {keuze1 : keuze1, keuze2: keuze2, keuze3: keuze3, studentMail:mail}
         }
 
-
-
         return axios.post('http://localhost:8080/api/v1/person/keuzes', {}, config);
     }
 
@@ -131,6 +129,16 @@ class PersonService {
 
         return axios.get("http://localhost:8080/api/v1/person/getuser", config);
     }
+
+    getHeeftDefinitiefOnderwerp(email) {
+        const config = {
+            headers: { Authorization: "Bearer " + user.accessToken },
+            params: { mail : email }
+        };
+
+        return axios.get("http://localhost:8080/api/v1/person/getheeftdonderwerp", config);
+    }
+
 }
 
 

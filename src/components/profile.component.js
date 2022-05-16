@@ -15,12 +15,12 @@ class Profile extends Component {
       <div className="container">
           <header className="jumbotron">
               <h2>
-                  Profiel
+                  Profile
               </h2>
         </header>
         <div style={{textAlign:"center"}}>
             <h3>
-                <strong>Welkom {currentUser.username}</strong>
+                <strong>Welcome {currentUser.username}!</strong>
             </h3>
             <p>
                 <strong>Email:</strong> {currentUser.email}
@@ -28,7 +28,7 @@ class Profile extends Component {
 
             <ul className="campus-ul">
                 {currentUser.roles &&
-                    currentUser.roles.map((role, index) => <li className="campus-li" key={index} style={{textAlign:"center"}}><strong>Machtigingen:</strong>{role}</li>)}
+                    currentUser.roles.map((role, index) => <li className="campus-li" key={index} style={{textAlign:"center"}}><strong>Permissions:</strong>{role}</li>)}
             </ul></div>
 
       </div>

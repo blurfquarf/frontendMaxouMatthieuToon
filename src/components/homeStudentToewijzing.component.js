@@ -34,8 +34,8 @@ class homeStudentToewijzing extends Component{
 
     render() {
         return (<div>
-            {this.state.user.heeftDefinitiefOnderwerp && <HomeStudentToegewezen />}
-            {!this.state.user.heeftDefinitiefOnderwerp && <HomeStudentNietToegewezen />}
+            {this.props.toegewezen && <HomeStudentToegewezen />}
+            {!this.props.toegewezen && <HomeStudentNietToegewezen />}
         </div>);
     }
 }
