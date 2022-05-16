@@ -38,6 +38,5 @@ class homeStudentToewijzing extends Component{
             {!this.state.user.heeftDefinitiefOnderwerp && <HomeStudentNietToegewezen />}
         </div>);
     }
-
 }
 export default homeStudentToewijzing;
