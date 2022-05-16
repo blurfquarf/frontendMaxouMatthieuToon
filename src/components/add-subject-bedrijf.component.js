@@ -43,14 +43,12 @@ class AddSubjectBedrijf extends Component {
     }
 
     onChangeOpleidingen = (selectedOptions) => {
-        console.log(selectedOptions);
         this.setState({
             opleiding: selectedOptions,
         });
     }
 
     onChangeCoPros = (selectedOptions) => {
-        console.log(selectedOptions);
         this.setState({
             coPros: selectedOptions,
         });
@@ -69,7 +67,6 @@ class AddSubjectBedrijf extends Component {
     }
 
     onChangeCampus = (selectedOptions) => {
-        console.log(selectedOptions);
         this.setState({
             campus: selectedOptions,
         });
@@ -89,8 +86,6 @@ class AddSubjectBedrijf extends Component {
         this.setState({
             successful: false,
         });
-
-        console.log(this.state.promotor);
 
         this.form.validateAll();
         const { dispatch } = this.props;
@@ -118,13 +113,10 @@ class AddSubjectBedrijf extends Component {
     componentDidMount(){
         autosize(this.textarea);
         const state = store.getState();
-        console.log("state", state);
         CampusService.getCampus().then(
             response => {
                 this.setState({
                     contentCampus: response.data
-                }, () => {
-                    console.log("campussen:", this.state.contentCampus);
                 });
             },
             error => {
@@ -142,7 +134,7 @@ class AddSubjectBedrijf extends Component {
             response => {
                 this.setState({
                     contentPromotor: response.data
-                }, () => {console.log("promotoren:", this.state.contentPromotor)});
+                });
             },
             error => {
                 this.setState({
@@ -159,7 +151,7 @@ class AddSubjectBedrijf extends Component {
             response => {
                 this.setState({
                     bedrijf: response.data.find(bedrijf => bedrijf.username == state.auth.user.username)
-                }, () => {console.log("bedrijf:", this.state.bedrijf)});
+                });
             },
             error => {
                 this.setState({

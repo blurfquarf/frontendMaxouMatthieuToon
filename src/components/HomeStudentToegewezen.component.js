@@ -15,13 +15,13 @@ class homeStudentToegewezen extends Component{
             keuzes: [],
             user: [],
         }
+
     }
 
     componentDidMount() {
         const state = store.getState();
         subjectService.getAllKeuzes(state.auth.user.email).then(
             response => {
-                console.log("resp",response.data[1]);
                 this.setState({
                     keuzes: [response.data[1], response.data[2], response.data[3]],
                 })
@@ -38,7 +38,6 @@ class homeStudentToegewezen extends Component{
             });
         personService.getUser(state.auth.user.email).then(
             response => {
-                console.log("subject",response.data.subject);
                 this.setState({
                     user: response.data,
                 })
@@ -55,14 +54,14 @@ class homeStudentToegewezen extends Component{
             });
     }
 
+
+
     render() {
-        console.log("keuzes",this.state.keuzes);
-        let c =0;
         return (<div>
             <h2>Notifications:</h2>
             <header className="jumbotron">
                 <h4>You were assigned to the following subject:</h4>
-                {this.state.keuzes.filter(subject => subject.name == this.state.user.subject.name).map(keuze => {
+                {this.state.keuzes.filter(subject => subject.name == this.props.student.subject.name).map(keuze => {
                     let campussen;
                     if(keuze.campussen.length != 0){
                         campussen = (<ListGroupItem>

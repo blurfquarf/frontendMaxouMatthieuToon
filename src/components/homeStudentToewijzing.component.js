@@ -34,7 +34,7 @@ class homeStudentToewijzing extends Component{
 
     render() {
         return (<div>
-            {this.props.toegewezen && <HomeStudentToegewezen />}
+            {this.props.toegewezen && <HomeStudentToegewezen student={this.state.user} />}
             {!this.props.toegewezen && <HomeStudentNietToegewezen />}
         </div>);
     }

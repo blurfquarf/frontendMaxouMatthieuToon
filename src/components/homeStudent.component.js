@@ -36,6 +36,7 @@ class homeStudent extends Component {
             keuzesIngediend: false,
             keuzes: "",
             toegewezen: false,
+            user: [],
         };
     }
 
