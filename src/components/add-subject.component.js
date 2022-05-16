@@ -4,13 +4,9 @@ import CheckButton from "react-validation/build/button";
 import {connect} from "react-redux";
 import React, {Component} from "react";
 import { addSubject } from "../actions/addsubject";
-import { promotorSubject } from "../actions/promotorSubj";
-import { campusSubject } from "../actions/campusSubject";
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import autosize from 'autosize';
-import {coProsSubject} from "../actions/coProsSubject";
-import subjectService from "../services/subject.service";
 import CampusService from "../services/campus.service";
 import PromotorService from "../services/person.service";
 import store from "../store";
@@ -66,14 +62,12 @@ class AddSubject extends Component {
     }
 
     onChangeCampus = (selectedOptions) => {
-        console.log(selectedOptions);
         this.setState({
             campus: selectedOptions,
         });
     }
 
     onChangeOpleidingen = (selectedOptions) => {
-        console.log(selectedOptions);
         this.setState({
             opleiding: selectedOptions,
         });
@@ -81,7 +75,6 @@ class AddSubject extends Component {
 
 
     onChangeCoPros = (selectedOptions) => {
-        console.log(selectedOptions);
         this.setState({
             coPros: selectedOptions,
         });
@@ -132,8 +125,6 @@ class AddSubject extends Component {
             response => {
                 this.setState({
                     contentCampus: response.data
-                }, () => {
-                    console.log("campussen:", this.state.contentCampus);
                 });
             },
             error => {
@@ -151,7 +142,7 @@ class AddSubject extends Component {
             response => {
                 this.setState({
                     contentPromotor: response.data
-                }, () => {console.log("promotoren:", this.state.contentPromotor)});
+                });
             },
             error => {
                 this.setState({
