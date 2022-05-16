@@ -9,7 +9,7 @@ import {
 import {BsPersonSquare, FaGraduationCap} from "react-icons/all";
 import {HiLocationMarker} from "react-icons/hi";
 import {Link} from "react-router-dom";
-
+import personService from "../services/person.service";
 
 export default class subjectDetails extends Component {
     constructor(props) {
