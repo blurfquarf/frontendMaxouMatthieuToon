@@ -17,6 +17,7 @@ export default class subjectDetails extends Component {
         console.log(props);
         this.state = {
             content : [],
+            student:"",
         };
     }
 
@@ -34,6 +35,23 @@ export default class subjectDetails extends Component {
             error => {
                 this.setState({
                     subject:
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString()
+                });
+            }
+        );
+        personService.getToegewezenStudent(this.props.match.params.name).then(
+            response => {
+                this.setState({
+                    student: response.data,
+                });
+            },
+            error => {
+                this.setState({
+                    student:
                         (error.response &&
                             error.response.data &&
                             error.response.data.message) ||
@@ -101,6 +119,18 @@ export default class subjectDetails extends Component {
                             </ul>
                         </div>);
                     }
+                    let Toegewezenstudent;
+                    if(this.state.student != null) {
+                        Toegewezenstudent=(<div>
+                            <h3>Assigned student:</h3>
+                            <p>{this.state.student}</p>
+                        </div>);
+                    }
+                    else {
+                        Toegewezenstudent=(<div>
+                            <h3>This subject isn't assigned to a student yet.</h3>
+                        </div>);
+                    }
 
                     return(
                         <Container key={subject.id}>
@@ -127,6 +157,7 @@ export default class subjectDetails extends Component {
                                 <h3>Education:</h3>
                                 {opleiding}
                             </div>
+                            {Toegewezenstudent}
                         </Container>
                     );
                 })}
