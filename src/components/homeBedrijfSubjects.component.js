@@ -33,8 +33,8 @@ class homeBedrijfSubjects extends Component {
                 <div>
                     <h2>Notifications:</h2>
                     {(!geenfase) ? <header className="jumbotron">
-                        {(aantal == 1 && !toewijsfase) ? <h4>Your company has submitted {aantal} subject.</h4>
-                            : <h4>Your company has submitted {aantal} subjects.</h4>}
+                        {(aantal == 1 && !toewijsfase) ? <h4>Your company is linked to {aantal} subject.</h4>
+                            : <h4>Your company is linked to  {aantal} subjects.</h4>}
 
                         {toewijsfase && <div>
                             {valuesTW.length == 1 ? <h4>There is {valuesTW.length} subject assigned to a student.</h4>
