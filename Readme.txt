@@ -1,6 +1,9 @@
 FRONTEND:
 
 fase aanpassen => currentDate variabele in dateService klasse aanpassen, zie commentaar in deze klasse
+const currentDate = ...
+de fasedata zijn in ons verslag te vinden
+januari is echter de nulde maand in Javascript dus voor maandnummer dient altijd -1 gedaan te worden
 
 
 npm install, npm start, runt op poort 3000
