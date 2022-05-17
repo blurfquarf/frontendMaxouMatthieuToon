@@ -17,7 +17,7 @@ BACKEND:
 
 databank postgres zelf aanmaken
 
-backend te runnen via Application file
+backend te runnen via Application file (Maven project reload kan nodig zijn)
 
 
 DATABANK WERKING:
