@@ -1,8 +1,9 @@
 FRONTEND:
 
-npm install, npm start, runt op poort 3000
+fase aanpassen => currentDate variabele in dateService klasse aanpassen, zie commentaar in deze klasse
 
-fases aanpassen => currentDate service variabele in app.js aanpassen, zie commentaar in currentDate service
+
+npm install, npm start, runt op poort 3000
 
 ons loginsysteem is gebaseerd op een JWT systeem ontworpen door Bezkoder, vandaar dat er 3 commits in deze files staan onder een ander account
 
