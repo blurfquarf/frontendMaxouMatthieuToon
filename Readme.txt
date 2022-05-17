@@ -24,7 +24,7 @@ DATABANK WERKING:
 bij default met beans (voor demodoeleinden bij het pullen van deze repository)
 
 PERMANENTE DATABANK:
-databank aanzetten met update als property in 'application.properties', laten draaien of uitzetten en dan mainconfig in comment zetten, property op none en dan heropstarten databank => hierna is alles permanent in de databank
+databank aanzetten met 'update' als property in 'application.properties' (spring.jpa.hibernate.ddl-auto=update), dan laten draaien of uitzetten en dan mainconfig file in comment zetten, property in 'application.properties' op 'none' (spring.jpa.hibernate.ddl-auto=none) en dan heropstarten databank => nu is alles permanent in de databank
 
 certificaat nodig om frontend te runnen (HTTPS): locaties van certificaten moeten voldoen aan: SSL_CRT_FILE=~/localhost.pem SSL_KEY_FILE=~/localhost-key.pem
 
