@@ -12,6 +12,7 @@ ons loginsysteem is gebaseerd op een JWT systeem ontworpen door Bezkoder, vandaa
 
 certificaat nodig om frontend te runnen (HTTPS): locaties van certificaten moeten voldoen aan: SSL_CRT_FILE=~/localhost.pem SSL_KEY_FILE=~/localhost-key.pem
 
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 BACKEND:
